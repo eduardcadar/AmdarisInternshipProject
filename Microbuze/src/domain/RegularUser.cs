@@ -1,4 +1,4 @@
-﻿namespace Microbuze.domain
+﻿namespace Microbuze.src.domain
 {
     public class RegularUser : User
     {

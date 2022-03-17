@@ -1,9 +1,10 @@
 ﻿using System;
 
-namespace Microbuze.domain
+namespace Microbuze.src.domain
 {
     public class Trip
     {
+        public int Id { get; set; }
         public Agency Agency { get; set; }
         public string DepartureLocation { get; set; }
         public string Destination { get; set; }

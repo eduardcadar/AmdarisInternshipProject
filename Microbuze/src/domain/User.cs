@@ -1,4 +1,4 @@
-﻿namespace Microbuze.domain
+﻿namespace Microbuze.src.domain
 {
     public abstract class User
     {
@@ -8,10 +8,10 @@
         public string PhoneNumber { get; set; }
         public User(int id, string username, string password, string phoneNumber)
         {
-            this.Id = id;
-            this.Username = username;
-            this.Password = password;
-            this.PhoneNumber = phoneNumber;
+            Id = id;
+            Username = username;
+            Password = password;
+            PhoneNumber = phoneNumber;
         }
     }
 }

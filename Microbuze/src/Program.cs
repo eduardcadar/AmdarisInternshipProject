@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Microbuze
+namespace Microbuze.src
 {
     class Program
     {
