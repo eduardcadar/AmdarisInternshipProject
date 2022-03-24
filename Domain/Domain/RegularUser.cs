@@ -1,12 +1,13 @@
 ﻿namespace Domain.Domain
 {
-    public class RegularUser : User
+    public class RegularUser
     {
+        public User User { get; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public RegularUser(int id, string username, string password, string phoneNumber, string firstName, string lastName)
-            : base(id, username, password, phoneNumber)
         {
+            this.User = new User(id, username, password, phoneNumber);
             this.FirstName = firstName;
             this.LastName = lastName;
         }

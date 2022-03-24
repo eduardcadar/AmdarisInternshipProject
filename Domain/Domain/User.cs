@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace Domain.Domain
 {
-    public abstract class User
+    public class User
     {
         public int Id { get; set; }
         public string Username { get; set; }
@@ -26,7 +27,8 @@ namespace Domain.Domain
                 throw new ArgumentException("Username length cannot be less than 6");
             if (password.Length < 6)
                 throw new ArgumentException("Password length cannot be less than 6");
-
+            if (!Regex.IsMatch(phoneNumber, @"^07[0-9]{8}$"))
+                throw new ArgumentException("Invalid phone number");
         }
     }
 }

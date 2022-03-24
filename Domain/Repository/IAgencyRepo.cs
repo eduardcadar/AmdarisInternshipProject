@@ -1,6 +1,8 @@
-﻿namespace Domain.Repository
+﻿using Domain.Domain;
+
+namespace Domain.Repository
 {
-    interface IAgencyRepo : IRepo<Domain.Agency, int>
+    interface IAgencyRepo : IRepo<Agency, int>
     {
     }
 }

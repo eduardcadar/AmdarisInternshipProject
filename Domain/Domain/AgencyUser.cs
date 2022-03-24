@@ -1,11 +1,12 @@
 ﻿namespace Domain.Domain
 {
-    public class AgencyUser : User
+    public class AgencyUser
     {
-        public Agency Agency { get; init; }
+        public User User { get; }
+        public Agency Agency { get; }
         public AgencyUser(int id, string username, string password, string phoneNumber, Agency agency)
-            : base(id, username, password,  phoneNumber)
         {
+            this.User = new User(id, username, password, phoneNumber);
             this.Agency = agency;
         }
         public override string ToString()
@@ -14,12 +15,3 @@
         }
     }
 }
-
-/*
-reservation
-{
-    Trip
-    User
-    agencyuser.user.create
-} 
-*/

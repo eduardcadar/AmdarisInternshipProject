@@ -1,6 +1,8 @@
-﻿namespace Domain.Repository
+﻿using Domain.Domain;
+
+namespace Domain.Repository
 {
-    interface IUserRepo : IRepo<Domain.User, int>
+    interface IUserRepo : IRepo<User, int>
     {
     }
 }
