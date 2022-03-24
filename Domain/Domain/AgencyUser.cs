@@ -1,8 +1,8 @@
-﻿namespace Microbuze.src.domain
+﻿namespace Domain.Domain
 {
     public class AgencyUser : User
     {
-        public Agency Agency { get; set; }
+        public Agency Agency { get; init; }
         public AgencyUser(int id, string username, string password, string phoneNumber, Agency agency)
             : base(id, username, password,  phoneNumber)
         {
@@ -14,3 +14,12 @@
         }
     }
 }
+
+/*
+reservation
+{
+    Trip
+    User
+    agencyuser.user.create
+} 
+*/

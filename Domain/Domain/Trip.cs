@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Microbuze.src.domain
+namespace Domain.Domain
 {
     public class Trip
     {
@@ -10,13 +10,17 @@ namespace Microbuze.src.domain
         public string Destination { get; set; }
         public DateTime DepartureTime { get; set; }
         public TimeSpan Duration { get; set; }
-        public Trip(Agency agency, string departureLocation, string destination, DateTime departureTime, TimeSpan duration)
+        public float Price { get; set; }
+        public int Seats { get; set; }
+        public Trip(Agency agency, string departureLocation, string destination, DateTime departureTime, TimeSpan duration, float price, int seats)
         {
             this.Agency = agency;
             this.DepartureLocation = departureLocation;
             this.Destination = destination;
             this.DepartureTime = departureTime;
             this.Duration = duration;
+            this.Price = price;
+            this.Seats = seats;
         }
         public override string ToString()
         {
