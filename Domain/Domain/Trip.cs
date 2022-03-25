@@ -12,9 +12,8 @@ namespace Domain.Domain
         public TimeSpan Duration { get; set; }
         public float Price { get; set; }
         public int Seats { get; set; }
-        public Trip(Agency agency, string departureLocation, string destination, DateTime departureTime, TimeSpan duration, float price, int seats)
+        internal Trip(Agency agency, string departureLocation, string destination, DateTime departureTime, TimeSpan duration, float price, int seats)
         {
-            ValidateTrip(departureLocation, destination, departureTime, duration, price, seats);
             this.Agency = agency;
             this.DepartureLocation = departureLocation;
             this.Destination = destination;
@@ -22,21 +21,22 @@ namespace Domain.Domain
             this.Duration = duration;
             this.Price = price;
             this.Seats = seats;
+            Validate();
         }
 
-        private void ValidateTrip(string departureLocation, string destination, DateTime departureTime, TimeSpan duration, float price, int seats)
+        public void Validate()
         {
-            if (departureLocation == "")
+            if (string.IsNullOrWhiteSpace(this.DepartureLocation))
                 throw new ArgumentException("Enter a departure location");
-            if (destination == "")
+            if (string.IsNullOrWhiteSpace(this.Destination))
                 throw new ArgumentException("Enter a destination");
-            if (departureTime.CompareTo(DateTime.Now.AddHours(1)) < 0)
+            if (this.DepartureTime.CompareTo(DateTime.Now.AddHours(1)) < 0)
                 throw new ArgumentException("Departure time should be at least one hour from now");
-            if (duration.Equals(TimeSpan.Zero))
+            if (this.Duration.Equals(TimeSpan.Zero))
                 throw new ArgumentException("Enter a duration");
-            if (price <= 0)
+            if (this.Price <= 0)
                 throw new ArgumentException("Enter a price");
-            if (seats <= 0)
+            if (this.Seats <= 0)
                 throw new ArgumentException("Enter number of seats");
         }
         public override string ToString()

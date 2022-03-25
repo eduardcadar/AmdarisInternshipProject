@@ -8,9 +8,13 @@ namespace Domain.Domain
         public string AgencyName { get; set; }
         public Agency(string agencyName)
         {
-            if (agencyName == "")
-                throw new ArgumentException("Write an agency name");
             this.AgencyName = agencyName;
+            Validate();
+        }
+        public void Validate()
+        {
+            if (string.IsNullOrWhiteSpace(this.AgencyName))
+                throw new ArgumentException("Enter an agency name");
         }
         public override string ToString()
         {

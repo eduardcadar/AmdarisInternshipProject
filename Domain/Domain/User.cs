@@ -11,24 +11,24 @@ namespace Domain.Domain
         public string PhoneNumber { get; set; }
         public User(int id, string username, string password, string phoneNumber)
         {
-            ValidateUser(id, username, password, phoneNumber);
-
             Id = id;
             Username = username;
             Password = password;
             PhoneNumber = phoneNumber;
+            Validate();
         }
-
-        private void ValidateUser(int id, string username, string password, string phoneNumber)
+        public void Validate()
         {
-            if (id < 0)
+            if (this.Id < 0)
                 throw new ArgumentException("Id cannot be negative");
-            if (username.Length < 6)
+            if (this.Username.Length < 6)
                 throw new ArgumentException("Username length cannot be less than 6");
-            if (password.Length < 6)
+            if (this.Password.Length < 6)
                 throw new ArgumentException("Password length cannot be less than 6");
-            if (!Regex.IsMatch(phoneNumber, @"^07[0-9]{8}$"))
+            if (!Regex.IsMatch(this.PhoneNumber, @"^07[0-9]{8}$", RegexOptions.Compiled, TimeSpan.FromMilliseconds(250)))
                 throw new ArgumentException("Invalid phone number");
         }
+        public Reservation CreateReservation(Trip trip, int seatsNumber)
+            => new (trip, this, seatsNumber);
     }
 }

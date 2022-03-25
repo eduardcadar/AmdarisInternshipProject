@@ -1,17 +1,34 @@
-﻿namespace Domain.Domain
+﻿using System;
+
+namespace Domain.Domain
 {
     public class AgencyUser
     {
+        int id;
         public User User { get; }
         public Agency Agency { get; }
-        public AgencyUser(int id, string username, string password, string phoneNumber, Agency agency)
+        public AgencyUser(User user, Agency agency)
         {
-            this.User = new User(id, username, password, phoneNumber);
+            this.User = user;
             this.Agency = agency;
+            Validate();
+        }
+        public AgencyUser(string username, string password, string phoneNumber, Agency agency)
+        {
+            this.User = new User(username, password, phoneNumber);
+            this.Agency = agency;
+            Validate();
+        }
+        public void Validate()
+        {
+            this.User.Validate();
+            this.Agency.Validate();
         }
         public override string ToString()
         {
             return this.Agency.ToString();
         }
+        public Trip CreateTrip(string depLoc, string dest, DateTime depTime, TimeSpan duration, float price, int seats)
+            => new (this.Agency, depLoc, dest, depTime, duration, price, seats);
     }
 }

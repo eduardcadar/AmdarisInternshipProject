@@ -1,16 +1,36 @@
-﻿namespace Domain.Domain
+﻿using System;
+
+namespace Domain.Domain
 {
     public class RegularUser
     {
         public User User { get; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public RegularUser(int id, string username, string password, string phoneNumber, string firstName, string lastName)
+        public RegularUser(User user, string firstName, string lastName)
         {
-            this.User = new User(id, username, password, phoneNumber);
+            this.User = user;
             this.FirstName = firstName;
             this.LastName = lastName;
+            Validate();
         }
+        public RegularUser(string username, string password, string phoneNumber, string firstName, string lastName)
+        {
+            this.User = new User(username, password, phoneNumber);
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            Validate();
+        }
+
+        public void Validate()
+        {
+            this.User.Validate();
+            if (string.IsNullOrWhiteSpace(this.FirstName))
+                throw new ArgumentException("Enter a first name");
+            if (string.IsNullOrWhiteSpace(this.LastName))
+                throw new ArgumentException("Enter a last name");
+        }
+
         public override string ToString()
         {
             return this.FirstName + " " + this.LastName;

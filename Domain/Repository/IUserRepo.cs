@@ -2,7 +2,9 @@
 
 namespace Domain.Repository
 {
-    public interface IUserRepo : IRepo<User, int>
+    public interface IUserRepo
     {
+        public void Save(User user);
+        public User GetById(int id);
     }
 }
