@@ -9,9 +9,8 @@ namespace Domain.Domain
         public string Username { get; set; }
         public string Password { get; set; }
         public string PhoneNumber { get; set; }
-        public User(int id, string username, string password, string phoneNumber)
+        public User(string username, string password, string phoneNumber)
         {
-            Id = id;
             Username = username;
             Password = password;
             PhoneNumber = phoneNumber;
