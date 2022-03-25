@@ -2,7 +2,7 @@
 
 namespace Domain.Repository
 {
-    interface IAgencyRepo : IRepo<Agency, int>
+    public interface IAgencyRepo : IRepo<Agency, int>
     {
     }
 }

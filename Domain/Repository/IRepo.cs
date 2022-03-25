@@ -2,9 +2,9 @@
 
 namespace Domain.Repository
 {
-    interface IRepo<T, Tid>
+    public interface IRepo<T, Tid>
     {
-        void Add(T elem);
+        void Save(T elem);
         //void Update(T elem, Tid id);
         T GetById(Tid id);
         //void Delete(T elem);

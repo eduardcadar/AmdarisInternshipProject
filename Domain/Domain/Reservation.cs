@@ -2,7 +2,7 @@
 
 namespace Domain.Domain
 {
-    class Reservation
+    public class Reservation
     {
         public Trip Trip { get; set; }
         public User User { get; set; }

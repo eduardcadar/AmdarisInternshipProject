@@ -2,7 +2,7 @@
 
 namespace Domain.Repository
 {
-    interface IUserRepo : IRepo<User, int>
+    public interface IUserRepo : IRepo<User, int>
     {
     }
 }
