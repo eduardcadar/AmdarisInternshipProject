@@ -4,7 +4,7 @@ namespace Domain.Domain
 {
     public class AgencyUser
     {
-        int id;
+        public int Id { get; set; }
         public User User { get; }
         public Agency Agency { get; }
         public AgencyUser(User user, Agency agency)

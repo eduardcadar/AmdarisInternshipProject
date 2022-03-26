@@ -18,8 +18,6 @@ namespace Domain.Domain
         }
         public void Validate()
         {
-            if (this.Id < 0)
-                throw new ArgumentException("Id cannot be negative");
             if (this.Username.Length < 6)
                 throw new ArgumentException("Username length cannot be less than 6");
             if (this.Password.Length < 6)
