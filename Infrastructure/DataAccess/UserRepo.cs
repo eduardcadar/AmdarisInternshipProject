@@ -1,12 +1,12 @@
 ﻿using System;
-using Domain.Domain;
-using Domain.Repository;
+using Application.Domain;
+using Application.Repository;
 
 namespace Infrastructure.DataAccess
 {
     class UserRepo : IUserRepo
     {
-        public User GetById(int id)
+        public User Get(int id)
         {
             throw new NotImplementedException();
         }

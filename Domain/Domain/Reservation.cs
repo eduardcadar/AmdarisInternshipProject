@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Domain.Domain
+namespace Application.Domain
 {
     public class Reservation
     {

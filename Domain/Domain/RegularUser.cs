@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Domain.Domain
+namespace Application.Domain
 {
     public class RegularUser
     {
@@ -15,14 +15,6 @@ namespace Domain.Domain
             this.LastName = lastName;
             Validate();
         }
-        public RegularUser(string username, string password, string phoneNumber, string firstName, string lastName)
-        {
-            this.User = new User(username, password, phoneNumber);
-            this.FirstName = firstName;
-            this.LastName = lastName;
-            Validate();
-        }
-
         public void Validate()
         {
             this.User.Validate();

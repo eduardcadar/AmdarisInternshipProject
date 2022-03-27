@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace Domain.Domain
+namespace Application.Domain
 {
     public class User
     {

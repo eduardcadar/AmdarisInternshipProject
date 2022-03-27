@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Domain.Domain
+namespace Application.Domain
 {
     public class AgencyUser
     {
@@ -10,12 +10,6 @@ namespace Domain.Domain
         public AgencyUser(User user, Agency agency)
         {
             this.User = user;
-            this.Agency = agency;
-            Validate();
-        }
-        public AgencyUser(string username, string password, string phoneNumber, Agency agency)
-        {
-            this.User = new User(username, password, phoneNumber);
             this.Agency = agency;
             Validate();
         }

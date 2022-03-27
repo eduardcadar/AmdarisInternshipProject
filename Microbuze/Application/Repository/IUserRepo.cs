@@ -1,10 +1,10 @@
-﻿using Domain.Domain;
+﻿using Application.Domain;
 
-namespace Domain.Repository
+namespace Application.Repository
 {
     public interface IUserRepo
     {
         public void Save(User user);
-        public User GetById(int id);
+        public User Get(int id);
     }
 }

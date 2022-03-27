@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Domain.Domain;
-using Domain.Repository;
+using Application.Domain;
+using Application.Repository;
 
 namespace Infrastructure.DataAccess
 {
