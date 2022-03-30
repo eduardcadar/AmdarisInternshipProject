@@ -5,25 +5,31 @@ namespace Application.Service
 {
     public class Service
     {
-        private readonly AgencyUserService agencyUserSrv;
-        private readonly RegularUserService regularUserSrv;
-        private readonly TripService tripSrv;
-        private readonly ReservationService resSrv;
-        public Service(AgencyUserService agencyUserSrv, RegularUserService regularUserSrv,
+        private readonly AgencyService _agencySrv;
+        private readonly AgencyUserService _agencyUserSrv;
+        private readonly RegularUserService _regularUserSrv;
+        private readonly TripService _tripSrv;
+        private readonly ReservationService _resSrv;
+        public Service(AgencyService agencySrv, AgencyUserService agencyUserSrv, RegularUserService regularUserSrv,
             TripService tripSrv, ReservationService resSrv)
         {
-            this.agencyUserSrv = agencyUserSrv;
-            this.regularUserSrv = regularUserSrv;
-            this.tripSrv = tripSrv;
-            this.resSrv = resSrv;
+            _agencySrv = agencySrv;
+            _agencyUserSrv = agencyUserSrv;
+            _regularUserSrv = regularUserSrv;
+            _tripSrv = tripSrv;
+            _resSrv = resSrv;
         }
-        public AgencyUser GetAgencyUser(int id) => agencyUserSrv.Get(id);
-        public RegularUser GetRegularUser(int id) => regularUserSrv.Get(id);
+        public AgencyUser GetAgencyUser(int id) => _agencyUserSrv.Get(id);
+        public RegularUser GetRegularUser(int id) => _regularUserSrv.Get(id);
         public List<Trip> GetTripsFiltered(string destination, string departureLocation)
-            => tripSrv.GetTripsFiltered(destination, departureLocation);
+            => _tripSrv.GetTripsFiltered(destination, departureLocation);
         public List<Reservation> GetReservationsForUser(User user)
-            => resSrv.GetReservationsForUser(user);
-        public void SaveReservation(Reservation reservation) => resSrv.Save(reservation);
-        public void SaveTrip(Trip trip) => tripSrv.Save(trip);
+            => _resSrv.GetReservationsForUser(user);
+        public void SaveReservation(Reservation reservation) => _resSrv.Save(reservation);
+        public void SaveTrip(Trip trip) => _tripSrv.Save(trip);
+        public void ExportAgencyToCsv(Agency agency) => _agencySrv.ExportToCsv(agency);
+        public void ExportAgencyToNaturalLanguage(Agency agency) => _agencySrv.ExportToNaturalLanguage(agency);
+        public void ExportTripToCsv(Trip trip) => _tripSrv.ExportToCsv(trip);
+        public void ExportTripToNaturalLanguage(Trip trip) => _tripSrv.ExportToNaturalLanguage(trip);
     }
 }

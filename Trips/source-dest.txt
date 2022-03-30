@@ -1,0 +1,1 @@
+Trip from source to dest by agency agency on 30/03/2022 8:37:50 pm; duration: 01:00:00, price: 20, no. seats: 20

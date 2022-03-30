@@ -10,23 +10,23 @@ namespace Application.Domain
         public string LastName { get; set; }
         public RegularUser(User user, string firstName, string lastName)
         {
-            this.User = user;
-            this.FirstName = firstName;
-            this.LastName = lastName;
+            User = user;
+            FirstName = firstName;
+            LastName = lastName;
             Validate();
         }
         public void Validate()
         {
-            this.User.Validate();
-            if (string.IsNullOrWhiteSpace(this.FirstName))
+            User.Validate();
+            if (string.IsNullOrWhiteSpace(FirstName))
                 throw new ArgumentException("Enter a first name");
-            if (string.IsNullOrWhiteSpace(this.LastName))
+            if (string.IsNullOrWhiteSpace(LastName))
                 throw new ArgumentException("Enter a last name");
         }
 
         public override string ToString()
         {
-            return this.FirstName + " " + this.LastName;
+            return FirstName + " " + LastName;
         }
     }
 }

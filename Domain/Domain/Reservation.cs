@@ -9,22 +9,22 @@ namespace Application.Domain
         public int SeatsNumber { get; set; }
         internal Reservation(Trip trip, User user, int seatsNumber)
         {
-            this.Trip = trip;
-            this.User = user;
-            this.SeatsNumber = seatsNumber;
+            Trip = trip;
+            User = user;
+            SeatsNumber = seatsNumber;
             Validate();
         }
         public void Validate()
         {
-            this.Trip.Validate();
-            this.User.Validate();
-            if (this.SeatsNumber < 1)
+            Trip.Validate();
+            User.Validate();
+            if (SeatsNumber < 1)
                 throw new ArgumentException("Enter number of seats");
         }
         public override string ToString()
         {
-            return "Reservation for trip to " + this.Trip.Destination + ", "
-                + this.SeatsNumber + " seats";
+            return "Reservation for trip to " + Trip.Destination + ", "
+                + SeatsNumber + " seats";
         }
     }
 }

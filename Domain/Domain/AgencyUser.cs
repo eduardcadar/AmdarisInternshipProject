@@ -22,7 +22,7 @@ namespace Application.Domain
         {
             return this.Agency.ToString();
         }
-        public Trip CreateTrip(string depLoc, string dest, DateTime depTime, TimeSpan duration, float price, int seats)
+        public Trip CreateTrip(string depLoc, string dest, DateTime depTime, TimeSpan duration, double price, int seats)
             => new (this.Agency, depLoc, dest, depTime, duration, price, seats);
     }
 }

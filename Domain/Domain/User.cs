@@ -18,11 +18,11 @@ namespace Application.Domain
         }
         public void Validate()
         {
-            if (this.Username.Length < 6)
+            if (Username.Length < 6)
                 throw new ArgumentException("Username length cannot be less than 6");
-            if (this.Password.Length < 6)
+            if (Password.Length < 6)
                 throw new ArgumentException("Password length cannot be less than 6");
-            if (!Regex.IsMatch(this.PhoneNumber, @"^07[0-9]{8}$", RegexOptions.Compiled, TimeSpan.FromMilliseconds(250)))
+            if (!Regex.IsMatch(PhoneNumber, @"^07[0-9]{8}$", RegexOptions.Compiled, TimeSpan.FromMilliseconds(250)))
                 throw new ArgumentException("Invalid phone number");
         }
         public Reservation CreateReservation(Trip trip, int seatsNumber)
