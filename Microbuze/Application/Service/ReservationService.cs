@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
-using Application.Domain;
-using Application.Repository;
+using Domain.Domain;
+using Domain.Repository;
 
-namespace Application.Service
+namespace Domain.Service
 {
     public class ReservationService
     {
-        private readonly IReservationRepo repo;
-        public ReservationService(IReservationRepo repo) { this.repo = repo; }
-        public List<Reservation> GetReservationsForUser(User user)
-            => repo.GetReservationsForUser(user);
-        public void Save(Reservation reservation) => repo.Save(reservation);
+        private readonly IReservationRepo _repo;
+        public ReservationService(IReservationRepo repo) { _repo = repo; }
+        public IEnumerable<DReservation> GetByRegularUser(DRegularUser user)
+            => _repo.GetByRegularUserId(user.Id);
+        public void Save(DReservation reservation) => _repo.Save(reservation);
     }
 }

@@ -1,19 +1,19 @@
 ﻿using System;
 using System.IO;
-using Application.Domain;
+using Domain.Domain;
 using Domain.Visitor;
 
-namespace Application.Utils
+namespace Domain.Utils
 {
     public class NaturalLanguageExporter : IVisitor
     {
-        public void Visit(Agency agency)
+        public void Visit(DAgency agency)
         {
             string fileName = AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\..\..\Agencies\" + agency.AgencyName + ".txt";
             File.WriteAllText(fileName, "Agency: " + agency.AgencyName + ", phone number: " + agency.PhoneNumber);
         }
 
-        public void Visit(Trip trip)
+        public void Visit(DTrip trip)
         {
             string fileName = AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\..\..\Trips\" +
             trip.DepartureLocation + "-" + trip.Destination + ".txt";

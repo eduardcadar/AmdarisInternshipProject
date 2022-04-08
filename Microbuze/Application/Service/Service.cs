@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
-using Application.Domain;
+﻿using System;
+using System.Collections.Generic;
+using Domain.Domain;
 
-namespace Application.Service
+namespace Domain.Service
 {
     public class Service
     {
@@ -10,6 +11,7 @@ namespace Application.Service
         private readonly RegularUserService _regularUserSrv;
         private readonly TripService _tripSrv;
         private readonly ReservationService _resSrv;
+
         public Service(AgencyService agencySrv, AgencyUserService agencyUserSrv, RegularUserService regularUserSrv,
             TripService tripSrv, ReservationService resSrv)
         {
@@ -19,17 +21,38 @@ namespace Application.Service
             _tripSrv = tripSrv;
             _resSrv = resSrv;
         }
-        public AgencyUser GetAgencyUser(int id) => _agencyUserSrv.Get(id);
-        public RegularUser GetRegularUser(int id) => _regularUserSrv.Get(id);
-        public List<Trip> GetTripsFiltered(string destination, string departureLocation)
-            => _tripSrv.GetTripsFiltered(destination, departureLocation);
-        public List<Reservation> GetReservationsForUser(User user)
-            => _resSrv.GetReservationsForUser(user);
-        public void SaveReservation(Reservation reservation) => _resSrv.Save(reservation);
-        public void SaveTrip(Trip trip) => _tripSrv.Save(trip);
-        public void ExportAgencyToCsv(Agency agency) => _agencySrv.ExportToCsv(agency);
-        public void ExportAgencyToNaturalLanguage(Agency agency) => _agencySrv.ExportToNaturalLanguage(agency);
-        public void ExportTripToCsv(Trip trip) => _tripSrv.ExportToCsv(trip);
-        public void ExportTripToNaturalLanguage(Trip trip) => _tripSrv.ExportToNaturalLanguage(trip);
+
+        public DAgencyUser GetAgencyUser(int id) => _agencyUserSrv.Get(id);
+
+        public DRegularUser GetRegularUser(int id) => _regularUserSrv.Get(id);
+
+        public IEnumerable<DTrip> GetTripsFiltered(string destination, string departureLocation)
+            => _tripSrv.GetFiltered(destination, departureLocation);
+
+        public IEnumerable<DReservation> GetReservationsForUser(DRegularUser user)
+            => _resSrv.GetByRegularUser(user);
+
+        public void SaveReservation(DReservation reservation) => _resSrv.Save(reservation);
+
+        public void ExportAgencyToCsv(DAgency agency) => _agencySrv.ExportToCsv(agency);
+
+        public void ExportAgencyToNaturalLanguage(DAgency agency) => _agencySrv.ExportToNaturalLanguage(agency);
+
+        public void ExportTripToCsv(DTrip trip) => _tripSrv.ExportToCsv(trip);
+
+        public void ExportTripToNaturalLanguage(DTrip trip) => _tripSrv.ExportToNaturalLanguage(trip);
+
+        public void CreateTrip(DAgencyUser user, string departureLocation, string destination, DateTime depTime,
+            TimeSpan duration, double price, int seats)
+        {
+            var tr = user.CreateTrip(departureLocation, destination, depTime, duration, price, seats);
+            //_tripSrv.Save(tr);
+        }
+
+        //public TripDTO ReadTripById(int id)
+        //{
+        //    var tr = _tripSrv.GetById(id);
+        //    return new TripDTO(tr);
+        //}
     }
 }

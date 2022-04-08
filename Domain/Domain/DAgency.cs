@@ -2,15 +2,23 @@
 using System.Text.RegularExpressions;
 using Domain.Visitor;
 
-namespace Application.Domain
+namespace Domain.Domain
 {
-    public class Agency : IVisitable
+    public class DAgency : IVisitable
     {
         public int Id { get; set; }
         public string AgencyName { get; set; }
         public string PhoneNumber { get; set; }
-        public Agency(string agencyName, string phoneNumber)
+        public DAgency(string agencyName, string phoneNumber)
         {
+            AgencyName = agencyName;
+            PhoneNumber = phoneNumber;
+            Validate();
+        }
+        
+        public DAgency(int id, string agencyName, string phoneNumber)
+        {
+            Id = id;
             AgencyName = agencyName;
             PhoneNumber = phoneNumber;
             Validate();
@@ -19,7 +27,7 @@ namespace Application.Domain
         {
             if (string.IsNullOrWhiteSpace(AgencyName))
                 throw new ArgumentException("Enter an agency name");
-            if (!Regex.IsMatch(PhoneNumber, @"^07[0-9]{8}$", RegexOptions.Compiled, TimeSpan.FromMilliseconds(250)))
+            if (!Regex.IsMatch(PhoneNumber, @"^0[0-9]{9}$", RegexOptions.Compiled, TimeSpan.FromMilliseconds(250)))
                 throw new ArgumentException("Invalid phone number");
         }
         public override string ToString()

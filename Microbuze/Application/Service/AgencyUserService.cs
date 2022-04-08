@@ -1,12 +1,12 @@
-﻿using Application.Repository;
-using Application.Domain;
+﻿using Domain.Repository;
+using Domain.Domain;
 
-namespace Application.Service
+namespace Domain.Service
 {
     public class AgencyUserService
     {
-        private readonly IAgencyUserRepo repo;
-        public AgencyUserService(IAgencyUserRepo repo) { this.repo = repo; }
-        public AgencyUser Get(int id) => this.repo.Get(id);
+        private readonly IAgencyUserRepo _repo;
+        public AgencyUserService(IAgencyUserRepo repo) { _repo = repo; }
+        public DAgencyUser Get(int id) => _repo.Get(id);
     }
 }

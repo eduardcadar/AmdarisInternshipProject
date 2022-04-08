@@ -13,7 +13,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{02514CB0
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{93412F04-5E40-4683-8991-D6A822428167}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microbuze", "Microbuze\Microbuze.csproj", "{98A954F1-9D85-449E-8E1D-6EE4D5BFE28D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microbuze", "Microbuze\Microbuze.csproj", "{98A954F1-9D85-449E-8E1D-6EE4D5BFE28D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfrastructureTests", "InfrastructureTests\InfrastructureTests.csproj", "{D4CD243C-8408-4674-8191-A77E20DEA9EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,12 +43,17 @@ Global
 		{98A954F1-9D85-449E-8E1D-6EE4D5BFE28D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98A954F1-9D85-449E-8E1D-6EE4D5BFE28D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98A954F1-9D85-449E-8E1D-6EE4D5BFE28D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4CD243C-8408-4674-8191-A77E20DEA9EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4CD243C-8408-4674-8191-A77E20DEA9EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4CD243C-8408-4674-8191-A77E20DEA9EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4CD243C-8408-4674-8191-A77E20DEA9EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C0AF6472-9418-4563-9C81-DC7AC347F54B} = {02514CB0-9AB5-46EA-B067-B3DD18400FE5}
+		{D4CD243C-8408-4674-8191-A77E20DEA9EB} = {02514CB0-9AB5-46EA-B067-B3DD18400FE5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB347010-955B-4090-8631-B678F6ABF056}

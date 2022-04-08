@@ -1,12 +1,12 @@
-﻿using Application.Repository;
-using Application.Domain;
+﻿using Domain.Repository;
+using Domain.Domain;
 
-namespace Application.Service
+namespace Domain.Service
 {
     public class RegularUserService
     {
-        private readonly IRegularUserRepo repo;
-        public RegularUserService(IRegularUserRepo repo) { this.repo = repo; }
-        public RegularUser Get(int id) => repo.Get(id);
+        private readonly IRegularUserRepo _repo;
+        public RegularUserService(IRegularUserRepo repo) { _repo = repo; }
+        public DRegularUser Get(int id) => _repo.Get(id);
     }
 }

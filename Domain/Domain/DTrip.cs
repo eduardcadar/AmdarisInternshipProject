@@ -1,20 +1,32 @@
 ﻿using System;
 using Domain.Visitor;
 
-namespace Application.Domain
+namespace Domain.Domain
 {
-    public class Trip : IVisitable
+    public class DTrip : IVisitable
     {
         public int Id { get; set; }
-        public Agency Agency { get; set; }
+        public DAgency Agency { get; set; }
         public string DepartureLocation { get; set; }
         public string Destination { get; set; }
         public DateTime DepartureTime { get; set; }
         public TimeSpan Duration { get; set; }
         public double Price { get; set; }
         public int Seats { get; set; }
-        internal Trip(Agency agency, string departureLocation, string destination, DateTime departureTime, TimeSpan duration, double price, int seats)
+        internal DTrip(DAgency agency, string departureLocation, string destination, DateTime departureTime, TimeSpan duration, double price, int seats)
         {
+            Agency = agency;
+            DepartureLocation = departureLocation;
+            Destination = destination;
+            DepartureTime = departureTime;
+            Duration = duration;
+            Price = price;
+            Seats = seats;
+            Validate();
+        }
+        internal DTrip(int id, DAgency agency, string departureLocation, string destination, DateTime departureTime, TimeSpan duration, double price, int seats)
+        {
+            Id = id;
             Agency = agency;
             DepartureLocation = departureLocation;
             Destination = destination;

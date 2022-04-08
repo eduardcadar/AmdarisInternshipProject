@@ -1,10 +1,10 @@
-﻿using Application.Domain;
+﻿using Domain.Domain;
 
 namespace Domain.Visitor
 {
     public interface IVisitor
     {
-        void Visit(Agency agency);
-        void Visit(Trip trip);
+        void Visit(DAgency agency);
+        void Visit(DTrip trip);
     }
 }
