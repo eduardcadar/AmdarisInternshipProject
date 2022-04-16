@@ -4,7 +4,7 @@ namespace Domain.Repository
 {
     public interface IAgencyUserRepo
     {
-        public DAgencyUser Get(int id);
-        public void Save(DAgencyUser dAgencyUser);
+        DAgencyUser GetByUsernameAndPassword(string username, string password);
+        void Add(DAgencyUser dAgencyUser);
     }
 }

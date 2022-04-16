@@ -1,7 +1,7 @@
 using System;
-using Domain.Domain;
 using Xunit;
 using FluentAssertions;
+using Domain.Domain;
 
 namespace DomainUnitTests
 {

@@ -1,4 +1,5 @@
 ﻿using System;
+using Application.Models;
 using Domain.Domain;
 using Infrastructure.Persistence.Entities;
 
@@ -13,9 +14,28 @@ namespace Infrastructure
             return dAgencyUser;
         }
 
+        public static RegularUser DRegularUserToRegularUser(DRegularUser dRegularUser)
+        {
+            var regularUser = new RegularUser
+            {
+                Id = dRegularUser.Id,
+                Username = dRegularUser.Username,
+                Password = dRegularUser.Password,
+                PhoneNumber = dRegularUser.PhoneNumber,
+                FirstName = dRegularUser.FirstName,
+                LastName = dRegularUser.LastName
+            };
+            return regularUser;
+        }
+
         public static Agency DAgencytoAgency(DAgency dAgency)
         {
-            var agency = new Agency { Id = dAgency.Id, AgencyName = dAgency.AgencyName, PhoneNumber = dAgency.PhoneNumber };
+            var agency = new Agency
+            {
+                Id = dAgency.Id,
+                AgencyName = dAgency.AgencyName,
+                PhoneNumber = dAgency.PhoneNumber
+            };
             return agency;
         }
 
@@ -25,14 +45,30 @@ namespace Infrastructure
             return dAgency;
         }
 
-        public static DReservation ReservationToDReservation(Reservation r)
+        public static AgencyDTO AgencyToAgencyDTO(Agency agency)
         {
-            throw new NotImplementedException();
+            var agencyDto = new AgencyDTO
+            {
+                Id = agency.Id,
+                AgencyName = agency.AgencyName,
+                PhoneNumber = agency.PhoneNumber
+            };
+            return agencyDto;
         }
 
-        public static DTrip TripToDTrip(Trip trip)
+        public static TripDTO TripToTripDTO(Trip trip)
         {
-            throw new NotImplementedException();
+            return new TripDTO
+            {
+                Id = trip.Id,
+                Agency = EntityUtils.AgencyToAgencyDTO(trip.Agency),
+                DepartureLocation = trip.DepartureLocation,
+                Destination = trip.Destination,
+                DepartureTime = trip.DepartureTime,
+                Duration = trip.Duration,
+                Price = trip.Price,
+                Seats = trip.Seats
+            };
         }
 
         public static Trip DTripToTrip(DTrip dTrip)
@@ -69,6 +105,29 @@ namespace Infrastructure
             var agencyUser = new AgencyUser { Id = dAgencyUser.Id, Agency = agency, AgencyId = agency.Id,
                 Password = dAgencyUser.Password, Username = dAgencyUser.Username, PhoneNumber = dAgencyUser.PhoneNumber };
             return agencyUser;
+        }
+
+        public static RegularUserDTO RegularUserToRegularUserDTO(RegularUser r)
+        {
+            return new RegularUserDTO
+            {
+                Id = r.Id,
+                Username = r.Username,
+                Password = r.Password,
+                FirstName = r.FirstName,
+                LastName = r.LastName,
+                PhoneNumber = r.PhoneNumber
+            };
+        }
+
+        public static ReservationDTO ReservationToReservationDTO(Reservation r)
+        {
+            return new ReservationDTO
+            {
+                RegularUser = RegularUserToRegularUserDTO(r.RegularUser),
+                Trip = TripToTripDTO(r.Trip),
+                Seats = r.Seats
+            };
         }
     }
 }

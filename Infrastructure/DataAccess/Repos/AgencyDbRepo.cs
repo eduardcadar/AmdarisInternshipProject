@@ -1,6 +1,7 @@
-﻿using Domain.Domain;
+﻿using System;
+using System.Linq;
+using Domain.Domain;
 using Domain.Repository;
-using Infrastructure.Persistence.Entities;
 
 namespace Infrastructure.DataAccess
 {
@@ -13,16 +14,16 @@ namespace Infrastructure.DataAccess
             _dbContext = dbContext;
         }
 
-        public DAgency Get(int id)
+        public DAgency GetByName(string agencyName)
         {
-            var agency = _dbContext.Agencies.Find(id);
+            var agency = _dbContext.Agencies.SingleOrDefault(a => a.AgencyName == agencyName);
             if (agency == null)
-                throw new RepositoryException("There is no Agency with this id");
+                throw new RepositoryException("No agency with this name");
             var dAgency = EntityUtils.AgencyToDAgency(agency);
             return dAgency;
         }
 
-        public void Save(DAgency dAgency)
+        public void Add(DAgency dAgency)
         {
             var agency = EntityUtils.DAgencytoAgency(dAgency);
             _dbContext.Agencies.Add(agency);

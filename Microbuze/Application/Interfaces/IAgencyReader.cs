@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using Domain.Models;
+﻿using Application.Models;
 
-namespace Domain.Interfaces
+namespace Application.Interfaces
 {
     public interface IAgencyReader
     {
-        IEnumerable<AgencyDTO> ReadAll();
+        AgencyDTO GetById(int id);
     }
 }

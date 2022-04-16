@@ -1,8 +1,8 @@
 ﻿using System;
 using Xunit;
 using FluentAssertions;
-using Domain.Domain;
 using Moq;
+using Domain.Domain;
 
 namespace DomainUnitTests
 {

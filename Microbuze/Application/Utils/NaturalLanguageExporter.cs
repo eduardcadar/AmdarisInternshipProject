@@ -3,7 +3,7 @@ using System.IO;
 using Domain.Domain;
 using Domain.Visitor;
 
-namespace Domain.Utils
+namespace Application.Utils
 {
     public class NaturalLanguageExporter : IVisitor
     {

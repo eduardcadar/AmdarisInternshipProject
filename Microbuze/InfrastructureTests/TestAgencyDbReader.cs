@@ -1,22 +1,22 @@
-using System;
+﻿using System;
 using System.Linq;
-using Domain.Domain;
-using Domain.Repository;
-using Infrastructure;
-using Infrastructure.DataAccess;
 using Xunit;
 using FluentAssertions;
+using Infrastructure;
+using Application.Interfaces;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Infrastructure.DataAccess;
+using Infrastructure.Persistence.Entities;
 
 namespace InfrastructureTests
 {
-    public class TestAgencyDbRepo : IDisposable
+    public class TestAgencyDbReader : IDisposable
     {
         private readonly MicrobuzeContext _dbContext;
-        private readonly IAgencyRepo _repo;
+        private readonly IAgencyReader _reader;
 
-        public TestAgencyDbRepo()
+        public TestAgencyDbReader()
         {
             var connectionString = @"Server=DESKTOP-DGHVO7U\SQLEXPRESS;Database=" +
                 "Microbuze" + Guid.NewGuid().ToString() + ";Trusted_Connection=True;";
@@ -29,7 +29,7 @@ namespace InfrastructureTests
 
             _dbContext = new(dbContextOptionsBuilder.Options);
             _dbContext.Database.Migrate();
-            _repo = new AgencyDbRepo(_dbContext);
+            _reader = new AgencyDbReader(_dbContext);
         }
 
         public void Dispose()
@@ -40,28 +40,21 @@ namespace InfrastructureTests
         }
 
         [Fact]
-        public void TestAddAgency()
+        public void TestGetAgencyDtoById()
         {
-            var agency = new DAgency("agency", "0728392192");
+            var agency = new Agency
+            {
+                AgencyName = "agency",
+                PhoneNumber = "0728129382"
+            };
+            _dbContext.Agencies.Add(agency);
+            _dbContext.SaveChanges();
+            var savedAgency = _dbContext.Agencies.Single(a => a.AgencyName.Equals(agency.AgencyName));
 
-            _repo.Add(agency);
-            var savedAgency = _dbContext.Agencies.Single(a => a.AgencyName == "agency");
-            var expectedAgency = EntityUtils.DAgencytoAgency(agency);
-            expectedAgency.Id = savedAgency.Id;
+            var agencyDto = _reader.GetById(savedAgency.Id);
+            var expectedAgencyDto = EntityUtils.AgencyToAgencyDTO(savedAgency);
 
-            expectedAgency.Should().BeEquivalentTo(savedAgency);
-        }
-
-        [Fact]
-        public void TestGetAgency()
-        {
-            var agency = new DAgency("agency", "0222222222");
-
-            _repo.Add(agency);
-            var savedAgency = _repo.GetByName(agency.AgencyName);
-            agency.Id = savedAgency.Id;
-
-            agency.Should().BeEquivalentTo(savedAgency);
+            expectedAgencyDto.Should().BeEquivalentTo(agencyDto);
         }
     }
 }

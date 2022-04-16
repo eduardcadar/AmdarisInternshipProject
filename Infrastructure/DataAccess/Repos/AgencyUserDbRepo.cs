@@ -1,10 +1,10 @@
-﻿using System;
+﻿using System.Linq;
 using Domain.Domain;
 using Domain.Repository;
 
 namespace Infrastructure.DataAccess
 {
-    class AgencyUserDbRepo : IAgencyUserRepo
+    public class AgencyUserDbRepo : IAgencyUserRepo
     {
         private readonly MicrobuzeContext _dbContext;
 
@@ -13,16 +13,18 @@ namespace Infrastructure.DataAccess
             _dbContext = dbContext;
         }
 
-        public DAgencyUser Get(int id)
+        public DAgencyUser GetByUsernameAndPassword(string username, string password)
         {
-            var agencyUser = _dbContext.AgencyUsers.Find(id);
+            var agencyUser = _dbContext.AgencyUsers
+                .SingleOrDefault(a => a.Username.Equals(username) && a.Password.Equals(password));
             if (agencyUser == null)
-                throw new RepositoryException("There is no AgencyUser with this id");
+                throw new RepositoryException("Wrong username or password");
             var dAgencyUser = EntityUtils.AgencyUserToDAgencyUser(agencyUser);
             return dAgencyUser;
+
         }
 
-        public void Save(DAgencyUser dAgencyUser)
+        public void Add(DAgencyUser dAgencyUser)
         {
             var agencyUser = EntityUtils.DAgencyUserToAgencyUser(dAgencyUser);
             _dbContext.AgencyUsers.Add(agencyUser);

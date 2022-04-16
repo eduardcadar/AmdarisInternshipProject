@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Domain.Domain;
+﻿using Domain.Domain;
 using Domain.Repository;
 
 namespace Infrastructure.DataAccess
@@ -21,25 +19,7 @@ namespace Infrastructure.DataAccess
             _dbContext.SaveChanges();
         }
 
-        public IEnumerable<DReservation> GetByRegularUserId(int regularUserId)
-        {
-            var reservations = _dbContext.Reservations.Where(r => r.RegularUserId == regularUserId);
-            var dReservations = reservations
-                .Select(r => EntityUtils.ReservationToDReservation(r))
-                .ToList();
-            return dReservations;
-        }
-
-        public IEnumerable<DReservation> GetByTripId(int tripId)
-        {
-            var reservations = _dbContext.Reservations.Where(r => r.TripId == tripId);
-            var dReservations = reservations
-                .Select(r => EntityUtils.ReservationToDReservation(r))
-                .ToList();
-            return dReservations;
-        }
-
-        public void Save(DReservation dReservation)
+        public void Add(DReservation dReservation)
         {
             var reservation = EntityUtils.DReservationToReservation(dReservation);
             _dbContext.Reservations.Add(reservation);

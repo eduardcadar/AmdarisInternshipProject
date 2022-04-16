@@ -4,6 +4,7 @@ namespace Domain.Repository
 {
     public interface IRegularUserRepo
     {
-        public DRegularUser Get(int id);
+        DRegularUser GetByUsernameAndPassword(string username, string password);
+        void Add(DRegularUser dRegularUser);
     }
 }
