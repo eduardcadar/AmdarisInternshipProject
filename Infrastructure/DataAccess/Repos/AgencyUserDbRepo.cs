@@ -1,8 +1,11 @@
 ﻿using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Domain.Domain;
 using Domain.Repository;
+using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.DataAccess
+namespace Infrastructure.DataAccess.Repos
 {
     public class AgencyUserDbRepo : IAgencyUserRepo
     {
@@ -13,10 +16,10 @@ namespace Infrastructure.DataAccess
             _dbContext = dbContext;
         }
 
-        public DAgencyUser GetByUsernameAndPassword(string username, string password)
+        public async Task<DAgencyUser> GetByUsernameAndPassword(string username, string password, CancellationToken cancellationToken)
         {
-            var agencyUser = _dbContext.AgencyUsers
-                .SingleOrDefault(a => a.Username.Equals(username) && a.Password.Equals(password));
+            var agencyUser = await _dbContext.AgencyUsers
+                .SingleOrDefaultAsync(a => a.Username.Equals(username) && a.Password.Equals(password), cancellationToken);
             if (agencyUser == null)
                 throw new RepositoryException("Wrong username or password");
             var dAgencyUser = EntityUtils.AgencyUserToDAgencyUser(agencyUser);
@@ -24,11 +27,13 @@ namespace Infrastructure.DataAccess
 
         }
 
-        public void Add(DAgencyUser dAgencyUser)
+        public async Task<DAgencyUser> Add(DAgencyUser dAgencyUser, CancellationToken cancellationToken)
         {
             var agencyUser = EntityUtils.DAgencyUserToAgencyUser(dAgencyUser);
-            _dbContext.AgencyUsers.Add(agencyUser);
-            _dbContext.SaveChanges();
+            await _dbContext.AgencyUsers.AddAsync(agencyUser, cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken);
+            dAgencyUser.Id = agencyUser.Id;
+            return dAgencyUser;
         }
     }
 }

@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Application.Interfaces;
+﻿using Application.ReaderInterfaces;
 using Application.Models;
+using System.Threading.Tasks;
+using System.Threading;
+using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.DataAccess
+namespace Infrastructure.DataAccess.Readers
 {
     public class AgencyDbReader : IAgencyReader
     {
@@ -14,9 +15,9 @@ namespace Infrastructure.DataAccess
             _dbContext = dbContext;
         }
 
-        public AgencyDTO GetById(int id)
+        public async Task<AgencyDTO> GetById(int id, CancellationToken cancellationToken = default)
         {
-            var agency = _dbContext.Agencies.Single(a => a.Id == id);
+            var agency = await _dbContext.Agencies.SingleAsync(a => a.Id == id, cancellationToken);
             var agencyDto = new AgencyDTO
             {
                 Id = agency.Id,

@@ -28,6 +28,19 @@ namespace Infrastructure
             return regularUser;
         }
 
+        public static AgencyUserDTO AgencyUserToAgencyUserDTO(AgencyUser agencyUser)
+        {
+            var agencyUserDto = new AgencyUserDTO
+            {
+                Id = agencyUser.Id,
+                Agency = EntityUtils.AgencyToAgencyDTO(agencyUser.Agency),
+                Username = agencyUser.Username,
+                Password = agencyUser.Password,
+                PhoneNumber = agencyUser.PhoneNumber
+            };
+            return agencyUserDto;
+        }
+
         public static Agency DAgencytoAgency(DAgency dAgency)
         {
             var agency = new Agency

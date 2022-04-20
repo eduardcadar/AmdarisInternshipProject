@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Linq;
 using Xunit;
 using FluentAssertions;
 using Infrastructure;
-using Application.Interfaces;
+using Application.ReaderInterfaces;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Infrastructure.DataAccess;
+using Infrastructure.DataAccess.Readers;
 using Infrastructure.Persistence.Entities;
+using System.Threading.Tasks;
 
 namespace InfrastructureTests
 {
@@ -40,18 +40,18 @@ namespace InfrastructureTests
         }
 
         [Fact]
-        public void TestGetAgencyDtoById()
+        public async Task TestGetAgencyDtoById()
         {
             var agency = new Agency
             {
                 AgencyName = "agency",
                 PhoneNumber = "0728129382"
             };
-            _dbContext.Agencies.Add(agency);
-            _dbContext.SaveChanges();
-            var savedAgency = _dbContext.Agencies.Single(a => a.AgencyName.Equals(agency.AgencyName));
+            await _dbContext.Agencies.AddAsync(agency);
+            await _dbContext.SaveChangesAsync();
+            var savedAgency = await _dbContext.Agencies.SingleAsync(a => a.AgencyName.Equals(agency.AgencyName));
 
-            var agencyDto = _reader.GetById(savedAgency.Id);
+            var agencyDto = await _reader.GetById(savedAgency.Id);
             var expectedAgencyDto = EntityUtils.AgencyToAgencyDTO(savedAgency);
 
             expectedAgencyDto.Should().BeEquivalentTo(agencyDto);

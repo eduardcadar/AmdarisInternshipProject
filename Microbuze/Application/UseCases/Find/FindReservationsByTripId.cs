@@ -1,19 +1,21 @@
 ﻿using System.Collections.Generic;
-using Application.Interfaces;
+using Application.ReaderInterfaces;
 using Application.Models;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace Application.UseCases.Find
 {
     public class FindReservationsByTripId
     {
-        private readonly IReservationReader _reader;
+        private readonly IReservationReader _reservationReader;
 
         public FindReservationsByTripId(IReservationReader reader)
         {
-            _reader = reader;
+            _reservationReader = reader;
         }
 
-        public IEnumerable<ReservationDTO> Find(int id)
-            => _reader.GetByTripId(id);
+        public async Task<IEnumerable<ReservationDTO>> Find(int id, CancellationToken cancellationToken = default)
+            => await _reservationReader.GetByTripId(id, cancellationToken);
     }
 }

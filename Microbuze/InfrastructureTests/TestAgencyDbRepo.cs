@@ -1,13 +1,13 @@
 using System;
-using System.Linq;
 using Domain.Domain;
 using Domain.Repository;
 using Infrastructure;
-using Infrastructure.DataAccess;
 using Xunit;
 using FluentAssertions;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
+using Infrastructure.DataAccess.Repos;
 
 namespace InfrastructureTests
 {
@@ -40,12 +40,12 @@ namespace InfrastructureTests
         }
 
         [Fact]
-        public void TestAddAgency()
+        public async Task TestAddAgency()
         {
             var agency = new DAgency("agency", "0728392192");
 
-            _repo.Add(agency);
-            var savedAgency = _dbContext.Agencies.Single(a => a.AgencyName == "agency");
+            await _repo.Add(agency);
+            var savedAgency = await _dbContext.Agencies.SingleAsync(a => a.AgencyName == "agency");
             var expectedAgency = EntityUtils.DAgencytoAgency(agency);
             expectedAgency.Id = savedAgency.Id;
 
@@ -53,12 +53,12 @@ namespace InfrastructureTests
         }
 
         [Fact]
-        public void TestGetAgency()
+        public async Task TestGetAgency()
         {
             var agency = new DAgency("agency", "0222222222");
 
-            _repo.Add(agency);
-            var savedAgency = _repo.GetByName(agency.AgencyName);
+            await _repo.Add(agency);
+            var savedAgency = await _repo.GetByName(agency.AgencyName);
             agency.Id = savedAgency.Id;
 
             agency.Should().BeEquivalentTo(savedAgency);

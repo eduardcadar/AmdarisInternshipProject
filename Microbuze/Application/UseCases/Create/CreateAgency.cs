@@ -1,21 +1,30 @@
-﻿using Domain.Domain;
+﻿using Application.Models;
+using Domain.Domain;
 using Domain.Repository;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Application.UseCases.Create
 {
     public class CreateAgency
     {
-        private readonly IAgencyRepo _repo;
+        private readonly IAgencyRepo _agencyRepo;
 
         public CreateAgency(IAgencyRepo repo)
         {
-            _repo = repo;
+            _agencyRepo = repo;
         }
 
-        public void Create(string agencyName, string phoneNumber)
+        public async Task<AgencyDTO> Create(string agencyName, string phoneNumber, CancellationToken cancellationToken = default)
         {
             var dAgency = new DAgency(agencyName, phoneNumber);
-            _repo.Add(dAgency);
+            var createdAgency = await _agencyRepo.Add(dAgency, cancellationToken);
+            var agencyDto = new AgencyDTO {
+                Id = createdAgency.Id,
+                AgencyName = agencyName,
+                PhoneNumber = phoneNumber
+            };
+            return agencyDto;
         }
     }
 }

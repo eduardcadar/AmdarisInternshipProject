@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Application.Interfaces;
+using Application.ReaderInterfaces;
 using Application.Models;
 using Domain.Repository;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.DataAccess
+namespace Infrastructure.DataAccess.Readers
 {
     public class TripDbReader : ITripReader
     {
@@ -15,22 +18,22 @@ namespace Infrastructure.DataAccess
             _dbContext = dbContext;
         }
 
-        public TripDTO GetById(int id)
+        public async Task<TripDTO> GetById(int id, CancellationToken cancellationToken = default)
         {
-            var trip = _dbContext.Trips.Find(id);
+            var trip = await _dbContext.Trips.SingleAsync(t => t.Id.Equals(id), cancellationToken);
             if (trip == null)
                 throw new RepositoryException("There is no trip with this id");
             var dTrip = EntityUtils.TripToTripDTO(trip);
             return dTrip;
         }
 
-        public IEnumerable<TripDTO> GetFiltered(string departureLocation = "", string destination = "")
+        public async Task<IEnumerable<TripDTO>> GetFiltered(string departureLocation = "", string destination = "", CancellationToken cancellationToken = default)
         {
             var filteredTripEntities = _dbContext.Trips
                 .Where(t => t.DepartureLocation.Contains(departureLocation) && t.Destination.Contains(destination));
-            var tripDtos = filteredTripEntities
+            var tripDtos = await filteredTripEntities
                 .Select(t => EntityUtils.TripToTripDTO(t))
-                .ToList();
+                .ToListAsync(cancellationToken);
             return tripDtos;
         }
     }

@@ -1,7 +1,9 @@
 ﻿using Domain.Domain;
 using Domain.Repository;
+using System.Threading;
+using System.Threading.Tasks;
 
-namespace Infrastructure.DataAccess
+namespace Infrastructure.DataAccess.Repos
 {
     public class TripDbRepo : ITripRepo
     {
@@ -12,11 +14,11 @@ namespace Infrastructure.DataAccess
             _dbContext = dbContext;
         }
 
-        public void Add(DTrip dTrip)
+        public async Task Add(DTrip dTrip, CancellationToken cancellationToken = default)
         {
             var trip = EntityUtils.DTripToTrip(dTrip);
-            _dbContext.Trips.Add(trip);
-            _dbContext.SaveChanges();
+            await _dbContext.Trips.AddAsync(trip, cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }

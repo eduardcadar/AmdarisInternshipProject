@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Linq;
 using Xunit;
 using FluentAssertions;
 using Infrastructure;
 using Domain.Repository;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Infrastructure.DataAccess;
 using Domain.Domain;
+using System.Threading.Tasks;
+using Infrastructure.DataAccess.Repos;
 
 namespace InfrastructureTests
 {
@@ -40,14 +40,14 @@ namespace InfrastructureTests
         }
 
         [Fact]
-        public void TestAddRegularUser()
+        public async Task TestAddRegularUser()
         {
             var regularUser = new DRegularUser("username", "password",
                 "0728192382", "firstname", "lastname");
 
-            _repo.Add(regularUser);
-            var savedRegularUser = _dbContext.RegularUsers
-                .Single(r => r.Username == regularUser.Username);
+            await _repo.Add(regularUser);
+            var savedRegularUser = await _dbContext.RegularUsers
+                .SingleAsync(r => r.Username == regularUser.Username);
             var expectedRegularUser = EntityUtils.DRegularUserToRegularUser(regularUser);
             expectedRegularUser.Id = savedRegularUser.Id;
             expectedRegularUser.Reservations = savedRegularUser.Reservations;
@@ -56,13 +56,13 @@ namespace InfrastructureTests
         }
 
         [Fact]
-        public void TestGetRegularUserByUsernameAndPassword()
+        public async Task TestGetRegularUserByUsernameAndPassword()
         {
             var regularUser = new DRegularUser("username", "password",
                 "0728192382", "firstname", "lastname");
 
-            _repo.Add(regularUser);
-            var savedRegularUser = _repo.GetByUsernameAndPassword(regularUser.Username, regularUser.Password);
+            await _repo.Add(regularUser);
+            var savedRegularUser = await _repo.GetByUsernameAndPassword(regularUser.Username, regularUser.Password);
             regularUser.Id = savedRegularUser.Id;
 
             regularUser.Should().BeEquivalentTo(savedRegularUser);

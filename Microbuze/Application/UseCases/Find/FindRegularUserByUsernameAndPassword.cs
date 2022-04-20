@@ -1,18 +1,20 @@
 ﻿using Domain.Domain;
 using Domain.Repository;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Application.UseCases.Find
 {
     public class FindRegularUserByUsernameAndPassword
     {
-        private readonly IRegularUserRepo _repo;
+        private readonly IRegularUserRepo _regularUserRepo;
 
         public FindRegularUserByUsernameAndPassword(IRegularUserRepo repo)
         {
-            _repo = repo;
+            _regularUserRepo = repo;
         }
 
-        public DRegularUser Find(string username, string password)
-            => _repo.GetByUsernameAndPassword(username, password);
+        public async Task<DRegularUser> Find(string username, string password, CancellationToken cancellationToken = default)
+            => await _regularUserRepo.GetByUsernameAndPassword(username, password, cancellationToken);
     }
 }

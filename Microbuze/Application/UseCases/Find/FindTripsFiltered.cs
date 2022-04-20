@@ -1,19 +1,21 @@
 ﻿using System.Collections.Generic;
-using Application.Interfaces;
+using Application.ReaderInterfaces;
 using Application.Models;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace Application.UseCases.Find
 {
     public class FindTripsFiltered
     {
-        private readonly ITripReader _reader;
+        private readonly ITripReader _tripReader;
 
         public FindTripsFiltered(ITripReader reader)
         {
-            _reader = reader;
+            _tripReader = reader;
         }
 
-        public IEnumerable<TripDTO> Get(string departureLocation, string destination)
-            => _reader.GetFiltered(departureLocation, destination);
+        public async Task<IEnumerable<TripDTO>> Find(string departureLocation, string destination, CancellationToken cancellationToken = default)
+            => await _tripReader.GetFiltered(departureLocation, destination, cancellationToken);
     }
 }

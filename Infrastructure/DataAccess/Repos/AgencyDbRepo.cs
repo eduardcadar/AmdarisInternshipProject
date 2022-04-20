@@ -1,9 +1,10 @@
-﻿using System;
-using System.Linq;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using Domain.Domain;
 using Domain.Repository;
+using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.DataAccess
+namespace Infrastructure.DataAccess.Repos
 {
     public class AgencyDbRepo : IAgencyRepo
     {
@@ -14,20 +15,22 @@ namespace Infrastructure.DataAccess
             _dbContext = dbContext;
         }
 
-        public DAgency GetByName(string agencyName)
+        public async Task<DAgency> GetByName(string agencyName, CancellationToken cancellationToken = default)
         {
-            var agency = _dbContext.Agencies.SingleOrDefault(a => a.AgencyName == agencyName);
+            var agency = await _dbContext.Agencies.SingleOrDefaultAsync(a => a.AgencyName == agencyName, cancellationToken);
             if (agency == null)
                 throw new RepositoryException("No agency with this name");
             var dAgency = EntityUtils.AgencyToDAgency(agency);
             return dAgency;
         }
 
-        public void Add(DAgency dAgency)
+        public async Task<DAgency> Add(DAgency dAgency, CancellationToken cancellationToken = default)
         {
             var agency = EntityUtils.DAgencytoAgency(dAgency);
-            _dbContext.Agencies.Add(agency);
-            _dbContext.SaveChanges();
+            await _dbContext.Agencies.AddAsync(agency, cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken);
+            dAgency.Id = agency.Id;
+            return dAgency;
         }
     }
 }

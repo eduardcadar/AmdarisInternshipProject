@@ -1,5 +1,8 @@
 ﻿using Infrastructure.Persistence.Entities;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Configuration;
 
 namespace Infrastructure
 {
@@ -14,13 +17,6 @@ namespace Infrastructure
         public MicrobuzeContext(DbContextOptions op) : base(op)
         {
         }
-
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder
-        //        .UseSqlServer(_connString);
-        //    //@"Server=DESKTOP-DGHVO7U\SQLEXPRESS;Database=Microbuze;Trusted_Connection=True;");
-        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Linq;
 using Xunit;
 using FluentAssertions;
 using Microsoft.Data.SqlClient;
 using Domain.Repository;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using Infrastructure.DataAccess;
 using Domain.Domain;
+using System.Threading.Tasks;
+using Infrastructure.DataAccess.Repos;
 
 namespace InfrastructureTests
 {
@@ -49,13 +49,13 @@ namespace InfrastructureTests
         }
 
         [Fact]
-        public void TestAddTrip()
+        public async Task TestAddTrip()
         {
             var trip = _agencyUser.CreateTrip("dep", "dest", DateTime.Now.AddHours(1),
                 TimeSpan.FromMinutes(30), 17.5, 20);
 
-            _repo.Add(trip);
-            var savedTrip = _dbContext.Trips.Single(t => t.AgencyId == _agencyUser.Agency.Id);
+            await _repo.Add(trip);
+            var savedTrip = await _dbContext.Trips.SingleAsync(t => t.AgencyId == _agencyUser.Agency.Id);
             var expectedTrip = EntityUtils.DTripToTrip(trip);
             expectedTrip.Id = savedTrip.Id;
             expectedTrip.Agency = savedTrip.Agency;

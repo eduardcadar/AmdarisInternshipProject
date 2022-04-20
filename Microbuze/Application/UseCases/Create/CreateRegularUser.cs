@@ -1,23 +1,25 @@
 ﻿using Domain.Domain;
 using Domain.Repository;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Application.UseCases.Create
 {
     public class CreateRegularUser
     {
-        private readonly IRegularUserRepo _repo;
+        private readonly IRegularUserRepo _regularUserRepo;
 
         public CreateRegularUser(IRegularUserRepo repo)
         {
-            _repo = repo;
+            _regularUserRepo = repo;
         }
 
-        public void Create(string username, string password, string phoneNumber,
-            string firstName, string lastName)
+        public async Task<DRegularUser> Create(string username, string password, string phoneNumber,
+            string firstName, string lastName, CancellationToken cancellationToken = default)
         {
             var dRegularUser = new DRegularUser(username, password, phoneNumber,
                 firstName, lastName);
-            _repo.Add(dRegularUser);
+            return await _regularUserRepo.Add(dRegularUser, cancellationToken);
         }
     }
 }

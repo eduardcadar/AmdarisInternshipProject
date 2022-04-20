@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Linq;
-using Application.Interfaces;
+using System.Threading.Tasks;
+using Application.ReaderInterfaces;
 using Domain.Domain;
 using FluentAssertions;
 using Infrastructure;
-using Infrastructure.DataAccess;
+using Infrastructure.DataAccess.Readers;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
@@ -98,25 +99,25 @@ namespace InfrastructureTests
         }
 
         [Fact]
-        public void TestGetReservationsByRegularUserId()
+        public async Task TestGetReservationsByRegularUserId()
         {
             var user1Reservations = _dbContext.Reservations
                 .Where(r => r.RegularUserId == _regularUser1.Id)
                 .Select(r => EntityUtils.ReservationToReservationDTO(r));
 
-            var savedReservations = _reader.GetByRegularUserId(_regularUser1.Id);
+            var savedReservations = await _reader.GetByRegularUserId(_regularUser1.Id);
 
             user1Reservations.Should().BeEquivalentTo(savedReservations);
         }
 
         [Fact]
-        public void TestGetReservationsByTripId()
+        public async Task TestGetReservationsByTripId()
         {
             var trip3Reservations = _dbContext.Reservations
                 .Where(r => r.TripId == _trip3.Id)
                 .Select(r => EntityUtils.ReservationToReservationDTO(r));
 
-            var savedReservations = _reader.GetByTripId(_trip3.Id);
+            var savedReservations = await _reader.GetByTripId(_trip3.Id);
 
             trip3Reservations.Should().BeEquivalentTo(savedReservations);
         }

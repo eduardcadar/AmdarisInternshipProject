@@ -1,7 +1,10 @@
 ﻿using Domain.Domain;
 using Domain.Repository;
+using Microsoft.EntityFrameworkCore;
+using System.Threading;
+using System.Threading.Tasks;
 
-namespace Infrastructure.DataAccess
+namespace Infrastructure.DataAccess.Repos
 {
     public class ReservationDbRepo : IReservationRepo
     {
@@ -12,28 +15,29 @@ namespace Infrastructure.DataAccess
             _dbContext = dbContext;
         }
 
-        public void Delete(DReservation dReservation)
+        public async Task Delete(DReservation dReservation, CancellationToken cancellationToken = default)
         {
             var reservation = EntityUtils.DReservationToReservation(dReservation);
             _dbContext.Remove(reservation);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public void Add(DReservation dReservation)
+        public async Task Add(DReservation dReservation, CancellationToken cancellationToken = default)
         {
             var reservation = EntityUtils.DReservationToReservation(dReservation);
-            _dbContext.Reservations.Add(reservation);
-            _dbContext.SaveChanges();
+            await _dbContext.Reservations.AddAsync(reservation, cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public void Update(DReservation dReservation)
+        public async Task Update(DReservation dReservation, CancellationToken cancellationToken = default)
         {
             var reservation = EntityUtils.DReservationToReservation(dReservation);
-            var dbReservation = _dbContext.Reservations.Find(reservation.RegularUserId, reservation.TripId);
+            var dbReservation = await _dbContext.Reservations.SingleAsync(
+                r => r.RegularUserId.Equals(reservation.RegularUserId) && r.TripId.Equals(reservation.TripId), cancellationToken);
             if (dbReservation == null)
                 throw new RepositoryException("There is no reservation with this id");
             dbReservation.Seats = reservation.Seats;
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }

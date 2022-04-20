@@ -2,12 +2,13 @@
 using Xunit;
 using FluentAssertions;
 using Infrastructure;
-using Application.Interfaces;
+using Application.ReaderInterfaces;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Infrastructure.DataAccess;
 using Domain.Domain;
 using System.Linq;
+using System.Threading.Tasks;
+using Infrastructure.DataAccess.Readers;
 
 namespace InfrastructureTests
 {
@@ -49,22 +50,22 @@ namespace InfrastructureTests
         }
 
         [Fact]
-        public void TestGetTripDtoById()
+        public async Task TestGetTripDtoById()
         {
             var trip = _agencyUser.CreateTrip("dep", "dest", DateTime.Now.AddHours(1),
                 TimeSpan.FromMinutes(30), 17.5, 20);
-            _dbContext.Trips.Add(EntityUtils.DTripToTrip(trip));
-            _dbContext.SaveChanges();
-            var savedTrip = _dbContext.Trips.Single(t => t.AgencyId == _agency.Id);
+            await _dbContext.Trips.AddAsync(EntityUtils.DTripToTrip(trip));
+            await _dbContext.SaveChangesAsync();
+            var savedTrip = await _dbContext.Trips.SingleAsync(t => t.AgencyId == _agency.Id);
 
-            var tripDto = _reader.GetById(savedTrip.Id);
+            var tripDto = await _reader.GetById(savedTrip.Id);
             var expectedTripDto = EntityUtils.TripToTripDTO(savedTrip);
 
             expectedTripDto.Should().BeEquivalentTo(tripDto);
         }
 
         [Fact]
-        public void TestGetTripDtosFiltered()
+        public async Task TestGetTripDtosFiltered()
         {
 
             var trip1 = _agencyUser.CreateTrip("cluj", "turda", DateTime.Now.AddHours(1),
@@ -73,13 +74,13 @@ namespace InfrastructureTests
                 TimeSpan.FromMinutes(30), 17.5, 20);
             var trip3 = _agencyUser.CreateTrip("bacau", "onesti", DateTime.Now.AddHours(1),
                 TimeSpan.FromMinutes(30), 17.5, 20);
-            _dbContext.Trips.Add(EntityUtils.DTripToTrip(trip1));
-            _dbContext.Trips.Add(EntityUtils.DTripToTrip(trip2));
-            _dbContext.Trips.Add(EntityUtils.DTripToTrip(trip3));
-            _dbContext.SaveChanges();
-            var savedTrips = _dbContext.Trips.ToList();
+            await _dbContext.Trips.AddAsync(EntityUtils.DTripToTrip(trip1));
+            await _dbContext.Trips.AddAsync(EntityUtils.DTripToTrip(trip2));
+            await _dbContext.Trips.AddAsync(EntityUtils.DTripToTrip(trip3));
+            await _dbContext.SaveChangesAsync();
+            var savedTrips = await _dbContext.Trips.ToListAsync();
 
-            var tripDtos = _reader.GetFiltered("cluj", "oradea");
+            var tripDtos = await _reader.GetFiltered("cluj", "oradea");
             var expectedTripDtos = savedTrips
                 .Where(t => t.DepartureLocation.Contains("cluj") && t.Destination.Contains("oradea"))
                 .Select(t => EntityUtils.TripToTripDTO(t));

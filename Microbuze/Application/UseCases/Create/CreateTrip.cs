@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Domain.Domain;
 using Domain.Repository;
 
@@ -6,18 +8,18 @@ namespace Application.UseCases.Create
 {
     public class CreateTrip
     {
-        private readonly ITripRepo _repo;
+        private readonly ITripRepo _tripRepo;
 
         public CreateTrip(ITripRepo repo)
         {
-            _repo = repo;
+            _tripRepo = repo;
         }
 
-        public void Create(DAgencyUser dAgencyUser, string departureLocation, string destination,
-            DateTime departureTime, TimeSpan duration, double price, int seats)
+        public async Task Create(DAgencyUser dAgencyUser, string departureLocation, string destination,
+            DateTime departureTime, TimeSpan duration, double price, int seats, CancellationToken cancellationToken = default)
         {
             var trip = dAgencyUser.CreateTrip(departureLocation, destination, departureTime, duration, price, seats);
-            _repo.Add(trip);
+            await _tripRepo.Add(trip, cancellationToken);
         }
     }
 }

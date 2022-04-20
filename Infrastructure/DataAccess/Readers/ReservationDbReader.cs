@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Application.Interfaces;
+using Application.ReaderInterfaces;
 using Application.Models;
+using System.Threading.Tasks;
+using System.Threading;
+using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.DataAccess
+namespace Infrastructure.DataAccess.Readers
 {
     public class ReservationDbReader : IReservationReader
     {
@@ -14,21 +17,21 @@ namespace Infrastructure.DataAccess
             _dbContext = dbContext;
         }
 
-        public IEnumerable<ReservationDTO> GetByRegularUserId(int regularUserId)
+        public async Task<IEnumerable<ReservationDTO>> GetByRegularUserId(int regularUserId, CancellationToken cancellationToken = default)
         {
             var reservations = _dbContext.Reservations.Where(r => r.RegularUserId == regularUserId);
-            var dReservations = reservations
+            var dReservations = await reservations
                 .Select(r => EntityUtils.ReservationToReservationDTO(r))
-                .ToList();
+                .ToListAsync(cancellationToken);
             return dReservations;
         }
 
-        public IEnumerable<ReservationDTO> GetByTripId(int tripId)
+        public async Task<IEnumerable<ReservationDTO>> GetByTripId(int tripId, CancellationToken cancellationToken = default)
         {
             var reservations = _dbContext.Reservations.Where(r => r.TripId == tripId);
-            var dReservations = reservations
+            var dReservations = await reservations
                 .Select(r => EntityUtils.ReservationToReservationDTO(r))
-                .ToList();
+                .ToListAsync(cancellationToken);
             return dReservations;
         }
     }

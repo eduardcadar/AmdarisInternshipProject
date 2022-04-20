@@ -1,21 +1,23 @@
 ﻿using Domain.Domain;
 using Domain.Repository;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Application.UseCases.Create
 {
     public class CreateReservation
     {
-        private readonly IReservationRepo _repo;
+        private readonly IReservationRepo _reservationRepo;
 
         public CreateReservation(IReservationRepo repo)
         {
-            _repo = repo;
+            _reservationRepo = repo;
         }
 
-        public void Create(DTrip trip, DRegularUser regularUser, int seats)
+        public async Task Create(DTrip trip, DRegularUser regularUser, int seats, CancellationToken cancellationToken = default)
         {
             var dReservation = regularUser.CreateReservation(trip, seats);
-            _repo.Add(dReservation);
+            await _reservationRepo.Add(dReservation, cancellationToken);
         }
     }
 }

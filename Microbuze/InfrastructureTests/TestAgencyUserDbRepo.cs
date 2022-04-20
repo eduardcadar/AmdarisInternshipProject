@@ -5,9 +5,9 @@ using Domain.Repository;
 using Microsoft.Data.SqlClient;
 using System;
 using Microsoft.EntityFrameworkCore;
-using Infrastructure.DataAccess;
 using Domain.Domain;
-using System.Linq;
+using System.Threading.Tasks;
+using Infrastructure.DataAccess.Repos;
 
 namespace InfrastructureTests
 {
@@ -40,14 +40,14 @@ namespace InfrastructureTests
         }
 
         [Fact]
-        public void TestAddAgencyUser()
+        public async Task TestAddAgencyUser()
         {
             var agency = new DAgency("agency2", "0727392132");
             var agencyUser = new DAgencyUser("username", "password", "0222222222", agency);
 
-            _repo.Add(agencyUser);
-            var savedAgencyUser = _dbContext.AgencyUsers
-                .Single(a => a.Username == agencyUser.Username);
+            await _repo.Add(agencyUser);
+            var savedAgencyUser = await _dbContext.AgencyUsers
+                .SingleAsync(a => a.Username == agencyUser.Username);
             var expectedAgencyUser = EntityUtils.DAgencyUserToAgencyUser(agencyUser);
             expectedAgencyUser.Agency.Id = savedAgencyUser.Agency.Id;
             expectedAgencyUser.AgencyId = savedAgencyUser.AgencyId;
@@ -58,13 +58,13 @@ namespace InfrastructureTests
         }
         
         [Fact]
-        public void TestGetAgencyUserByUsernameAndPassword()
+        public async Task TestGetAgencyUserByUsernameAndPassword()
         {
             var agency = new DAgency("agency", "0222222222");
             var agencyUser = new DAgencyUser("username", "password", "0222222222", agency);
 
-            _repo.Add(agencyUser);
-            var savedAgencyUser = _repo.GetByUsernameAndPassword(agencyUser.Username, agencyUser.Password);
+            await _repo.Add(agencyUser);
+            var savedAgencyUser = await _repo.GetByUsernameAndPassword(agencyUser.Username, agencyUser.Password);
             agencyUser.Id = savedAgencyUser.Id;
             agencyUser.Agency.Id = savedAgencyUser.Agency.Id;
 

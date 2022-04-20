@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Linq;
 using Xunit;
 using FluentAssertions;
 using Domain.Repository;
 using Infrastructure;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Infrastructure.DataAccess;
 using Domain.Domain;
+using System.Threading.Tasks;
+using Infrastructure.DataAccess.Repos;
 
 namespace InfrastructureTests
 {
@@ -63,13 +63,13 @@ namespace InfrastructureTests
         }
 
         [Fact]
-        public void TestAddReservation()
+        public async Task TestAddReservation()
         {
             var reservation = _regularUser.CreateReservation(_trip, 3);
 
-            _repo.Add(reservation);
-            var savedReservation = _dbContext.Reservations
-                .Single(r => r.RegularUser.Username.Equals(_regularUser.Username)
+            await _repo.Add(reservation);
+            var savedReservation = await _dbContext.Reservations
+                .SingleAsync(r => r.RegularUser.Username.Equals(_regularUser.Username)
                     && r.Trip.AgencyId.Equals(_agency.Id));
             var expectedReservation = EntityUtils.DReservationToReservation(reservation);
             expectedReservation.RegularUser = savedReservation.RegularUser;
