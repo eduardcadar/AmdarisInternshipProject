@@ -17,6 +17,14 @@ namespace Api.Controllers
             _tripsService = tripsService;
         }
 
+        [Route("{id}")]
+        [HttpGet]
+        public async Task<ActionResult<TripDTO>> GetTripById(int id, CancellationToken cancellationToken = default)
+        {
+            var trip = _tripsService.FindTripById(id, cancellationToken);
+            return Ok(trip);
+        }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TripDTO>>> GetTripsFiltered(string departureLocation, string destination,
             CancellationToken cancellationToken = default)
@@ -25,13 +33,13 @@ namespace Api.Controllers
             return Ok(filteredTrips);
         }
 
-        //[HttpPost]
-        //public async Task<ActionResult> CreateTrip(DAgencyUser dAgencyUser, string departureLocation, string destination, DateTime departureTime,
-        //    TimeSpan duration, double price, int seats, CancellationToken cancellationToken = default)
-        //{
-        //    var createdTrip = await _tripsService.CreateTrip(dAgencyUser, departureLocation,
-        //        destination, departureTime, duration, price, seats, cancellationToken);
-        //    return CreatedAtAction(createdTrip);
-        //}
+        [HttpPost]
+        public async Task<ActionResult> CreateTrip(DAgencyUser dAgencyUser, string departureLocation, string destination, DateTime departureTime,
+            TimeSpan duration, double price, int seats, CancellationToken cancellationToken = default)
+        {
+            var createdTrip = await _tripsService.CreateTrip(dAgencyUser, departureLocation,
+                destination, departureTime, duration, price, seats, cancellationToken);
+            return CreatedAtAction(nameof(GetTripById), new { id = createdTrip.Id }, createdTrip);
+        }
     }
 }

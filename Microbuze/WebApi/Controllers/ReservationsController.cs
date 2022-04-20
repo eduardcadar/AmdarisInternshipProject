@@ -17,6 +17,14 @@ namespace Api.Controllers
             _reservationsService = reservationsService;
         }
 
+        [Route("{userid}-{tripid}")]
+        [HttpGet]
+        public async Task<ActionResult<ReservationDTO>> GetReservationById(int userid, int tripid, CancellationToken cancellationToken = default)
+        {
+            var reservation = await _reservationsService.FindReservationById(userid, tripid, cancellationToken);
+            return Ok(reservation);
+        }
+
         [Route("byRegularUserId/{id}")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ReservationDTO>>> GetReservationsByRegularUserId(int id,

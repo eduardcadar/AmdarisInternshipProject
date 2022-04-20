@@ -9,5 +9,6 @@ namespace Application.ReaderInterfaces
     {
         Task<IEnumerable<ReservationDTO>> GetByRegularUserId(int regularUserId, CancellationToken cancellationToken = default);
         Task<IEnumerable<ReservationDTO>> GetByTripId(int tripId, CancellationToken cancellationToken = default);
+        Task<ReservationDTO> GetById(int userId, int tripId, CancellationToken cancellationToken = default);
     }
 }

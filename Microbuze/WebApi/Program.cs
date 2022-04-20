@@ -41,8 +41,10 @@ builder.Services.AddScoped<CreateRegularUser>();
 builder.Services.AddScoped<FindRegularUserById>();
 builder.Services.AddScoped<FindRegularUserByUsernameAndPassword>();
 builder.Services.AddScoped<CreateTrip>();
+builder.Services.AddScoped<FindTripById>();
 builder.Services.AddScoped<FindTripsFiltered>();
 builder.Services.AddScoped<CreateReservation>();
+builder.Services.AddScoped<FindReservationById>();
 builder.Services.AddScoped<FindReservationsByRegularUserId>();
 builder.Services.AddScoped<FindReservationsByTripId>();
 

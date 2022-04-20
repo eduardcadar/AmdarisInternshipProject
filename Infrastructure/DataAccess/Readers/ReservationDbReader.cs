@@ -5,6 +5,7 @@ using Application.Models;
 using System.Threading.Tasks;
 using System.Threading;
 using Microsoft.EntityFrameworkCore;
+using Domain.Repository;
 
 namespace Infrastructure.DataAccess.Readers
 {
@@ -15,6 +16,16 @@ namespace Infrastructure.DataAccess.Readers
         public ReservationDbReader(MicrobuzeContext dbContext)
         {
             _dbContext = dbContext;
+        }
+
+        public async Task<ReservationDTO> GetById(int userId, int tripId, CancellationToken cancellationToken = default)
+        {
+            var reservation = await _dbContext.Reservations.SingleOrDefaultAsync(
+                r => r.RegularUserId == userId && r.TripId == tripId, cancellationToken);
+            if (reservation == null)
+                throw new RepositoryException("There is no reservation with this id");
+            var reservationDTO = EntityUtils.ReservationToReservationDTO(reservation);
+            return reservationDTO;
         }
 
         public async Task<IEnumerable<ReservationDTO>> GetByRegularUserId(int regularUserId, CancellationToken cancellationToken = default)

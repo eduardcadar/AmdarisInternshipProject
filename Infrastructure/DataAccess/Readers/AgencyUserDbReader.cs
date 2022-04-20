@@ -21,7 +21,7 @@ namespace Infrastructure.DataAccess.Readers
             var agencyUser = await _dbContext.AgencyUsers
                 .SingleOrDefaultAsync(a => a.Id.Equals(id), cancellationToken);
             if (agencyUser == null)
-                throw new RepositoryException("Wrong id");
+                throw new RepositoryException("Wrong agencyUser id");
             var agencyUserDto = EntityUtils.AgencyUserToAgencyUserDTO(agencyUser);
             return agencyUserDto;
         }

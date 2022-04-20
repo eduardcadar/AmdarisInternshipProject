@@ -3,6 +3,7 @@ using Application.Models;
 using System.Threading.Tasks;
 using System.Threading;
 using Microsoft.EntityFrameworkCore;
+using Domain.Repository;
 
 namespace Infrastructure.DataAccess.Readers
 {
@@ -18,6 +19,8 @@ namespace Infrastructure.DataAccess.Readers
         public async Task<AgencyDTO> GetById(int id, CancellationToken cancellationToken = default)
         {
             var agency = await _dbContext.Agencies.SingleAsync(a => a.Id == id, cancellationToken);
+            if (agency == null)
+                throw new RepositoryException("Wrong agency id");
             var agencyDto = new AgencyDTO
             {
                 Id = agency.Id,

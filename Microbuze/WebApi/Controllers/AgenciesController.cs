@@ -28,7 +28,7 @@ namespace Api.Controllers
         public async Task<ActionResult> CreateAgency(AgencyDTO agencyDTO, CancellationToken cancellationToken = default)
         {
             var createdAgency = await _agenciesService.CreateAgency(agencyDTO.AgencyName, agencyDTO.PhoneNumber, cancellationToken);
-            return CreatedAtAction(nameof(GetById), new { id = createdAgency.Id}, agencyDTO);
+            return CreatedAtAction(nameof(GetById), new { id = createdAgency.Id}, createdAgency);
         }
     }
 }

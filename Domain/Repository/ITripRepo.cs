@@ -6,6 +6,6 @@ namespace Domain.Repository
 {
     public interface ITripRepo
     {
-        Task Add(DTrip dTrip, CancellationToken cancellationToken = default);
+        Task<DTrip> Add(DTrip dTrip, CancellationToken cancellationToken = default);
     }
 }

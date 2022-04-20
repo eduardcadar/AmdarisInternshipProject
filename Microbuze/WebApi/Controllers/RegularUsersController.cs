@@ -36,9 +36,9 @@ namespace Api.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateRegularUser(DRegularUser dRegularUser, CancellationToken cancellationToken = default)
         {
-            var createdUser = await _regularUsersService.CreateRegularUser(dRegularUser.Username, dRegularUser.Password,
+            var createdRegularUser = await _regularUsersService.CreateRegularUser(dRegularUser.Username, dRegularUser.Password,
                 dRegularUser.PhoneNumber, dRegularUser.FirstName, dRegularUser.LastName, cancellationToken);
-            return CreatedAtAction(nameof(GetRegularUserById), new { id = createdUser.Id }, dRegularUser);
+            return CreatedAtAction(nameof(GetRegularUserById), new { id = createdRegularUser.Id }, createdRegularUser);
         }
     }
 }

@@ -38,7 +38,7 @@ namespace Api.Controllers
         {
             var createdAgencyUser = await _agencyUsersService.CreateAgencyUser(dAgencyUser.Username,
                 dAgencyUser.Password, dAgencyUser.PhoneNumber, dAgencyUser.Agency, cancellationToken);
-            return CreatedAtAction(nameof(GetAgencyUserById), new { id = createdAgencyUser.Id }, dAgencyUser);
+            return CreatedAtAction(nameof(GetAgencyUserById), new { id = createdAgencyUser.Id }, createdAgencyUser);
         }
     }
 }

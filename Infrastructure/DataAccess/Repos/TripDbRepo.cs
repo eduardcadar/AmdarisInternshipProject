@@ -14,11 +14,13 @@ namespace Infrastructure.DataAccess.Repos
             _dbContext = dbContext;
         }
 
-        public async Task Add(DTrip dTrip, CancellationToken cancellationToken = default)
+        public async Task<DTrip> Add(DTrip dTrip, CancellationToken cancellationToken = default)
         {
             var trip = EntityUtils.DTripToTrip(dTrip);
             await _dbContext.Trips.AddAsync(trip, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);
+            dTrip.Id = trip.Id;
+            return dTrip;
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Infrastructure.DataAccess.Readers
             var regularUser = await _dbContext.RegularUsers
                 .SingleOrDefaultAsync(r => r.Id.Equals(id), cancellationToken);
             if (regularUser == null)
-                throw new RepositoryException("Wrong id");
+                throw new RepositoryException("Wrong regularUser id");
             var regularUserDto = EntityUtils.RegularUserToRegularUserDTO(regularUser);
             return regularUserDto;
         }
