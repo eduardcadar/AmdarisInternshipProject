@@ -8,7 +8,7 @@ namespace Application.Services.Interfaces
 {
     public interface IReservationsService
     {
-        Task CreateReservation(DTrip trip, DRegularUser regularUser, int seats, CancellationToken cancellationToken = default);
+        Task<DReservation> CreateReservation(DTrip trip, DRegularUser regularUser, int seats, CancellationToken cancellationToken = default);
         Task<IEnumerable<ReservationDTO>> FindReservationsByRegularUserId(int id,
             CancellationToken cancellationToken = default);
         Task<IEnumerable<ReservationDTO>> FindReservationsByTripId(int id,

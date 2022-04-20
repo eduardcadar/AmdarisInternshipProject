@@ -7,7 +7,7 @@ namespace Domain.Repository
 {
     public interface IReservationRepo
     {
-        Task Add(DReservation dReservation, CancellationToken cancellationToken = default);
+        Task<DReservation> Add(DReservation dReservation, CancellationToken cancellationToken = default);
         Task Delete(DReservation dReservation, CancellationToken cancellationToken = default);
         Task Update(DReservation dReservation, CancellationToken cancellationToken = default);
     }

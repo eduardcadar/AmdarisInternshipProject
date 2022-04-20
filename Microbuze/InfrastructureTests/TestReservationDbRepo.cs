@@ -34,25 +34,12 @@ namespace InfrastructureTests
             _dbContext = new(dbContextOptionsBuilder.Options);
             _dbContext.Database.Migrate();
             _repo = new ReservationDbRepo(_dbContext);
-
             _agency = new("agency2", "0727392132");
-            IAgencyRepo agencyRepo = new AgencyDbRepo(_dbContext);
-            agencyRepo.Add(_agency);
-            _agency.Id = 1;
-
             _agencyUser = new("username", "password", "0222222222", _agency);
-
             _trip = _agencyUser.CreateTrip("dep", "dest", DateTime.Now.AddHours(1),
                 TimeSpan.FromMinutes(30), 17.5, 20);
-            ITripRepo tripRepo = new TripDbRepo(_dbContext);
-            tripRepo.Add(_trip);
-            _trip.Id = 1;
-
             _regularUser = new("username", "password", "0728192382",
                 "firstname", "lastname");
-            IRegularUserRepo regularUserRepo = new RegularUserDbRepo(_dbContext);
-            regularUserRepo.Add(_regularUser);
-            _regularUser.Id = 1;
         }
 
         public void Dispose()
@@ -65,6 +52,18 @@ namespace InfrastructureTests
         [Fact]
         public async Task TestAddReservation()
         {
+            IAgencyRepo agencyRepo = new AgencyDbRepo(_dbContext);
+            await agencyRepo.Add(_agency);
+            _agency.Id = 1;
+
+            ITripRepo tripRepo = new TripDbRepo(_dbContext);
+            await tripRepo.Add(_trip);
+            _trip.Id = 1;
+
+            IRegularUserRepo regularUserRepo = new RegularUserDbRepo(_dbContext);
+            await regularUserRepo.Add(_regularUser);
+            _regularUser.Id = 1;
+
             var reservation = _regularUser.CreateReservation(_trip, 3);
 
             await _repo.Add(reservation);

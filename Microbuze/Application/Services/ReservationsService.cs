@@ -24,7 +24,7 @@ namespace Application.Services
             _findReservationsById = findReservationsById;
         }
 
-        public async Task CreateReservation(DTrip trip, DRegularUser regularUser, int seats, CancellationToken cancellationToken = default)
+        public async Task<DReservation> CreateReservation(DTrip trip, DRegularUser regularUser, int seats, CancellationToken cancellationToken = default)
             => await _createReservation.Create(trip, regularUser, seats, cancellationToken);
 
         public Task<ReservationDTO> FindReservationById(int userId, int tripId, CancellationToken cancellationToken = default)

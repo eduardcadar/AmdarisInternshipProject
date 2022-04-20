@@ -22,11 +22,12 @@ namespace Infrastructure.DataAccess.Repos
             await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task Add(DReservation dReservation, CancellationToken cancellationToken = default)
+        public async Task<DReservation> Add(DReservation dReservation, CancellationToken cancellationToken = default)
         {
             var reservation = EntityUtils.DReservationToReservation(dReservation);
             await _dbContext.Reservations.AddAsync(reservation, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);
+            return dReservation;
         }
 
         public async Task Update(DReservation dReservation, CancellationToken cancellationToken = default)

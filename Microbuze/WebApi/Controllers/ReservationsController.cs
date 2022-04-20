@@ -43,12 +43,21 @@ namespace Api.Controllers
             return Ok(reservations);
         }
 
-        //[HttpPost]
-        //public async Task<ActionResult> CreateReservation(DTrip trip, DRegularUser regularUser, int seats,
-        //    CancellationToken cancellationToken = default)
-        //{
-        //    var createdReservation = _reservationsService.CreateReservation(trip, regularUser, seats, cancellationToken);
-        //    return CreatedAtAction(createdReservation);
-        //}
+        [HttpPost]
+        public async Task<ActionResult> CreateReservation(TripCreationObject tripCreationObject, int seats,
+            CancellationToken cancellationToken = default)
+        {
+            var createdReservation = await _reservationsService.CreateReservation(tripCreationObject.Trip,
+                tripCreationObject.RegularUser, seats, cancellationToken);
+            return CreatedAtAction(nameof(GetReservationById),
+                new { userid = createdReservation.RegularUser.Id, tripid = createdReservation.Trip.Id },
+                createdReservation);
+        }
+    }
+
+    public record TripCreationObject
+    {
+        public DTrip? Trip { get; set; }
+        public DRegularUser? RegularUser { get; set; }
     }
 }

@@ -33,11 +33,6 @@ namespace InfrastructureTests
             _dbContext.Database.Migrate();
             _repo = new TripDbRepo(_dbContext);
             _agency = new DAgency("agency2", "0727392132");
-
-            IAgencyRepo agencyRepo = new AgencyDbRepo(_dbContext);
-            agencyRepo.Add(_agency);
-
-            _agency.Id = 1;
             _agencyUser = new("username", "password", "0222222222", _agency);
         }
 
@@ -51,6 +46,11 @@ namespace InfrastructureTests
         [Fact]
         public async Task TestAddTrip()
         {
+            IAgencyRepo agencyRepo = new AgencyDbRepo(_dbContext);
+            await agencyRepo.Add(_agency);
+
+            _agency.Id = 1;
+
             var trip = _agencyUser.CreateTrip("dep", "dest", DateTime.Now.AddHours(1),
                 TimeSpan.FromMinutes(30), 17.5, 20);
 

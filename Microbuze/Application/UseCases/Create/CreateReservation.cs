@@ -14,10 +14,10 @@ namespace Application.UseCases.Create
             _reservationRepo = repo;
         }
 
-        public async Task Create(DTrip trip, DRegularUser regularUser, int seats, CancellationToken cancellationToken = default)
+        public async Task<DReservation> Create(DTrip trip, DRegularUser regularUser, int seats, CancellationToken cancellationToken = default)
         {
             var dReservation = regularUser.CreateReservation(trip, seats);
-            await _reservationRepo.Add(dReservation, cancellationToken);
+            return await _reservationRepo.Add(dReservation, cancellationToken);
         }
     }
 }
