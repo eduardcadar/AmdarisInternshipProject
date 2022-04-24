@@ -1,5 +1,5 @@
 ﻿using Application.ReaderInterfaces;
-using Application.Models;
+using Application.DTOs;
 using System.Threading.Tasks;
 using System.Threading;
 using Microsoft.EntityFrameworkCore;
@@ -14,13 +14,14 @@ namespace Infrastructure.DataAccess.Readers
         public AgencyDbReader(MicrobuzeContext dbContext)
         {
             _dbContext = dbContext;
+            _dbContext.Database.EnsureCreated();
         }
 
         public async Task<AgencyDTO> GetById(int id, CancellationToken cancellationToken = default)
         {
-            var agency = await _dbContext.Agencies.SingleAsync(a => a.Id == id, cancellationToken);
+            var agency = await _dbContext.Agencies.SingleOrDefaultAsync(a => a.Id == id, cancellationToken);
             if (agency == null)
-                throw new RepositoryException("Wrong agency id");
+                return null;
             var agencyDto = new AgencyDTO
             {
                 Id = agency.Id,

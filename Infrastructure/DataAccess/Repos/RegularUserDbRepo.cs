@@ -13,6 +13,7 @@ namespace Infrastructure.DataAccess.Repos
         public RegularUserDbRepo(MicrobuzeContext dbContext)
         {
             _dbContext = dbContext;
+            _dbContext.Database.EnsureCreated();
         }
 
         public async Task<DRegularUser> Add(DRegularUser dRegularUser, CancellationToken cancellationToken = default)
@@ -29,7 +30,7 @@ namespace Infrastructure.DataAccess.Repos
             var regularUser = await _dbContext.RegularUsers
                 .SingleOrDefaultAsync(r => r.Username.Equals(username) && r.Password.Equals(password), cancellationToken);
             if (regularUser == null)
-                throw new RepositoryException("Wrong username or password");
+                return null;
             var dRegularUser = EntityUtils.RegularUserToDRegularUser(regularUser);
             return dRegularUser;
         }

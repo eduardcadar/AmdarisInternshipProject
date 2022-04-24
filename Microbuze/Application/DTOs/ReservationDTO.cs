@@ -1,4 +1,4 @@
-﻿namespace Application.Models
+﻿namespace Application.DTOs
 {
     public record ReservationDTO
     {

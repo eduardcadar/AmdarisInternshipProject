@@ -12,6 +12,7 @@ namespace Infrastructure.DataAccess.Repos
         public TripDbRepo(MicrobuzeContext dbContext)
         {
             _dbContext = dbContext;
+            _dbContext.Database.EnsureCreated();
         }
 
         public async Task<DTrip> Add(DTrip dTrip, CancellationToken cancellationToken = default)

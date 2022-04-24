@@ -13,6 +13,7 @@ namespace Infrastructure.DataAccess.Repos
         public ReservationDbRepo(MicrobuzeContext dbContext)
         {
             _dbContext = dbContext;
+            _dbContext.Database.EnsureCreated();
         }
 
         public async Task Delete(DReservation dReservation, CancellationToken cancellationToken = default)

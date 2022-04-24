@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Application.ReaderInterfaces;
-using Application.Models;
+using Application.DTOs;
 using System.Threading.Tasks;
 using System.Threading;
 

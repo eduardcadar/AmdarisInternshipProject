@@ -1,4 +1,4 @@
-﻿using Application.Models;
+﻿using Application.DTOs;
 using Application.ReaderInterfaces;
 using Domain.Repository;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +14,7 @@ namespace Infrastructure.DataAccess.Readers
         public AgencyUserDbReader(MicrobuzeContext dbContext)
         {
             _dbContext = dbContext;
+            _dbContext.Database.EnsureCreated();
         }
 
         public async Task<AgencyUserDTO> GetById(int id, CancellationToken cancellationToken = default)
@@ -21,7 +22,7 @@ namespace Infrastructure.DataAccess.Readers
             var agencyUser = await _dbContext.AgencyUsers
                 .SingleOrDefaultAsync(a => a.Id.Equals(id), cancellationToken);
             if (agencyUser == null)
-                throw new RepositoryException("Wrong agencyUser id");
+                return null;
             var agencyUserDto = EntityUtils.AgencyUserToAgencyUserDTO(agencyUser);
             return agencyUserDto;
         }

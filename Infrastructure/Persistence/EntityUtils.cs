@@ -1,5 +1,5 @@
 ﻿using System;
-using Application.Models;
+using Application.DTOs;
 using Domain.Domain;
 using Infrastructure.Persistence.Entities;
 
@@ -9,8 +9,14 @@ namespace Infrastructure
     {
         public static DAgencyUser AgencyUserToDAgencyUser(AgencyUser agencyUser)
         {
-            var dAgency = new DAgency(agencyUser.Id, agencyUser.Agency.AgencyName, agencyUser.PhoneNumber);
-            var dAgencyUser = new DAgencyUser(agencyUser.Id, agencyUser.Username, agencyUser.Password, agencyUser.PhoneNumber, dAgency);
+            var dAgency = new DAgency(agencyUser.Agency.AgencyName, agencyUser.PhoneNumber)
+            {
+                Id = agencyUser.Id,
+            };
+            var dAgencyUser = new DAgencyUser(agencyUser.Username, agencyUser.Password, agencyUser.PhoneNumber, dAgency)
+            {
+                Id = agencyUser.Id,
+            };
             return dAgencyUser;
         }
 
@@ -54,7 +60,7 @@ namespace Infrastructure
 
         public static DAgency AgencyToDAgency(Agency agency)
         {
-            var dAgency = new DAgency(agency.Id, agency.AgencyName, agency.PhoneNumber);
+            var dAgency = new DAgency(agency.AgencyName, agency.PhoneNumber) { Id = agency.Id };
             return dAgency;
         }
 
@@ -102,7 +108,10 @@ namespace Infrastructure
 
         public static DRegularUser RegularUserToDRegularUser(RegularUser regularUser)
         {
-            var dRegularUser = new DRegularUser(regularUser.Id, regularUser.Username, regularUser.Password, regularUser.PhoneNumber, regularUser.FirstName, regularUser.LastName);
+            var dRegularUser = new DRegularUser(regularUser.Username, regularUser.Password, regularUser.PhoneNumber, regularUser.FirstName, regularUser.LastName)
+            {
+                Id = regularUser.Id
+            };
             return dRegularUser;
         }
 

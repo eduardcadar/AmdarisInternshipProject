@@ -18,22 +18,13 @@ namespace Domain.Domain
             Agency = agency;
             Validate();
         }
-        public DAgencyUser(int id, string username, string password, string phoneNumber, DAgency agency)
-        {
-            Id = id;
-            Username = username;
-            Password = password;
-            PhoneNumber = phoneNumber;
-            Agency = agency;
-            Validate();
-        }
-        public void Validate()
+        internal void Validate()
         {
             if (string.IsNullOrWhiteSpace(Username))
                 throw new ArgumentException("Enter an username");
             if (string.IsNullOrWhiteSpace(Password))
                 throw new ArgumentException("Enter a password");
-            if (Password.Contains(" "))
+            if (Password.Contains(' '))
                 throw new ArgumentException("Password cannot contain spaces");
             if (Username.Trim().Length < 6)
                 throw new ArgumentException("Username length cannot be less than 6");

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Application.ReaderInterfaces;
-using Application.Models;
+using Application.DTOs;
 using Domain.Repository;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,13 +16,14 @@ namespace Infrastructure.DataAccess.Readers
         public TripDbReader(MicrobuzeContext dbContext)
         {
             _dbContext = dbContext;
+            _dbContext.Database.EnsureCreated();
         }
 
         public async Task<TripDTO> GetById(int id, CancellationToken cancellationToken = default)
         {
             var trip = await _dbContext.Trips.SingleAsync(t => t.Id.Equals(id), cancellationToken);
             if (trip == null)
-                throw new RepositoryException("There is no trip with this id");
+                return null;
             var dTrip = EntityUtils.TripToTripDTO(trip);
             return dTrip;
         }

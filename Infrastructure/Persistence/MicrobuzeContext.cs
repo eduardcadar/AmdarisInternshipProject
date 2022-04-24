@@ -1,8 +1,5 @@
 ﻿using Infrastructure.Persistence.Entities;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Configuration;
 
 namespace Infrastructure
 {
@@ -20,7 +17,26 @@ namespace Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Reservation>().HasKey(res => new { res.TripId, res.RegularUserId });
+            modelBuilder.Entity<Agency>()
+                .HasIndex(a => a.AgencyName)
+                .IsUnique();
+            modelBuilder.Entity<Agency>()
+                .HasIndex(a => a.PhoneNumber)
+                .IsUnique();
+            modelBuilder.Entity<AgencyUser>()
+                .HasIndex(a => a.Username)
+                .IsUnique();
+            modelBuilder.Entity<AgencyUser>()
+                .HasIndex(a => a.PhoneNumber)
+                .IsUnique();
+            modelBuilder.Entity<RegularUser>()
+                .HasIndex(a => a.Username)
+                .IsUnique();
+            modelBuilder.Entity<RegularUser>()
+                .HasIndex(a => a.PhoneNumber)
+                .IsUnique();
+            modelBuilder.Entity<Reservation>()
+                .HasKey(res => new { res.TripId, res.RegularUserId });
         }
     }
 }

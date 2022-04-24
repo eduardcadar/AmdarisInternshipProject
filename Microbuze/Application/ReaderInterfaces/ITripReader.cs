@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Models;
+using Application.DTOs;
 
 namespace Application.ReaderInterfaces
 {

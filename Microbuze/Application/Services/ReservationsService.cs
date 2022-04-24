@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Application.Models;
+using Application.DTOs;
 using Application.Services.Interfaces;
 using Domain.Domain;
 using Application.UseCases.Create;

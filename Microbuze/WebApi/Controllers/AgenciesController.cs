@@ -1,4 +1,4 @@
-﻿using Application.Models;
+﻿using Application.DTOs;
 using Application.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,15 +20,31 @@ namespace Api.Controllers
         [HttpGet]
         public async Task<ActionResult<AgencyDTO>> GetById(int id, CancellationToken cancellationToken = default)
         {
-            var agencyDto = await _agenciesService.FindAgencyById(id, cancellationToken);
-            return Ok(agencyDto);
+            try
+            {
+                var agencyDto = await _agenciesService.FindAgencyById(id, cancellationToken);
+                if (agencyDto == null)
+                    return NotFound();
+                return Ok(agencyDto);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
         public async Task<ActionResult> CreateAgency(AgencyDTO agencyDTO, CancellationToken cancellationToken = default)
         {
-            var createdAgency = await _agenciesService.CreateAgency(agencyDTO.AgencyName, agencyDTO.PhoneNumber, cancellationToken);
-            return CreatedAtAction(nameof(GetById), new { id = createdAgency.Id}, createdAgency);
+            try
+            {
+                var createdAgency = await _agenciesService.CreateAgency(agencyDTO.AgencyName, agencyDTO.PhoneNumber, cancellationToken);
+                return CreatedAtAction(nameof(GetById), new { id = createdAgency.Id }, createdAgency);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

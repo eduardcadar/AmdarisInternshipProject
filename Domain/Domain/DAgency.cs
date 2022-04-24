@@ -15,15 +15,7 @@ namespace Domain.Domain
             PhoneNumber = phoneNumber;
             Validate();
         }
-        
-        public DAgency(int id, string agencyName, string phoneNumber)
-        {
-            Id = id;
-            AgencyName = agencyName;
-            PhoneNumber = phoneNumber;
-            Validate();
-        }
-        public void Validate()
+        internal void Validate()
         {
             if (string.IsNullOrWhiteSpace(AgencyName))
                 throw new ArgumentException("Enter an agency name");

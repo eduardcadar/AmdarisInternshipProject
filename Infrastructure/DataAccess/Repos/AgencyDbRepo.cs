@@ -13,13 +13,14 @@ namespace Infrastructure.DataAccess.Repos
         public AgencyDbRepo(MicrobuzeContext dbContext)
         {
             _dbContext = dbContext;
+            _dbContext.Database.EnsureCreated();
         }
 
         public async Task<DAgency> GetByName(string agencyName, CancellationToken cancellationToken = default)
         {
             var agency = await _dbContext.Agencies.SingleOrDefaultAsync(a => a.AgencyName == agencyName, cancellationToken);
             if (agency == null)
-                throw new RepositoryException("No agency with this name");
+                return null;
             var dAgency = EntityUtils.AgencyToDAgency(agency);
             return dAgency;
         }

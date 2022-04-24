@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Application.ReaderInterfaces;
-using Application.Models;
+using Application.DTOs;
 using System.Threading.Tasks;
 using System.Threading;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +16,7 @@ namespace Infrastructure.DataAccess.Readers
         public ReservationDbReader(MicrobuzeContext dbContext)
         {
             _dbContext = dbContext;
+            _dbContext.Database.EnsureCreated();
         }
 
         public async Task<ReservationDTO> GetById(int userId, int tripId, CancellationToken cancellationToken = default)
@@ -23,7 +24,7 @@ namespace Infrastructure.DataAccess.Readers
             var reservation = await _dbContext.Reservations.SingleOrDefaultAsync(
                 r => r.RegularUserId == userId && r.TripId == tripId, cancellationToken);
             if (reservation == null)
-                throw new RepositoryException("There is no reservation with this id");
+                return null;
             var reservationDTO = EntityUtils.ReservationToReservationDTO(reservation);
             return reservationDTO;
         }

@@ -4,7 +4,7 @@ using Application.UseCases.Find;
 using Application.Services.Interfaces;
 using System.Threading;
 using Domain.Domain;
-using Application.Models;
+using Application.DTOs;
 
 namespace Application.Services
 {

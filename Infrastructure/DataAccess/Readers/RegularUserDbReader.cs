@@ -1,4 +1,4 @@
-﻿using Application.Models;
+﻿using Application.DTOs;
 using Application.ReaderInterfaces;
 using Domain.Repository;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +14,7 @@ namespace Infrastructure.DataAccess.Readers
         public RegularUserDbReader(MicrobuzeContext dbContext)
         {
             _dbContext = dbContext;
+            _dbContext.Database.EnsureCreated();
         }
 
         public async Task<RegularUserDTO> GetById(int id, CancellationToken cancellationToken = default)
@@ -22,7 +23,7 @@ namespace Infrastructure.DataAccess.Readers
             var regularUser = await _dbContext.RegularUsers
                 .SingleOrDefaultAsync(r => r.Id.Equals(id), cancellationToken);
             if (regularUser == null)
-                throw new RepositoryException("Wrong regularUser id");
+                return null;
             var regularUserDto = EntityUtils.RegularUserToRegularUserDTO(regularUser);
             return regularUserDto;
         }

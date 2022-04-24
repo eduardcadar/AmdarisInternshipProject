@@ -20,23 +20,13 @@ namespace Domain.Domain
             LastName = lastName;
             Validate();
         }
-        public DRegularUser(int id, string username, string password, string phoneNumber, string firstName, string lastName)
-        {
-            Id = id;
-            Username = username;
-            Password = password;
-            PhoneNumber = phoneNumber;
-            FirstName = firstName;
-            LastName = lastName;
-            Validate();
-        }
-        public void Validate()
+        internal void Validate()
         {
             if (string.IsNullOrWhiteSpace(Username))
                 throw new ArgumentException("Enter an username");
             if (string.IsNullOrWhiteSpace(Password))
                 throw new ArgumentException("Enter a password");
-            if (Password.Contains(" "))
+            if (Password.Contains(' '))
                 throw new ArgumentException("Password cannot contain spaces");
             if (Username.Trim().Length < 6)
                 throw new ArgumentException("Username length cannot be less than 6");

@@ -14,6 +14,7 @@ namespace Infrastructure.DataAccess.Repos
         public AgencyUserDbRepo(MicrobuzeContext dbContext)
         {
             _dbContext = dbContext;
+            _dbContext.Database.EnsureCreated();
         }
 
         public async Task<DAgencyUser> GetByUsernameAndPassword(string username, string password, CancellationToken cancellationToken)
@@ -21,7 +22,7 @@ namespace Infrastructure.DataAccess.Repos
             var agencyUser = await _dbContext.AgencyUsers
                 .SingleOrDefaultAsync(a => a.Username.Equals(username) && a.Password.Equals(password), cancellationToken);
             if (agencyUser == null)
-                throw new RepositoryException("Wrong username or password");
+                return null;
             var dAgencyUser = EntityUtils.AgencyUserToDAgencyUser(agencyUser);
             return dAgencyUser;
 

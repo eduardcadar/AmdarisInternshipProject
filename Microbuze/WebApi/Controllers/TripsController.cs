@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Application.Services.Interfaces;
-using Application.Models;
+using Application.DTOs;
 using Domain.Domain;
 
 namespace Api.Controllers
@@ -21,25 +21,48 @@ namespace Api.Controllers
         [HttpGet]
         public async Task<ActionResult<TripDTO>> GetTripById(int id, CancellationToken cancellationToken = default)
         {
-            var trip = _tripsService.FindTripById(id, cancellationToken);
-            return Ok(trip);
+            try
+            {
+                var trip = await _tripsService.FindTripById(id, cancellationToken);
+                if (trip == null)
+                    return NotFound();
+                return Ok(trip);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TripDTO>>> GetTripsFiltered(string departureLocation, string destination,
             CancellationToken cancellationToken = default)
         {
-            var filteredTrips = await _tripsService.FindTripsFiltered(departureLocation, destination, cancellationToken);
-            return Ok(filteredTrips);
+            try
+            {
+                var filteredTrips = await _tripsService.FindTripsFiltered(departureLocation, destination, cancellationToken);
+                return Ok(filteredTrips);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
         public async Task<ActionResult> CreateTrip(DAgencyUser dAgencyUser, string departureLocation, string destination, DateTime departureTime,
             TimeSpan duration, double price, int seats, CancellationToken cancellationToken = default)
         {
-            var createdTrip = await _tripsService.CreateTrip(dAgencyUser, departureLocation,
-                destination, departureTime, duration, price, seats, cancellationToken);
-            return CreatedAtAction(nameof(GetTripById), new { id = createdTrip.Id }, createdTrip);
+            try
+            {
+                var createdTrip = await _tripsService.CreateTrip(dAgencyUser, departureLocation,
+                    destination, departureTime, duration, price, seats, cancellationToken);
+                return CreatedAtAction(nameof(GetTripById), new { id = createdTrip.Id }, createdTrip);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

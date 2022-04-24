@@ -14,7 +14,7 @@ namespace Domain.Domain
             Seats = seats;
             Validate();
         }
-        public void Validate()
+        internal void Validate()
         {
             Trip.Validate();
             RegularUser.Validate();

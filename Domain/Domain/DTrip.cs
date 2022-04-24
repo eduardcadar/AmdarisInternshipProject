@@ -24,20 +24,8 @@ namespace Domain.Domain
             Seats = seats;
             Validate();
         }
-        internal DTrip(int id, DAgency agency, string departureLocation, string destination, DateTime departureTime, TimeSpan duration, double price, int seats)
-        {
-            Id = id;
-            Agency = agency;
-            DepartureLocation = departureLocation;
-            Destination = destination;
-            DepartureTime = departureTime;
-            Duration = duration;
-            Price = price;
-            Seats = seats;
-            Validate();
-        }
 
-        public void Validate()
+        internal void Validate()
         {
             if (string.IsNullOrWhiteSpace(DepartureLocation))
                 throw new ArgumentException("Enter a departure location");

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Application.Services.Interfaces;
-using Application.Models;
+using Application.DTOs;
 using Domain.Domain;
 
 namespace Api.Controllers
@@ -21,8 +21,17 @@ namespace Api.Controllers
         [HttpGet]
         public async Task<ActionResult<ReservationDTO>> GetReservationById(int userid, int tripid, CancellationToken cancellationToken = default)
         {
-            var reservation = await _reservationsService.FindReservationById(userid, tripid, cancellationToken);
-            return Ok(reservation);
+            try
+            {
+                var reservation = await _reservationsService.FindReservationById(userid, tripid, cancellationToken);
+                if (reservation == null)
+                    return NotFound();
+                return Ok(reservation);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [Route("byRegularUserId/{id}")]
@@ -30,8 +39,15 @@ namespace Api.Controllers
         public async Task<ActionResult<IEnumerable<ReservationDTO>>> GetReservationsByRegularUserId(int id,
             CancellationToken cancellationToken = default)
         {
-            var reservations = await _reservationsService.FindReservationsByRegularUserId(id, cancellationToken);
-            return Ok(reservations);
+            try
+            {
+                var reservations = await _reservationsService.FindReservationsByRegularUserId(id, cancellationToken);
+                return Ok(reservations);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [Route("byTripId/{id}")]
@@ -39,19 +55,33 @@ namespace Api.Controllers
         public async Task<ActionResult<IEnumerable<ReservationDTO>>> GetReservationsByTripId(int id,
             CancellationToken cancellationToken = default)
         {
-            var reservations = await _reservationsService.FindReservationsByTripId(id, cancellationToken);
-            return Ok(reservations);
+            try
+            {
+                var reservations = await _reservationsService.FindReservationsByTripId(id, cancellationToken);
+                return Ok(reservations);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
         public async Task<ActionResult> CreateReservation(TripCreationObject tripCreationObject, int seats,
             CancellationToken cancellationToken = default)
         {
-            var createdReservation = await _reservationsService.CreateReservation(tripCreationObject.Trip,
-                tripCreationObject.RegularUser, seats, cancellationToken);
-            return CreatedAtAction(nameof(GetReservationById),
-                new { userid = createdReservation.RegularUser.Id, tripid = createdReservation.Trip.Id },
-                createdReservation);
+            try
+            {
+                var createdReservation = await _reservationsService.CreateReservation(tripCreationObject.Trip,
+                    tripCreationObject.RegularUser, seats, cancellationToken);
+                return CreatedAtAction(nameof(GetReservationById),
+                    new { userid = createdReservation.RegularUser.Id, tripid = createdReservation.Trip.Id },
+                    createdReservation);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 

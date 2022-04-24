@@ -1,4 +1,4 @@
-﻿using Application.Models;
+﻿using Application.DTOs;
 using Application.ReaderInterfaces;
 using System.Threading;
 using System.Threading.Tasks;
