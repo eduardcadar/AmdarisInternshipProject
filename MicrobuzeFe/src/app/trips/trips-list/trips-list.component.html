@@ -1,0 +1,19 @@
+<p>{{pageTitle}}</p>
+<table>
+    <thead>
+        <tr>
+            <th>Departure place</th>
+            <th>Destination</th>
+            <th>Duration</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let trip of trips">
+            <td>{{trip.departurePlace}}</td>
+            <td>{{trip.destination}}</td>
+            <td>{{trip.duration}}</td>
+        </tr>
+    </tbody>
+    
+</table>
+

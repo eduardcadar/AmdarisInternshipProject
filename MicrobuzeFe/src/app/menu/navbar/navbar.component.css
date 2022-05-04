@@ -1,0 +1,38 @@
+#header {
+    margin: 0;
+    background-color: lightblue;
+}
+
+span.title {
+    font: 40px Verdana;
+}
+
+#menu {
+    margin: 0;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+#menu ul {
+    margin: 0;
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+}
+
+#menu ul li {
+    flex-grow: 1;
+    padding-left: 10px;
+    margin: 0 auto;
+    padding: 10px 0;
+}
+
+#menu ul li a {
+    color: black;
+    font: 20px Verdana;
+    text-decoration: none;
+}
+
+#menu ul li a:hover {
+    color: white;
+}

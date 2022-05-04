@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "MicrobuzeFE": {
+    "MicrobuzeFe": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -68,10 +68,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "MicrobuzeFE:build:production"
+              "browserTarget": "MicrobuzeFe:build:production"
             },
             "development": {
-              "browserTarget": "MicrobuzeFE:build:development"
+              "browserTarget": "MicrobuzeFe:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -79,7 +79,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "MicrobuzeFE:build"
+            "browserTarget": "MicrobuzeFe:build"
           }
         },
         "test": {
@@ -102,5 +102,5 @@
       }
     }
   },
-  "defaultProject": "MicrobuzeFE"
+  "defaultProject": "MicrobuzeFe"
 }
