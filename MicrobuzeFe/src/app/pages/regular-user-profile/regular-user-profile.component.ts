@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IRegularUser } from '../models/regular-user';
+import { IRegularUser } from '../../models/regular-user';
 
 @Component({
   selector: 'app-regular-user-profile',

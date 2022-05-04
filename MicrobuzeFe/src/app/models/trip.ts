@@ -1,12 +1,13 @@
 import { Time } from "@angular/common";
+import { IAgency } from "./agency";
 
 export interface ITrip {
     tripId: number;
-    // agency: IAgency,
+    agency: IAgency,
     departurePlace: string;
     destination: string;
-    // departureTime: Date;
-    duration: string; // time
-    // price: number;
-    // seats: number;
+    departureTime: Date;
+    duration: Time;
+    price: number;
+    seats: number;
 }

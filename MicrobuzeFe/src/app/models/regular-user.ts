@@ -1,5 +1,5 @@
 export interface IRegularUser {
-    userId: number;
+    regularUserId: number;
     username: string;
     firstname: string;
     lastname: string;

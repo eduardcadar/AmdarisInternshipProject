@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ITrip } from './models/trip';
+import { ITrip } from '../../models/trip';
 
 @Component({
   selector: 'app-trips-list',
