@@ -10,6 +10,7 @@ import { LoginRegularComponent } from './pages/login-regular/login-regular.compo
 import { LoginAgencyComponent } from './pages/login-agency/login-agency.component';
 import { LoginChooseComponent } from './pages/login-choose/login-choose.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { HomepageComponent } from './pages/homepage/homepage.component';
     LoginAgencyComponent,
     LoginChooseComponent,
     HomepageComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,

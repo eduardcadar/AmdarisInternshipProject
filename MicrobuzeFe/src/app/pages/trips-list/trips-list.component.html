@@ -2,16 +2,24 @@
 <table>
     <thead>
         <tr>
+            <th>Agency</th>
             <th>Departure place</th>
             <th>Destination</th>
+            <th>Departure time</th>
             <th>Duration</th>
+            <th>Price</th>
+            <th>Seats</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let trip of trips">
+            <td>{{trip.agency.agencyName}}</td>
             <td>{{trip.departurePlace}}</td>
             <td>{{trip.destination}}</td>
-            <td>{{trip.duration}}</td>
+            <td>{{trip.departureTime.toLocaleString()}}</td>
+            <td>{{trip.duration.hours}}:{{trip.duration.minutes}} </td>
+            <td>{{trip.price}}</td>
+            <td>{{trip.seats}}</td>
         </tr>
     </tbody>
     

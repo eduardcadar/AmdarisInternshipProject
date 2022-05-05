@@ -21,7 +21,7 @@ namespace Infrastructure.DataAccess.Readers
 
         public async Task<TripDTO> GetById(int id, CancellationToken cancellationToken = default)
         {
-            var trip = await _dbContext.Trips.SingleAsync(t => t.Id.Equals(id), cancellationToken);
+            var trip = await _dbContext.Trips.SingleOrDefaultAsync(t => t.Id.Equals(id), cancellationToken);
             if (trip == null)
                 return null;
             var dTrip = EntityUtils.TripToTripDTO(trip);

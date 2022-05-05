@@ -6,6 +6,7 @@ import { LoginChooseComponent } from './pages/login-choose/login-choose.componen
 import { LoginRegularComponent } from './pages/login-regular/login-regular.component';
 import { TripsListComponent } from './pages/trips-list/trips-list.component';
 import { RegularUserProfileComponent } from './pages/regular-user-profile/regular-user-profile.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 const routes: Routes = [
   {path: '', component: HomepageComponent},
@@ -13,7 +14,8 @@ const routes: Routes = [
   {path: 'regular-user-profile', component: RegularUserProfileComponent},
   {path: 'login-regular', component: LoginRegularComponent},
   {path: 'login-agency', component: LoginAgencyComponent},
-  {path: 'login-choose', component: LoginChooseComponent}
+  {path: 'login-choose', component: LoginChooseComponent},
+  {path: '**', component: NotFoundComponent}
 ];
 
 @NgModule({
