@@ -4,7 +4,7 @@ import { IAgency } from "./agency";
 export interface ITrip {
     tripId: number;
     agency: IAgency,
-    departurePlace: string;
+    departureLocation: string;
     destination: string;
     departureTime: Date;
     duration: Time;

@@ -23,6 +23,8 @@ namespace Infrastructure.DataAccess.Readers
                 .SingleOrDefaultAsync(a => a.Id.Equals(id), cancellationToken);
             if (agencyUser == null)
                 return null;
+            agencyUser.Agency = await _dbContext.Agencies
+                .SingleOrDefaultAsync(a => a.Id.Equals(agencyUser.AgencyId), cancellationToken);
             var agencyUserDto = EntityUtils.AgencyUserToAgencyUserDTO(agencyUser);
             return agencyUserDto;
         }

@@ -12,16 +12,15 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let trip of trips">
+        <tr *ngFor="let trip of trips | async">
             <td>{{trip.agency.agencyName}}</td>
-            <td>{{trip.departurePlace}}</td>
+            <td>{{trip.departureLocation}}</td>
             <td>{{trip.destination}}</td>
             <td>{{trip.departureTime.toLocaleString()}}</td>
-            <td>{{trip.duration.hours}}:{{trip.duration.minutes}} </td>
+            <td>{{trip.duration}}</td>
             <td>{{trip.price}}</td>
             <td>{{trip.seats}}</td>
         </tr>
     </tbody>
-    
 </table>
 

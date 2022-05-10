@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ITrip } from '../../models/trip';
-import { Time } from '@angular/common';
-import { IAgency } from 'src/app/models/agency';
+import { TripService } from 'src/app/services/trip-service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-trips-list',
@@ -10,36 +10,11 @@ import { IAgency } from 'src/app/models/agency';
 })
 export class TripsListComponent implements OnInit {
   pageTitle: string = 'Trips list';
-  agency: IAgency = {
-    agencyId: 1,
-    agencyName: 'agentie',
-    phoneNumber: '0728192372'
+  trips!: Observable<ITrip[]>;
+
+  constructor(private tripService: TripService) {}
+
+  ngOnInit(): void {
+    this.trips = this.tripService.getTrips();
   }
-  trips: ITrip[] = [
-    {
-      tripId: 1,
-      agency: this.agency,
-      departurePlace: 'timisoara',
-      destination: 'arad',
-      departureTime: new Date(),
-      duration: { hours: 0, minutes: 40 },
-      price: 25,
-      seats: 22,
-    },
-    {
-      tripId: 2,
-      agency: this.agency,
-      departurePlace: 'cluj-napoca',
-      destination: 'hunedoara',
-      departureTime: new Date(),
-      duration: { hours: 3, minutes:45 },
-      price: 25,
-      seats: 22
-    }
-  ];
-
-  constructor() {}
-
-  ngOnInit(): void {}
-
 }

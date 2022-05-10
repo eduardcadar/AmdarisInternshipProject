@@ -7,7 +7,7 @@ namespace Application.Services.Interfaces
 {
     public interface IAgencyUsersService
     {
-        Task<DAgencyUser> CreateAgencyUser(string username, string password, string phoneNumber, DAgency dAgency,
+        Task<DAgencyUser> CreateAgencyUser(string username, string password, string phoneNumber, int agencyId,
             CancellationToken cancellationToken = default);
         Task<DAgencyUser> FindAgencyUserByUsernameAndPassword(string username, string password,
             CancellationToken cancellationToken = default);

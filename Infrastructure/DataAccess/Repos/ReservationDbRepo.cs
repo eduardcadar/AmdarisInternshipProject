@@ -26,8 +26,17 @@ namespace Infrastructure.DataAccess.Repos
         public async Task<DReservation> Add(DReservation dReservation, CancellationToken cancellationToken = default)
         {
             var reservation = EntityUtils.DReservationToReservation(dReservation);
+            reservation.Trip = null;
+            reservation.RegularUser = null;
             await _dbContext.Reservations.AddAsync(reservation, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);
+            var trip = await _dbContext.Trips
+                .SingleOrDefaultAsync(t => t.Id.Equals(dReservation.Trip.Id), cancellationToken);
+            trip.Agency = await _dbContext.Agencies.SingleOrDefaultAsync(a => a.Id.Equals(trip.AgencyId), cancellationToken);
+            dReservation.Trip = EntityUtils.TripToDTrip(trip);
+            var regularUser = await _dbContext.RegularUsers
+                .SingleOrDefaultAsync(r => r.Id.Equals(dReservation.RegularUser.Id), cancellationToken);
+            dReservation.RegularUser = EntityUtils.RegularUserToDRegularUser(regularUser);
             return dReservation;
         }
 

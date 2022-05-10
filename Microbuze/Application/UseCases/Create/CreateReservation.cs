@@ -14,9 +14,9 @@ namespace Application.UseCases.Create
             _reservationRepo = repo;
         }
 
-        public async Task<DReservation> Create(DTrip trip, DRegularUser regularUser, int seats, CancellationToken cancellationToken = default)
+        public async Task<DReservation> Create(int tripId, int regularUserId, int seats, CancellationToken cancellationToken = default)
         {
-            var dReservation = regularUser.CreateReservation(trip, seats);
+            var dReservation = new DReservation(new DTrip { Id = tripId }, new DRegularUser { Id = regularUserId }, seats);
             return await _reservationRepo.Add(dReservation, cancellationToken);
         }
     }

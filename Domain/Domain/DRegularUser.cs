@@ -11,6 +11,14 @@ namespace Domain.Domain
         public string PhoneNumber { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public DRegularUser()
+        {
+            Username = "default";
+            Password = "default";
+            PhoneNumber = "0700000000";
+            FirstName = "default";
+            LastName = "default";
+        }
         public DRegularUser(string username, string password, string phoneNumber, string firstName, string lastName)
         {
             Username = username;

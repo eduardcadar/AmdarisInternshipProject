@@ -1,5 +1,4 @@
-﻿using System;
-using Application.DTOs;
+﻿using Application.DTOs;
 using Domain.Domain;
 using Infrastructure.Persistence.Entities;
 
@@ -11,7 +10,7 @@ namespace Infrastructure
         {
             var dAgency = new DAgency(agencyUser.Agency.AgencyName, agencyUser.PhoneNumber)
             {
-                Id = agencyUser.Id,
+                Id = agencyUser.AgencyId,
             };
             var dAgencyUser = new DAgencyUser(agencyUser.Username, agencyUser.Password, agencyUser.PhoneNumber, dAgency)
             {
@@ -39,12 +38,23 @@ namespace Infrastructure
             var agencyUserDto = new AgencyUserDTO
             {
                 Id = agencyUser.Id,
-                Agency = EntityUtils.AgencyToAgencyDTO(agencyUser.Agency),
+                Agency = AgencyToDAgency(agencyUser.Agency),
                 Username = agencyUser.Username,
                 Password = agencyUser.Password,
                 PhoneNumber = agencyUser.PhoneNumber
             };
             return agencyUserDto;
+        }
+
+        public static DTrip TripToDTrip(Trip trip)
+        {
+            var dAgency = AgencyToDAgency(trip.Agency);
+            var dTrip = new DTrip(dAgency, trip.DepartureLocation, trip.Destination,
+                trip.DepartureTime, trip.Duration, trip.Price, trip.Seats)
+            {
+                Id = trip.Id
+            };
+            return dTrip;
         }
 
         public static Agency DAgencytoAgency(DAgency dAgency)
@@ -60,7 +70,10 @@ namespace Infrastructure
 
         public static DAgency AgencyToDAgency(Agency agency)
         {
-            var dAgency = new DAgency(agency.AgencyName, agency.PhoneNumber) { Id = agency.Id };
+            var dAgency = new DAgency(agency.AgencyName, agency.PhoneNumber)
+            {
+                Id = agency.Id
+            };
             return dAgency;
         }
 
@@ -68,7 +81,7 @@ namespace Infrastructure
         {
             var agencyDto = new AgencyDTO
             {
-                Id = agency.Id,
+                Id= agency.Id,
                 AgencyName = agency.AgencyName,
                 PhoneNumber = agency.PhoneNumber
             };
@@ -80,7 +93,7 @@ namespace Infrastructure
             return new TripDTO
             {
                 Id = trip.Id,
-                Agency = EntityUtils.AgencyToAgencyDTO(trip.Agency),
+                Agency = AgencyToAgencyDTO(trip.Agency),
                 DepartureLocation = trip.DepartureLocation,
                 Destination = trip.Destination,
                 DepartureTime = trip.DepartureTime,
@@ -117,15 +130,26 @@ namespace Infrastructure
 
         public static Reservation DReservationToReservation(DReservation dReservation)
         {
-            var reservation = new Reservation { RegularUserId = dReservation.RegularUser.Id, TripId = dReservation.Trip.Id, Seats = dReservation.Seats };
+            var reservation = new Reservation
+            {
+                RegularUserId = dReservation.RegularUser.Id,
+                TripId = dReservation.Trip.Id,
+                Seats = dReservation.Seats
+            };
             return reservation;
         }
 
         public static AgencyUser DAgencyUserToAgencyUser(DAgencyUser dAgencyUser)
         {
             var agency = DAgencytoAgency(dAgencyUser.Agency);
-            var agencyUser = new AgencyUser { Id = dAgencyUser.Id, Agency = agency, AgencyId = agency.Id,
-                Password = dAgencyUser.Password, Username = dAgencyUser.Username, PhoneNumber = dAgencyUser.PhoneNumber };
+            var agencyUser = new AgencyUser {
+                Id = dAgencyUser.Id,
+                Agency = agency,
+                AgencyId = agency.Id,
+                Password = dAgencyUser.Password,
+                Username = dAgencyUser.Username,
+                PhoneNumber = dAgencyUser.PhoneNumber
+            };
             return agencyUser;
         }
 

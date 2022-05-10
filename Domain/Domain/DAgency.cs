@@ -9,6 +9,11 @@ namespace Domain.Domain
         public int Id { get; set; }
         public string AgencyName { get; set; }
         public string PhoneNumber { get; set; }
+        public DAgency()
+        {
+            AgencyName = "default";
+            PhoneNumber = "0000000000";
+        }
         public DAgency(string agencyName, string phoneNumber)
         {
             AgencyName = agencyName;

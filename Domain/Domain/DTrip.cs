@@ -13,7 +13,16 @@ namespace Domain.Domain
         public TimeSpan Duration { get; set; }
         public double Price { get; set; }
         public int Seats { get; set; }
-        internal DTrip(DAgency agency, string departureLocation, string destination, DateTime departureTime, TimeSpan duration, double price, int seats)
+        public DTrip()
+        {
+            DepartureLocation = "default";
+            Destination = "default";
+            DepartureTime = DateTime.Now.AddMinutes(60);
+            Duration = TimeSpan.FromSeconds(1);
+            Price = 1;
+            Seats = 1;
+        }
+        public DTrip(DAgency agency, string departureLocation, string destination, DateTime departureTime, TimeSpan duration, double price, int seats)
         {
             Agency = agency;
             DepartureLocation = departureLocation;

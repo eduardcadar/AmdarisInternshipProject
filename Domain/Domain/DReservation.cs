@@ -7,7 +7,7 @@ namespace Domain.Domain
         public DTrip Trip { get; set; }
         public DRegularUser RegularUser { get; set; }
         public int Seats { get; set; }
-        internal DReservation(DTrip trip, DRegularUser regularUser, int seats)
+        public DReservation(DTrip trip, DRegularUser regularUser, int seats)
         {
             Trip = trip;
             RegularUser = regularUser;

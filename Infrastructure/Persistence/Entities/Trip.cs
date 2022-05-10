@@ -13,7 +13,7 @@ namespace Infrastructure.Persistence.Entities
         public double Price { get; set; }
         public int Seats { get; set; }
         public int AgencyId { get; set; }
-        public Agency Agency { get; set; }
+        public Agency Agency { get; set; } = null!;
         public ICollection<Reservation> Reservations { get; set; }
     }
 }

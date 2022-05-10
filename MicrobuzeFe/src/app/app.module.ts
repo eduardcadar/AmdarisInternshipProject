@@ -11,6 +11,9 @@ import { LoginAgencyComponent } from './pages/login-agency/login-agency.componen
 import { LoginChooseComponent } from './pages/login-choose/login-choose.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { TripService } from './services/trip-service';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -26,9 +29,13 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [
+    TripService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

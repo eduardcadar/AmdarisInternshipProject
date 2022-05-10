@@ -1,6 +1,6 @@
-﻿using Application.DTOs;
+﻿using Api.DTO;
+using Application.DTOs;
 using Application.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
@@ -34,11 +34,11 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateAgency(AgencyDTO agencyDTO, CancellationToken cancellationToken = default)
+        public async Task<ActionResult> CreateAgency([FromBody] AgencyCreateDTO agency, CancellationToken cancellationToken = default)
         {
             try
             {
-                var createdAgency = await _agenciesService.CreateAgency(agencyDTO.AgencyName, agencyDTO.PhoneNumber, cancellationToken);
+                var createdAgency = await _agenciesService.CreateAgency(agency.AgencyName, agency.PhoneNumber, cancellationToken);
                 return CreatedAtAction(nameof(GetById), new { id = createdAgency.Id }, createdAgency);
             }
             catch (Exception ex)

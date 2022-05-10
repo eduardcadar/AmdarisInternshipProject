@@ -2,8 +2,8 @@
 {
     public record ReservationDTO
     {
-        public TripDTO Trip { get; init; }
-        public RegularUserDTO RegularUser { get; init; }
-        public int Seats { get; init; }
+        public TripDTO Trip { get; set; }
+        public RegularUserDTO RegularUser { get; set; }
+        public int Seats { get; set; }
     }
 }

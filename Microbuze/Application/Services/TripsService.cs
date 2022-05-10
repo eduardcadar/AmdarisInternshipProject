@@ -24,9 +24,9 @@ namespace Application.Services
             _findTripById = findTripById;
         }
 
-        public async Task<DTrip> CreateTrip(DAgencyUser dAgencyUser, string departureLocation, string destination,
+        public async Task<DTrip> CreateTrip(int agencyId, string departureLocation, string destination,
             DateTime departureTime, TimeSpan duration, double price, int seats, CancellationToken cancellationToken = default)
-            => await _createTrip.Create(dAgencyUser, departureLocation, destination,
+            => await _createTrip.Create(agencyId, departureLocation, destination,
                 departureTime,duration, price, seats, cancellationToken);
 
         public async Task<TripDTO> FindTripById(int id, CancellationToken cancellationToken = default)

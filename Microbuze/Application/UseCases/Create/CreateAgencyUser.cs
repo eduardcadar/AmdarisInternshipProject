@@ -15,9 +15,9 @@ namespace Application.UseCases.Create
         }
 
         public async Task<DAgencyUser> Create(string username, string password, string phoneNumber,
-            DAgency dAgency, CancellationToken cancellationToken = default)
+            int agencyId, CancellationToken cancellationToken = default)
         {
-            var dAgencyUser = new DAgencyUser(username, password, phoneNumber, dAgency);
+            var dAgencyUser = new DAgencyUser(username, password, phoneNumber, new DAgency { Id = agencyId });
             return await _agencyUserRepo.Add(dAgencyUser, cancellationToken);
         }
     }

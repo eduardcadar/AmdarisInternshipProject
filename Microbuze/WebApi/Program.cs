@@ -9,6 +9,7 @@ using Infrastructure.DataAccess.Readers;
 using Infrastructure.DataAccess.Repos;
 using Microsoft.EntityFrameworkCore;
 
+const string CORS_POLICY = "cors_policy";
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -17,6 +18,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddCors(options => options.AddPolicy(CORS_POLICY, builder =>
+    builder.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:4200")));
 
 builder.Services.AddDbContext<MicrobuzeContext>((options) => options
     .UseSqlServer(connectionString: System.Configuration.ConfigurationManager.AppSettings["connectionString"]));
@@ -55,6 +58,7 @@ builder.Services.AddScoped<ITripsService, TripsService>();
 builder.Services.AddScoped<IReservationsService, ReservationsService>();
 
 var app = builder.Build();
+app.UseCors(CORS_POLICY);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

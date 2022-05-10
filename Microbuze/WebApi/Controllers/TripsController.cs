@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Application.Services.Interfaces;
 using Application.DTOs;
-using Domain.Domain;
+using Api.DTO;
 
 namespace Api.Controllers
 {
@@ -30,38 +29,41 @@ namespace Api.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex.ToString());
             }
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TripDTO>>> GetTripsFiltered(string departureLocation, string destination,
-            CancellationToken cancellationToken = default)
+        public async Task<ActionResult<IEnumerable<TripDTO>>> GetTrips([FromQuery(Name = "departure")] string? departureLocation,
+            [FromQuery(Name = "destination")] string? destination, CancellationToken cancellationToken = default)
         {
             try
             {
+                if (departureLocation == null)
+                    departureLocation = "";
+                if (destination == null)
+                    destination = "";
                 var filteredTrips = await _tripsService.FindTripsFiltered(departureLocation, destination, cancellationToken);
                 return Ok(filteredTrips);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex.ToString());
             }
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateTrip(DAgencyUser dAgencyUser, string departureLocation, string destination, DateTime departureTime,
-            TimeSpan duration, double price, int seats, CancellationToken cancellationToken = default)
+        public async Task<ActionResult> CreateTrip([FromBody] TripCreateDTO trip, CancellationToken cancellationToken = default)
         {
             try
             {
-                var createdTrip = await _tripsService.CreateTrip(dAgencyUser, departureLocation,
-                    destination, departureTime, duration, price, seats, cancellationToken);
+                var createdTrip = await _tripsService.CreateTrip(trip.AgencyId, trip.DepartureLocation, trip.Destination,
+                    DateTime.Parse(trip.DepartureTime), TimeSpan.Parse(trip.Duration), trip.Price, trip.Seats, cancellationToken);
                 return CreatedAtAction(nameof(GetTripById), new { id = createdTrip.Id }, createdTrip);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex.ToString());
             }
         }
     }

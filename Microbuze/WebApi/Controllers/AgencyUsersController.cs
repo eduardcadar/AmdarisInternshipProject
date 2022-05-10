@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Application.Services.Interfaces;
 using Application.DTOs;
 using Domain.Domain;
+using Api.DTO;
 
 namespace Api.Controllers
 {
@@ -30,40 +30,42 @@ namespace Api.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex.ToString());
             }
             
         }
 
-        [HttpGet]
-        public async Task<ActionResult<DAgencyUser>> GetAgencyUserByUsernameAndPassword(string username, string password,
+        [Route("login")]
+        [HttpPost]
+        public async Task<ActionResult<DAgencyUser>> GetAgencyUserByUsernameAndPassword([FromBody] LoginDTO loginDTO,
             CancellationToken cancellationToken = default)
         {
             try
             {
-                var agencyUserDto = await _agencyUsersService.FindAgencyUserByUsernameAndPassword(username, password, cancellationToken);
+                var agencyUserDto = await _agencyUsersService.FindAgencyUserByUsernameAndPassword(
+                    loginDTO.Username, loginDTO.Password, cancellationToken);
                 if (agencyUserDto == null)
                     return NotFound();
                 return Ok(agencyUserDto);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex.ToString());
             }
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateAgencyUser(DAgencyUser dAgencyUser, CancellationToken cancellationToken = default)
+        public async Task<ActionResult> CreateAgencyUser([FromBody] AgencyUserCreateDTO agencyUser, CancellationToken cancellationToken = default)
         {
             try
             {
-                var createdAgencyUser = await _agencyUsersService.CreateAgencyUser(dAgencyUser.Username,
-                    dAgencyUser.Password, dAgencyUser.PhoneNumber, dAgencyUser.Agency, cancellationToken);
+                var createdAgencyUser = await _agencyUsersService.CreateAgencyUser(agencyUser.Username,
+                    agencyUser.Password, agencyUser.PhoneNumber, agencyUser.AgencyId, cancellationToken);
                 return CreatedAtAction(nameof(GetAgencyUserById), new { id = createdAgencyUser.Id }, createdAgencyUser);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex.ToString());
             }
         }
     }

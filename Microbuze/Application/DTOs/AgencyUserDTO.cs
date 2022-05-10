@@ -1,4 +1,6 @@
-﻿namespace Application.DTOs
+﻿using Domain.Domain;
+
+namespace Application.DTOs
 {
     public record AgencyUserDTO
     {
@@ -6,6 +8,6 @@
         public string Username { get; init; }
         public string Password { get; init; }
         public string PhoneNumber { get; init; }
-        public AgencyDTO Agency { get; init; }
+        public DAgency Agency { get; init; }
     }
 }
