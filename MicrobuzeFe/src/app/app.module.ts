@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TripsListComponent } from './pages/trips-list/trips-list.component';
+import { TripsListComponent } from './pages/trips/trips-list/trips-list.component';
 import { RegularUserProfileComponent } from './pages/regular-user-profile/regular-user-profile.component';
 import { NavbarComponent } from './pages/navbar/navbar.component';
 import { LoginRegularComponent } from './pages/login-regular/login-regular.component';
@@ -14,11 +14,17 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { TripService } from './services/trip-service';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTableModule } from '@angular/material/table';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CreateTripFormComponent } from './pages/trips/create-trip-form/create-trip-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TripsListComponent,
+    CreateTripFormComponent,
     RegularUserProfileComponent,
     LoginRegularComponent,
     NavbarComponent,
@@ -31,7 +37,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatTableModule,
+    MatInputModule,
+    MatButtonModule,
+    ReactiveFormsModule
   ],
   providers: [
     TripService

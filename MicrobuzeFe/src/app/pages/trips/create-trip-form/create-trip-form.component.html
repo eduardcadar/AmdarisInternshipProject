@@ -1,0 +1,39 @@
+
+<form class="add-trip" [formGroup]="createTripForm">
+    <mat-form-field class="input-field" appearance="fill">
+        <mat-label>Agentie (id)</mat-label>
+        <input matInput type="number" formControlName="agencyId"/>
+    </mat-form-field>
+
+    <mat-form-field class="input-field" appearance="fill">
+        <mat-label>Din</mat-label>
+        <input matInput formControlName="departureLocation"/>
+    </mat-form-field>
+
+    <mat-form-field class="input-field" appearance="fill">
+        <mat-label>Catre</mat-label>
+        <input matInput formControlName="destination"/>
+    </mat-form-field>
+
+    <mat-form-field class="input-field" appearance="fill">
+        <mat-label>Ora plecare</mat-label>
+        <input type="datetime-local" matInput formControlName="departureTime"/>
+    </mat-form-field>
+
+    <mat-form-field class="input-field" appearance="fill">
+        <mat-label>Ora sosire</mat-label>
+        <input type="datetime-local" matInput formControlName="arriveTime"/>
+    </mat-form-field>
+
+    <mat-form-field class="input-field" appearance="fill">
+        <mat-label>Pret (RON)</mat-label>
+        <input type="number" matInput formControlName="price"/>
+    </mat-form-field>
+
+    <mat-form-field class="input-field" appearance="fill">
+        <mat-label>Locuri</mat-label>
+        <input type="number" matInput formControlName="seats"/>
+    </mat-form-field>
+
+    <button mat-raised-button type="button" [disabled]="!createTripForm.valid" (click)="submitCreateTrip()" color="primary">Create</button>
+</form>

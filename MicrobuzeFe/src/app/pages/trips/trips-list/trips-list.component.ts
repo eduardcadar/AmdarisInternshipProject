@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ITrip } from '../../models/trip';
+import { ITrip } from '../../../models/trip';
 import { TripService } from 'src/app/services/trip-service';
 import { Observable } from 'rxjs';
 
@@ -11,6 +11,16 @@ import { Observable } from 'rxjs';
 export class TripsListComponent implements OnInit {
   pageTitle: string = 'Trips list';
   trips!: Observable<ITrip[]>;
+
+  columnsToDisplay: string[] = [
+    'agency',
+    'departureLocation',
+    'destination',
+    'departureTime',
+    'duration',
+    'price',
+    'seats'
+  ];
 
   constructor(private tripService: TripService) {}
 

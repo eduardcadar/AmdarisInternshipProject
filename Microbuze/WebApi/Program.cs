@@ -19,7 +19,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options => options.AddPolicy(CORS_POLICY, builder =>
-    builder.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:4200")));
+    builder.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin()));
 
 builder.Services.AddDbContext<MicrobuzeContext>((options) => options
     .UseSqlServer(connectionString: System.Configuration.ConfigurationManager.AppSettings["connectionString"]));
