@@ -29,7 +29,7 @@ export class TripsListComponent implements OnInit {
     this.trips = this.tripService.getTrips();
   }
 
-  reloadTrips(searchTrip: ISearchTrip): void {
-    this.trips = this.tripService.getTrips(searchTrip.from, searchTrip.to);
+  reloadTrips(searchTrip?: ISearchTrip): void {
+    this.trips = this.tripService.getTrips(searchTrip?.from, searchTrip?.to);
   }
 }

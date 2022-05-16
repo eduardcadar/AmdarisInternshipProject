@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ITripCreate } from 'src/app/models/create/tripCreate';
-import { ITrip } from 'src/app/models/trip';
+import { ISearchTrip } from 'src/app/models/search-trip';
 import { TripService } from 'src/app/services/trip-service';
 
 @Component({
@@ -19,6 +18,8 @@ export class CreateTripFormComponent implements OnInit {
     price: new FormControl('', [Validators.required]),
     seats: new FormControl('', [Validators.required])
   });
+  
+  @Output() tripCreated: EventEmitter<ISearchTrip> = new EventEmitter();
 
   constructor(private tripService: TripService) { }
 
@@ -39,6 +40,10 @@ export class CreateTripFormComponent implements OnInit {
       price: this.createTripForm.value.price,
       seats: this.createTripForm.value.seats
     };
-    this.tripService.createTrip(createdTrip).subscribe();
+    this.tripService.createTrip(createdTrip).subscribe(() => this.tripCreated.emit(
+        {
+          from: "",
+          to: ""
+        }));
   }
 }

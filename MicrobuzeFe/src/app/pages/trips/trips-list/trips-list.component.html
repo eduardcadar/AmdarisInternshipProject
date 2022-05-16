@@ -34,4 +34,4 @@
     <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
 </table>
 
-<app-create-trip-form></app-create-trip-form>
+<app-create-trip-form (tripCreated)="reloadTrips($event)"></app-create-trip-form>
