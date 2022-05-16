@@ -1,7 +1,3 @@
-div {
-    width: 100%;
-}
-
 table {
     width: 100%;
     padding: 0 10%;
@@ -13,10 +9,6 @@ table {
 
 .mat-row:hover {
     background-color: red;
-}
-
-.mat-row:focus {
-    background-color: green;
 }
 
 .clickable {

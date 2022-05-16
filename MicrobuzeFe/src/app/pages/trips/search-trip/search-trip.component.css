@@ -1,0 +1,14 @@
+.inline {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.inline .mat-form-field {
+    display: inline-block;
+    width: 30%;
+}
+
+.inline .mat-form-field {
+    margin: 5px 5%;
+}

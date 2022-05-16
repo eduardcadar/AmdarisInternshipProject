@@ -40,7 +40,7 @@ export class CreateTripFormComponent implements OnInit {
       price: this.createTripForm.value.price,
       seats: this.createTripForm.value.seats
     };
-    this.tripService.createTrip(createdTrip).subscribe(() => this.tripCreated.emit(
+    this.tripService.saveTrip(createdTrip).subscribe(() => this.tripCreated.emit(
         {
           from: "",
           to: ""

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 import { ITrip } from '../../../models/trip';
 import { TripService } from 'src/app/services/trip-service';
 import { Observable } from 'rxjs';
@@ -12,6 +11,7 @@ import { ISearchTrip } from 'src/app/models/search-trip';
 })
 export class TripsListComponent implements OnInit {
   trips!: Observable<ITrip[]>;
+  selectedTripId: number = 0;
 
   columnsToDisplay: string[] = [
     'agency',
@@ -27,6 +27,11 @@ export class TripsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.trips = this.tripService.getTrips();
+  }
+
+  selectTrip(tripId: number): void {
+    this.selectedTripId = tripId;
+    alert(this.selectedTripId);
   }
 
   reloadTrips(searchTrip?: ISearchTrip): void {

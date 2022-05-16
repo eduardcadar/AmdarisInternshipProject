@@ -20,6 +20,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CreateTripFormComponent } from './pages/trips/create-trip-form/create-trip-form.component';
 import { SearchTripComponent } from './pages/trips/search-trip/search-trip.component';
+import { ReservationsListComponent } from './pages/regular-user-profile/reservations-list/reservations-list.component';
+import { ReservationsService } from './services/reservations-service';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,7 @@ import { SearchTripComponent } from './pages/trips/search-trip/search-trip.compo
     HomepageComponent,
     NotFoundComponent,
     SearchTripComponent,
+    ReservationsListComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,8 @@ import { SearchTripComponent } from './pages/trips/search-trip/search-trip.compo
     ReactiveFormsModule
   ],
   providers: [
-    TripService
+    TripService,
+    ReservationsService
   ],
   bootstrap: [AppComponent]
 })

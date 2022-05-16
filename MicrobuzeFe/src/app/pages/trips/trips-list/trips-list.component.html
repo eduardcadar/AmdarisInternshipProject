@@ -1,37 +1,39 @@
-<app-search-trip (searchChanged)="reloadTrips($event)"></app-search-trip>
+<div>
+    <app-search-trip (searchChanged)="reloadTrips($event)"></app-search-trip>
+    
+    <button mat-raised-button color="primary" routerLink="/trips/create-trip">Add trip</button>
+    
+    <table mat-table [dataSource]="trips">
+        <ng-container matColumnDef="agency">
+            <th mat-header-cell *matHeaderCellDef>Agentie</th>
+            <td mat-cell *matCellDef="let trip">{{trip.agency.agencyName}}</td>
+        </ng-container>
+        <ng-container matColumnDef="departureLocation">
+            <th mat-header-cell *matHeaderCellDef>Din</th>
+            <td mat-cell *matCellDef="let trip">{{trip.departureLocation}}</td>
+        </ng-container>
+        <ng-container matColumnDef="destination">
+            <th mat-header-cell *matHeaderCellDef>Catre</th>
+            <td mat-cell *matCellDef="let trip">{{trip.destination}}</td>
+        </ng-container>
+        <ng-container matColumnDef="departureTime">
+            <th mat-header-cell *matHeaderCellDef>Plecare</th>
+            <td mat-cell *matCellDef="let trip">{{trip.departureTime}}</td>
+        </ng-container>
+        <ng-container matColumnDef="duration">
+            <th mat-header-cell *matHeaderCellDef>Durata</th>
+            <td mat-cell *matCellDef="let trip">{{trip.duration}}</td>
+        </ng-container>
+        <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef>Pret</th>
+            <td mat-cell *matCellDef="let trip">{{trip.price}}</td>
+        </ng-container>
+        <ng-container matColumnDef="seats">
+            <th mat-header-cell *matHeaderCellDef>Locuri</th>
+            <td mat-cell *matCellDef="let trip">{{trip.seats}}</td>
+        </ng-container>
 
-<table mat-table [dataSource]="trips">
-    <ng-container matColumnDef="agency">
-        <th mat-header-cell *matHeaderCellDef>Agentie</th>
-        <td mat-cell *matCellDef="let trip">{{trip.agency.agencyName}}</td>
-    </ng-container>
-    <ng-container matColumnDef="departureLocation">
-        <th mat-header-cell *matHeaderCellDef>Din</th>
-        <td mat-cell *matCellDef="let trip">{{trip.departureLocation}}</td>
-    </ng-container>
-    <ng-container matColumnDef="destination">
-        <th mat-header-cell *matHeaderCellDef>Catre</th>
-        <td mat-cell *matCellDef="let trip">{{trip.destination}}</td>
-    </ng-container>
-    <ng-container matColumnDef="departureTime">
-        <th mat-header-cell *matHeaderCellDef>Plecare</th>
-        <td mat-cell *matCellDef="let trip">{{trip.departureTime}}</td>
-    </ng-container>
-    <ng-container matColumnDef="duration">
-        <th mat-header-cell *matHeaderCellDef>Durata</th>
-        <td mat-cell *matCellDef="let trip">{{trip.duration}}</td>
-    </ng-container>
-    <ng-container matColumnDef="price">
-        <th mat-header-cell *matHeaderCellDef>Pret</th>
-        <td mat-cell *matCellDef="let trip">{{trip.price}}</td>
-    </ng-container>
-    <ng-container matColumnDef="seats">
-        <th mat-header-cell *matHeaderCellDef>Locuri</th>
-        <td mat-cell *matCellDef="let trip">{{trip.seats}}</td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-    <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
-</table>
-
-<app-create-trip-form (tripCreated)="reloadTrips($event)"></app-create-trip-form>
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr class="clickable"  tabindex="1" mat-row (click)="selectTrip(row.id)" *matRowDef="let row; columns: columnsToDisplay;"></tr>
+    </table>
+</div>

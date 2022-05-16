@@ -8,7 +8,7 @@ import { IRegularUser } from '../../models/regular-user';
 })
 export class RegularUserProfileComponent implements OnInit {
   pageTitle: string = 'Regular user profile';
-  user: IRegularUser = {
+  loggedUser: IRegularUser = {
     regularUserId: 1,
     username: 'edicadar', 
     firstname: 'eduard',

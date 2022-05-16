@@ -1,4 +1,4 @@
-<form class="search-trips-form" [formGroup]="searchTripsForm">
+<form class="inline" [formGroup]="searchTripsForm">
     <mat-form-field class="full-width" appearance="fill">
         <mat-label>Din</mat-label>
         <input type="text" matInput formControlName="from"/>
@@ -7,6 +7,5 @@
         <mat-label>Catre</mat-label>
         <input type="text" matInput formControlName="to"/>
     </mat-form-field>
-
     <button mat-raised-button type="button" (click)="submitSearchTrip()" color="primary">Cauta</button>
 </form>
