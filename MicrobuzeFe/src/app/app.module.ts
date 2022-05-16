@@ -19,6 +19,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CreateTripFormComponent } from './pages/trips/create-trip-form/create-trip-form.component';
+import { SearchTripComponent } from './pages/trips/search-trip/search-trip.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { CreateTripFormComponent } from './pages/trips/create-trip-form/create-t
     LoginChooseComponent,
     HomepageComponent,
     NotFoundComponent,
+    SearchTripComponent,
   ],
   imports: [
     BrowserModule,

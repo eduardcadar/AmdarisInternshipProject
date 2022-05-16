@@ -14,8 +14,10 @@ export class TripService {
         phoneNumber: '0728192372'
     }
 
-    getTrips(): Observable<any> {
-        return this.httpClient.get("https://localhost:7188/api/trips");
+    getTrips(from?: string, to?: string): Observable<any> {
+        if (from == null) from = "";
+        if (to == null) to = "";
+        return this.httpClient.get("https://localhost:7188/api/trips?departure=" + from + "&destination="+ to);
     }
 
     createTrip(trip: ITripCreate): Observable<ITripCreate> {

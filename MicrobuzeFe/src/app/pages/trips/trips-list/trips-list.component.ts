@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ITrip } from '../../../models/trip';
 import { TripService } from 'src/app/services/trip-service';
 import { Observable } from 'rxjs';
+import { ISearchTrip } from 'src/app/models/search-trip';
 
 @Component({
   selector: 'app-trips-list',
@@ -9,7 +11,6 @@ import { Observable } from 'rxjs';
   styleUrls: ['./trips-list.component.css']
 })
 export class TripsListComponent implements OnInit {
-  pageTitle: string = 'Trips list';
   trips!: Observable<ITrip[]>;
 
   columnsToDisplay: string[] = [
@@ -26,5 +27,9 @@ export class TripsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.trips = this.tripService.getTrips();
+  }
+
+  reloadTrips(searchTrip: ISearchTrip): void {
+    this.trips = this.tripService.getTrips(searchTrip.from, searchTrip.to);
   }
 }

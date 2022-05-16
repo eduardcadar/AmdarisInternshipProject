@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ITripCreate } from 'src/app/models/create/tripCreate';
+import { ITrip } from 'src/app/models/trip';
 import { TripService } from 'src/app/services/trip-service';
 
 @Component({
@@ -19,8 +20,6 @@ export class CreateTripFormComponent implements OnInit {
     seats: new FormControl('', [Validators.required])
   });
 
-  createdTrip!: ITripCreate;
-
   constructor(private tripService: TripService) { }
 
   ngOnInit(): void {
@@ -31,7 +30,7 @@ export class CreateTripFormComponent implements OnInit {
     let end = Date.parse(this.createTripForm.value.arriveTime);
     let dateDuration = new Date(end - start);
     let duration = dateDuration.getHours() + ':' + dateDuration.getMinutes();
-    this.createdTrip = {
+    let createdTrip = {
       agencyId: this.createTripForm.value.agencyId,
       departureLocation: this.createTripForm.value.departureLocation,
       destination: this.createTripForm.value.destination,
@@ -40,6 +39,6 @@ export class CreateTripFormComponent implements OnInit {
       price: this.createTripForm.value.price,
       seats: this.createTripForm.value.seats
     };
-    this.tripService.createTrip(this.createdTrip);
+    this.tripService.createTrip(createdTrip).subscribe();
   }
 }
