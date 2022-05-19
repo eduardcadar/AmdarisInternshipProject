@@ -11,10 +11,17 @@ import { RegularUserProfileComponent } from '../regular-user-profile.component';
 })
 export class ReservationsListComponent implements OnInit {
   reservations!: Observable<IReservation[]>;
+  selectedTripId: number = 0;
+  selectedRegularUserId: number = 0;
 
   columnsToDisplay: string[] = [
-    'trip',
-    'regularUser'
+    'agency',
+    'departureLocation',
+    'destination',
+    'departureTime',
+    'duration',
+    'price',
+    'reservedSeats'
   ];
 
   constructor(private _parent: RegularUserProfileComponent, private reservationService: ReservationsService) { }
@@ -23,4 +30,8 @@ export class ReservationsListComponent implements OnInit {
     this.reservations = this.reservationService.getReservationsForRegularUser(this._parent.loggedUser.regularUserId);
   }
 
+  selectTrip(tripId: number): void {
+    this.selectedTripId = tripId;
+    this.selectedRegularUserId = this._parent.loggedUser.regularUserId;
+  }
 }

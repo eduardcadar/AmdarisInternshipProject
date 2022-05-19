@@ -1,0 +1,9 @@
+<form class="form-inline justify-content-center" [formGroup]="searchTripsForm" (ngSubmit)="searchTrips()">
+    <div class="form-group">
+        <input type="text" class="form-control" id="searchFrom" formControlName="from" placeholder="Oras plecare">
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" id="searchTo" formControlName="to" placeholder="Oras destinatie">
+    </div>
+    <button type="submit" class="btn btn-default shadow-none">Cauta curse</button>
+</form>

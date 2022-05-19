@@ -1,0 +1,10 @@
+<div mat-dialog-content>
+    <mat-form-field appearance="fill">
+        <mat-label>Numar locuri</mat-label>
+        <input matInput [(ngModel)]="data.seats"/>
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onBackClick()">Inapoi</button>
+    <button mat-button [mat-dialog-close]="data.seats" cdkFocusInitial>Rezerva</button>
+</div>

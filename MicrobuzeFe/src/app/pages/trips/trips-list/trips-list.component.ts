@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ITrip } from '../../../models/trip';
 import { TripService } from 'src/app/services/trip-service';
 import { Observable } from 'rxjs';
 import { ISearchTrip } from 'src/app/models/search-trip';
+import { MatDialog } from '@angular/material/dialog'
 
 @Component({
   selector: 'app-trips-list',
@@ -20,18 +21,26 @@ export class TripsListComponent implements OnInit {
     'departureTime',
     'duration',
     'price',
-    'seats'
+    'seats',
+    'reserveButton',
+    'deleteButton'
   ];
 
-  constructor(private tripService: TripService) {}
+  constructor(private tripService: TripService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.trips = this.tripService.getTrips();
   }
 
-  selectTrip(tripId: number): void {
-    this.selectedTripId = tripId;
-    alert(this.selectedTripId);
+  deleteTrip(): void {
+
+  }
+
+  reserveSeats(tripId: number): void {
+    const chooseSeats = this.dialog.open(TripsListComponent, {
+      width: '250px',
+      data: {}
+    })
   }
 
   reloadTrips(searchTrip?: ISearchTrip): void {

@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { MatIconModule } from '@angular/material/icon';
 import { TripsListComponent } from './trips-list.component';
 
 describe('TripsListComponent', () => {

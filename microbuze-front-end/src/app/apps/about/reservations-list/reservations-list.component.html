@@ -1,0 +1,37 @@
+<div class="row m-t-40 justify-content-center">
+    <!-- Column -->
+    <div class="col-md-12 no-trans border-bottom mb-4" *ngFor="let res of reservations | async">
+      <div class="card" data-aos="flip-left" data-aos-duration="1200">
+        <div class="row text-center">
+          <div class="col-md-3 no-trans">
+            <p class="text-dark font-medium">{{ res.trip.departureLocation }}</p>
+            <p class="text-dark font-medium"><i class="ti-arrow-down"></i></p>
+            <p class="text-dark font-medium">{{ res.trip.destination }}</p>
+          </div>
+          <div class="col-md-3 no-trans">
+            <p class="text-dark font-medium">{{ res.trip.departureTime | date:'medium' }}</p>
+            <p class="text-dark font-medium"><i class="sl-icon-clock"></i></p>
+            <p class="text-dark font-medium">{{ res.trip.duration }}</p>
+          </div>
+          <div class="col-md-3 no-trans">
+            <p class="text-dark font-medium">
+              {{ res.trip.agency.agencyName }}
+            </p>
+            <p class="text-dark font-medium">
+                Nr. locuri rezervate
+            </p>
+            <p class="text-dark font-medium">
+              {{ res.seats }}
+            </p>
+          </div>
+          <div class="col-md-3 no-trans">
+            <a class="linking font-medium text-themecolor m-t-10 cursor-pointer">
+              <span (click)="deleteReservation(res.trip.tripId)">Sterge rezervare</span>
+              <i class="ti-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>

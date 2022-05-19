@@ -17,12 +17,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateTripFormComponent } from './pages/trips/create-trip-form/create-trip-form.component';
 import { SearchTripComponent } from './pages/trips/search-trip/search-trip.component';
 import { ReservationsListComponent } from './pages/regular-user-profile/reservations-list/reservations-list.component';
 import { ReservationsService } from './services/reservations-service';
-
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { DialogChooseSeatsNumberComponent } from './pages/trips/trips-list/dialog-choose-seats-number/dialog-choose-seats-number.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +39,7 @@ import { ReservationsService } from './services/reservations-service';
     NotFoundComponent,
     SearchTripComponent,
     ReservationsListComponent,
+    DialogChooseSeatsNumberComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,10 @@ import { ReservationsService } from './services/reservations-service';
     MatTableModule,
     MatInputModule,
     MatButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatIconModule,
+    MatDialogModule,
+    FormsModule
   ],
   providers: [
     TripService,
