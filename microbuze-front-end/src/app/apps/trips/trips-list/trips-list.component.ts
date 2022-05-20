@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Blog } from './blog-type';
-import { ServiceblogService } from './blog-service.service';
+import { Blog } from '../../blog/blog-type';
+import { ServiceblogService } from '../../blog/blog-service.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { TripService } from '../services/trip-service';
-import { ITrip } from '../models/trip';
-import { ISearchTrip } from '../models/search-trip';
+import { TripService } from '../../services/trip-service';
+import { ITrip } from '../../models/trip';
+import { ISearchTrip } from '../../models/search-trip';
 import { Observable, pipe } from 'rxjs';
 import { DatePipe } from '@angular/common';
 
@@ -49,6 +49,6 @@ export class TripsListComponent implements OnInit {
   viewDetail(id: number) {
     // this.service.detailId = id;
     // if (this.service.loginStatusService) this.service.showEdit = true;
-    this.router.navigate(['/blogDetail', id]);
+    // this.router.navigate(['/blogDetail', id]);
   }
 }
