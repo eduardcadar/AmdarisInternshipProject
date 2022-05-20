@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppsComponent } from './apps.component';
-import { BlogComponent } from './blog/blog.component';
+import { TripsListComponent } from './blog/trips-list.component';
 import { AboutComponent } from './about/about.component';
 import { BlogDetailComponent } from './blog/blog-detail/blog-detail.component';
 
@@ -28,7 +28,7 @@ import { ReservationsListComponent } from './about/reservations-list/reservation
 @NgModule({
   declarations: [
     AppsComponent,
-    BlogComponent,
+    TripsListComponent,
     AboutComponent,
     BlogDetailComponent,
     RelayOnComponent,

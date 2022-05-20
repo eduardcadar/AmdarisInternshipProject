@@ -1,7 +1,7 @@
 import { Component, NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { BlogComponent } from './blog/blog.component';
+import { TripsListComponent } from './blog/trips-list.component';
 import { AboutComponent } from './about/about.component';
 import { BlogDetailComponent } from './blog/blog-detail/blog-detail.component';
 
@@ -14,7 +14,7 @@ const routes: Routes = [
     path: '',
     component: FullComponent,
     children: [
-      { path: '', component: BlogComponent },
+      { path: '', component: TripsListComponent },
       { path: 'blogDetail/:id', component: BlogDetailComponent },
       { path: 'about', component: AboutComponent },
     ]

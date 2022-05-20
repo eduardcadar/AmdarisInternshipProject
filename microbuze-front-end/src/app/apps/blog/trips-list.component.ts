@@ -11,10 +11,10 @@ import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-blog',
-  templateUrl: './blog.component.html',
-  styleUrls: ['./blog.component.css'],
+  templateUrl: './trips-list.component.html',
+  styleUrls: ['./trips-list.component.css'],
 })
-export class BlogComponent implements OnInit {
+export class TripsListComponent implements OnInit {
   // blogsDetail: Blog[] = [];
   trips!: Observable<ITrip[]>;
   searched: boolean = false;
