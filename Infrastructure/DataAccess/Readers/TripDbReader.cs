@@ -31,12 +31,15 @@ namespace Infrastructure.DataAccess.Readers
         public async Task<IEnumerable<TripDTO>> GetFiltered(string departureLocation = "", string destination = "", CancellationToken cancellationToken = default)
         {
             var filteredTripEntities = await _dbContext.Trips
-                .Where(t => t.DepartureLocation.Contains(departureLocation) && t.Destination.Contains(destination))
+                .Where(t => t.DepartureLocation.Contains(departureLocation) && t.Destination.Contains(destination) && t.DepartureTime > System.DateTime.Now)
+                .OrderBy(t => t.DepartureTime)
                 .ToListAsync(cancellationToken);
 
             foreach (var trip in filteredTripEntities)
+            {
                 trip.Agency = await _dbContext.Agencies.SingleOrDefaultAsync(a => a.Id.Equals(trip.AgencyId), cancellationToken);
-
+                trip.Seats -= _dbContext.Reservations.Where(r => r.TripId == trip.Id).Sum(r => r.Seats);
+            }
             var tripDtos = filteredTripEntities
                 .Select(t => EntityUtils.TripToTripDTO(t));
             return tripDtos;

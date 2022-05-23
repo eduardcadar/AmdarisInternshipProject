@@ -11,6 +11,6 @@ namespace Application.DTOs
         public DateTime DepartureTime { get; init; }
         public TimeSpan Duration { get; init; }
         public double Price { get; init; }
-        public int Seats { get; init; }
+        public int SeatsLeft { get; init; }
     }
 }

@@ -24,6 +24,7 @@ import { TripService } from './services/trip-service';
 import { SearchTripComponent } from './trips/search-trip/search-trip.component';
 import { ReservationsService } from './services/reservations-service';
 import { ReservationsListComponent } from './about/reservations-list/reservations-list.component';
+import { ReserveButtonComponent } from './trips/reserve-button/reserve-button.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { ReservationsListComponent } from './about/reservations-list/reservation
     FooterComponent,
     SearchTripComponent,
     ReservationsListComponent,
+    ReserveButtonComponent,
   ],
   imports: [
     CommonModule,

@@ -1,7 +1,7 @@
 import { IAgency } from "./agency";
 
 export interface ITrip {
-    tripId: number;
+    id: number;
     agency: IAgency,
     departureLocation: string;
     destination: string;
@@ -9,5 +9,5 @@ export interface ITrip {
     arrivalTime: Date;
     duration: Date;
     price: number;
-    seats: number;
+    seatsLeft: number;
 }

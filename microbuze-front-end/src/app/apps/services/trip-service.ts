@@ -1,8 +1,9 @@
 import { HttpClient } from "@angular/common/http"
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { IReservationCreate } from "../models/create/reservationCreate";
 import { ITripCreate } from "../models/create/tripCreate";
-import { ITrip } from "../models/trip";
+import { ITrip } from "../models/entities/trip";
 
 @Injectable()
 export class TripService {

@@ -19,7 +19,7 @@ namespace Domain.Domain
             Trip.Validate();
             RegularUser.Validate();
             if (Seats < 1)
-                throw new ArgumentException("Enter number of seats");
+                throw new ArgumentException("Introduceti numarul de locuri");
         }
         public override string ToString()
         {

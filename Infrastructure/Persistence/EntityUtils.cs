@@ -99,7 +99,7 @@ namespace Infrastructure
                 DepartureTime = trip.DepartureTime,
                 Duration = trip.Duration,
                 Price = trip.Price,
-                Seats = trip.Seats
+                SeatsLeft = trip.Seats
             };
         }
 

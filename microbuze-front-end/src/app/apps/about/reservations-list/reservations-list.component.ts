@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IReservation } from '../../models/reservation';
+import { FullComponent } from '../../layout/full/full.component';
+import { IReservation } from '../../models/entities/reservation';
 import { ReservationsService } from '../../services/reservations-service';
 import { AboutComponent } from '../about.component';
 
@@ -12,7 +13,7 @@ import { AboutComponent } from '../about.component';
 export class ReservationsListComponent implements OnInit {
   reservations!: Observable<IReservation[]>;
 
-  constructor(private _parent: AboutComponent, private reservationService: ReservationsService) { }
+  constructor(private _parent: FullComponent, private reservationService: ReservationsService) { }
 
   ngOnInit(): void {
     this.reservations = this.reloadReservations();

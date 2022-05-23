@@ -5,11 +5,8 @@
       <!-- Column -->
       <div class="col-lg-12 col-md-12 align-self-center text-center no-trans">
         <h1 class="title">Gaseste-ti cursa potrivita</h1>
-
         <app-search-trip (searchChanged)="reloadTrips($event)"></app-search-trip>
-
       </div>
-      <!-- Column -->
     </div>
   </div>
 </div>
@@ -46,19 +43,15 @@
             <h5 class="font-medium">
               {{ trip.agency.agencyName }}
             </h5>
-            <p class="m-t-20">
-              {{ trip.destination }}
-            </p>
+            <h5 class="m-t-20">
+              Locuri ramase: {{ trip.seatsLeft }}
+            </h5>
           </div>
           <div class="col-md-3 no-trans">
-            <a class="linking font-medium text-themecolor m-t-10 cursor-pointer">
-              <span (click)="viewDetail(trip.tripId)">Rezerva locuri</span>
-              <i class="ti-arrow-right"></i>
-            </a>
+            <app-reserve-button (reserveClick)="reserveSeats($event, trip.id)"></app-reserve-button>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </div>

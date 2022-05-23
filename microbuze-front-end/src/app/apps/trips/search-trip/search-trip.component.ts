@@ -26,5 +26,4 @@ export class SearchTripComponent implements OnInit {
     }
     this.searchChanged.emit(searchTrip);
   }
-
 }
