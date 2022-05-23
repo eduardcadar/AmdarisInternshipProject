@@ -84,5 +84,13 @@ namespace Api.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [Route("{tripid}-{userid}")]
+        [HttpDelete]
+        public async Task<ActionResult> DeleteReservation(int tripid, int userid, CancellationToken cancellationToken = default)
+        {
+            await _reservationsService.DeleteReservation(tripid, userid, cancellationToken);
+            return Ok();
+        }
     }
 }

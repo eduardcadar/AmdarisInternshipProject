@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import { FullComponent } from '../../layout/full/full.component';
 import { IReservation } from '../../models/entities/reservation';
 import { ReservationsService } from '../../services/reservations-service';
-import { AboutComponent } from '../about.component';
 
 @Component({
   selector: 'app-reservations-list',
@@ -13,17 +12,23 @@ import { AboutComponent } from '../about.component';
 export class ReservationsListComponent implements OnInit {
   reservations!: Observable<IReservation[]>;
 
-  constructor(private _parent: FullComponent, private reservationService: ReservationsService) { }
+  constructor(
+    private _parent: FullComponent,
+    private reservationService: ReservationsService
+  ) { }
 
   ngOnInit(): void {
-    this.reservations = this.reloadReservations();
+    this.reloadReservations();
   }
 
-  reloadReservations(): Observable<any> {
-    return this.reservationService.getReservationsForRegularUser(this._parent.loggedUser.regularUserId);
+  reloadReservations(): void {
+    this.reservations = this.reservationService
+      .getReservationsForRegularUser(this._parent.loggedUser.regularUserId);
   }
 
   deleteReservation(tripId: number) {
-    
+    this.reservationService
+      .deleteReservation(tripId, this._parent.loggedUser.regularUserId)
+      .subscribe(() => this.reloadReservations());
   }
 }

@@ -14,5 +14,6 @@ namespace Application.Services.Interfaces
         Task<IEnumerable<ReservationDTO>> FindReservationsByTripId(int id,
             CancellationToken cancellationToken = default);
         Task<ReservationDTO> FindReservationById(int userId, int tripId, CancellationToken cancellationToken = default);
+        Task DeleteReservation(int tripId, int regularUserId, CancellationToken cancellationToken = default);
     }
 }

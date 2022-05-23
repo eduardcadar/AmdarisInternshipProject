@@ -15,4 +15,8 @@ export class ReservationsService {
     saveReservation(reservation: IReservationCreate): Observable<any> {
         return this.httpClient.post<IReservationCreate>(this.url, reservation);
     }
+
+    deleteReservation(tripId: number, regularUserId: number): Observable<any> {
+        return this.httpClient.delete<any>(this.url + '/' + tripId + '-' + regularUserId);
+    }
 }

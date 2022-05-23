@@ -1,5 +1,6 @@
 ﻿using Domain.Domain;
 using Domain.Repository;
+using Infrastructure.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading;
@@ -17,10 +18,15 @@ namespace Infrastructure.DataAccess.Repos
             _dbContext.Database.EnsureCreated();
         }
 
-        public async Task Delete(DReservation dReservation, CancellationToken cancellationToken = default)
+        public async Task Delete(int tripId, int regularUserId, CancellationToken cancellationToken = default)
         {
-            var reservation = EntityUtils.DReservationToReservation(dReservation);
-            _dbContext.Remove(reservation);
+            var reservation = new Reservation()
+            {
+                TripId = tripId,
+                RegularUserId = regularUserId
+            };
+            _dbContext.Reservations.Attach(reservation);
+            _dbContext.Reservations.Remove(reservation);
             await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
