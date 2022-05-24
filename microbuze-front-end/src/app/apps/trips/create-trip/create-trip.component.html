@@ -1,0 +1,25 @@
+<div class="static-slider-head" style="background-image: url(assets/images/landingpage/coach-bus.jpg)">
+    <div class="container">
+      <div class="row justify-content-center">
+        <form class="justify-content-center" [formGroup]="createTripForm" (ngSubmit)="submitCreateTrip()">
+            <div class="form-group">
+                <input type="text" class="form-control" formControlName="departureLocation" placeholder="Oras plecare">
+                <input type="text" class="form-control" formControlName="destination" placeholder="Oras destinatie">
+                
+                <input type="text" onfocus="(this.type='datetime-local')" onblur="if(this.value==''){this.type='text'}"
+                    class="form-control" formControlName="departureTime" placeholder="Ora plecare">
+                <input type="text" onfocus="(this.type='datetime-local')" onblur="if(this.value==''){this.type='text'}"
+                    class="form-control" formControlName="arriveTime" placeholder="Ora sosire">
+
+                <input type="number" class="form-control" formControlName="price" placeholder="Pret (RON)">
+                <input type="number" class="form-control" formControlName="seats" placeholder="Locuri">
+                
+                <button type="submit" [disabled]="!createTripForm.valid" class="btn btn-block btn-lg btn-default shadow-none">
+                    <span class="p-2 mb-2 bg-dark rounded">Adauga cursa</span>
+                </button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  

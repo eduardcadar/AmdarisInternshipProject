@@ -5,7 +5,16 @@
       <!-- Column -->
       <div class="col-lg-12 col-md-12 align-self-center text-center no-trans">
         <h1 class="title">Gaseste-ti cursa potrivita</h1>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div>
         <app-search-trip (searchChanged)="reloadTrips($event)"></app-search-trip>
+      </div>
+      <div>
+        <button class="btn btn-lg btn-default shadow-none" routerLink="/createTrip">
+          <span class="p-2 mb-2 bg-dark rounded">Creeaza cursa</span>
+        </button>
       </div>
     </div>
   </div>
@@ -17,10 +26,6 @@
     <!-- Column -->
     <div class="col-md-12 no-trans text-center">
       <h2 class="title" *ngIf="searched">Curse</h2>
-      <!-- <h6 class="subtitle">
-        You can relay on our amazing features list and also our customer
-        services will be great experience for you without doubt and in no-time
-      </h6> -->
     </div>
     <!-- Column -->
   </div>
@@ -47,7 +52,7 @@
               Locuri ramase: {{ trip.seatsLeft }}
             </h5>
           </div>
-          <div class="col-md-3 no-trans">
+          <div class="col-md-2 no-trans">
             <app-reserve-button (reserveClick)="reserveSeats($event, trip.id)"></app-reserve-button>
           </div>
         </div>

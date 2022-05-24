@@ -1,16 +1,16 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ISearchTrip } from 'src/app/models/search-trip';
-import { TripService } from 'src/app/services/trip-service';
+import { FullComponent } from '../../layout/full/full.component';
+import { ITripCreate } from '../../models/create/tripCreate';
+import { TripService } from '../../services/trip-service';
 
 @Component({
-  selector: 'app-create-trip-form',
-  templateUrl: './create-trip-form.component.html',
-  styleUrls: ['./create-trip-form.component.css']
+  selector: 'app-create-trip',
+  templateUrl: './create-trip.component.html',
+  styleUrls: ['./create-trip.component.css']
 })
-export class CreateTripFormComponent implements OnInit {
+export class CreateTripComponent implements OnInit {
   createTripForm: FormGroup = new FormGroup({
-    agencyId: new FormControl('', [Validators.required]),
     departureLocation: new FormControl('', [Validators.required]),
     destination: new FormControl('', [Validators.required]),
     departureTime: new FormControl('', [Validators.required]),
@@ -19,9 +19,10 @@ export class CreateTripFormComponent implements OnInit {
     seats: new FormControl('', [Validators.required])
   });
   
-  @Output() tripCreated: EventEmitter<ISearchTrip> = new EventEmitter();
-
-  constructor(private tripService: TripService) { }
+  constructor(
+    private _parent: FullComponent,
+    private tripService: TripService
+  ) { }
 
   ngOnInit(): void { }
 
@@ -29,9 +30,9 @@ export class CreateTripFormComponent implements OnInit {
     let start = Date.parse(this.createTripForm.value.departureTime);
     let end = Date.parse(this.createTripForm.value.arriveTime);
     let dateDuration = new Date(end - start);
-    let duration = dateDuration.getHours() + ':' + dateDuration.getMinutes();
-    let createdTrip = {
-      agencyId: this.createTripForm.value.agencyId,
+    let duration = (dateDuration.getHours() - 2) + ':' + dateDuration.getMinutes();
+    let createdTrip: ITripCreate = {
+      agencyId: this._parent.agencyId,
       departureLocation: this.createTripForm.value.departureLocation,
       destination: this.createTripForm.value.destination,
       departureTime: this.createTripForm.value.departureTime.toString(),
@@ -39,10 +40,9 @@ export class CreateTripFormComponent implements OnInit {
       price: this.createTripForm.value.price,
       seats: this.createTripForm.value.seats
     };
-    this.tripService.saveTrip(createdTrip).subscribe(() => this.tripCreated.emit(
-        {
-          from: "",
-          to: ""
-        }));
+    this.tripService.saveTrip(createdTrip).subscribe(
+      () => alert('Cursa creata'),
+      error => alert(error.error)
+    );
   }
 }

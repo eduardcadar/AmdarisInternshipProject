@@ -6,13 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./banner-navigation.component.css']
 })
 export class BannerNavigationComponent implements OnInit {
-
   logoutStatus = false;
 
-  constructor() { 
+  constructor() { }
 
-  }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 }

@@ -13,6 +13,7 @@ export class FullComponent implements OnInit {
     firstname: 'firstname',
     lastname: 'lastname'
   };
+  agencyId: number = 1;
 
   constructor() { }
 

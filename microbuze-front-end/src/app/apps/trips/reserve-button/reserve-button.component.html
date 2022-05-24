@@ -6,8 +6,8 @@
 <div class="Parameters" *ngIf="showSeatsInput">
 <form class="form-inline justify-content-center" [formGroup]="reserveSeatsForm" (ngSubmit)="reserveSeats()">
     <div class="form-group">
-    <input type="number" class="form-control" id="seatsNumber" formControlName="seats" placeholder="numar locuri"/>
+        <input type="number" class="form-control" id="seatsNumber" formControlName="seats" placeholder="numar locuri"/>
+        <button type="submit" class="btn btn-primary">Rezerva</button>
     </div>
-    <button type="submit" class="btn btn-primary">Rezerva</button>
 </form>
 </div>

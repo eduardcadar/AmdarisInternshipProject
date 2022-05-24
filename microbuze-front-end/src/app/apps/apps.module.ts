@@ -25,6 +25,7 @@ import { SearchTripComponent } from './trips/search-trip/search-trip.component';
 import { ReservationsService } from './services/reservations-service';
 import { ReservationsListComponent } from './about/reservations-list/reservations-list.component';
 import { ReserveButtonComponent } from './trips/reserve-button/reserve-button.component';
+import { CreateTripComponent } from './trips/create-trip/create-trip.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { ReserveButtonComponent } from './trips/reserve-button/reserve-button.co
     SearchTripComponent,
     ReservationsListComponent,
     ReserveButtonComponent,
+    CreateTripComponent,
   ],
   imports: [
     CommonModule,
