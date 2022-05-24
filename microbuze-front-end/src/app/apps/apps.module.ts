@@ -23,9 +23,10 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { TripService } from './services/trip-service';
 import { SearchTripComponent } from './trips/search-trip/search-trip.component';
 import { ReservationsService } from './services/reservations-service';
-import { ReservationsListComponent } from './about/reservations-list/reservations-list.component';
+import { ReservationsListComponent } from './about/reservations/reservations-list/reservations-list.component';
 import { ReserveButtonComponent } from './trips/reserve-button/reserve-button.component';
 import { CreateTripComponent } from './trips/create-trip/create-trip.component';
+import { UpdateReservationComponent } from './about/reservations/update-reservation/update-reservation.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { CreateTripComponent } from './trips/create-trip/create-trip.component';
     ReservationsListComponent,
     ReserveButtonComponent,
     CreateTripComponent,
+    UpdateReservationComponent,
   ],
   imports: [
     CommonModule,

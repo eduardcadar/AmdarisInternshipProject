@@ -7,6 +7,7 @@ using Domain.Domain;
 using Application.UseCases.Create;
 using Application.UseCases.Find;
 using Application.UseCases.Delete;
+using Application.UseCases.Update;
 
 namespace Application.Services
 {
@@ -17,19 +18,22 @@ namespace Application.Services
         private readonly FindReservationsByTripId _findReservationsByTripId;
         private readonly FindReservationById _findReservationsById;
         private readonly DeleteReservation _deleteReservation;
+        private readonly UpdateReservation _updateReservation;
 
         public ReservationsService(
             CreateReservation createReservation,
             FindReservationsByRegularUserId findReservationsByRegularUserId,
             FindReservationsByTripId findReservationsByTripId,
             FindReservationById findReservationsById,
-            DeleteReservation deleteReservation)
+            DeleteReservation deleteReservation,
+            UpdateReservation updateReservation)
         {
             _createReservation = createReservation;
             _findReservationsByRegularUserId = findReservationsByRegularUserId;
             _findReservationsByTripId = findReservationsByTripId;
             _findReservationsById = findReservationsById;
             _deleteReservation = deleteReservation;
+            _updateReservation = updateReservation;
         }
 
         public async Task<DReservation> CreateReservation(int tripId, int regularUserId, int seats, CancellationToken cancellationToken = default)
@@ -46,5 +50,9 @@ namespace Application.Services
 
         public async Task DeleteReservation(int tripId, int regularUserId, CancellationToken cancellationToken = default)
             => await _deleteReservation.Delete(tripId, regularUserId, cancellationToken);
+
+        public Task UpdateReservation(int tripId, int regularUserId, int seats,
+            CancellationToken cancellationToken = default)
+            => _updateReservation.Update(tripId, regularUserId, seats, cancellationToken);
     }
 }

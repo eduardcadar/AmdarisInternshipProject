@@ -4,6 +4,7 @@ using Application.Services.Interfaces;
 using Application.UseCases.Create;
 using Application.UseCases.Delete;
 using Application.UseCases.Find;
+using Application.UseCases.Update;
 using Domain.Repository;
 using Infrastructure;
 using Infrastructure.DataAccess.Readers;
@@ -52,6 +53,7 @@ builder.Services.AddScoped<FindReservationById>();
 builder.Services.AddScoped<FindReservationsByRegularUserId>();
 builder.Services.AddScoped<FindReservationsByTripId>();
 builder.Services.AddScoped<DeleteReservation>();
+builder.Services.AddScoped<UpdateReservation>();
 
 builder.Services.AddScoped<IAgenciesService, AgenciesService>();
 builder.Services.AddScoped<IAgencyUsersService, AgencyUsersService>();

@@ -17,8 +17,7 @@ export class ReserveButtonComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   toggleSeatsInput() {
     this.showSeatsInput = !this.showSeatsInput;

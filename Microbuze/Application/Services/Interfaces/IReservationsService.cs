@@ -15,5 +15,6 @@ namespace Application.Services.Interfaces
             CancellationToken cancellationToken = default);
         Task<ReservationDTO> FindReservationById(int userId, int tripId, CancellationToken cancellationToken = default);
         Task DeleteReservation(int tripId, int regularUserId, CancellationToken cancellationToken = default);
+        Task UpdateReservation(int tripId, int regularUserId, int seats, CancellationToken cancellationToken = default);
     }
 }

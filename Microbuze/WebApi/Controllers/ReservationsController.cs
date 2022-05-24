@@ -92,5 +92,20 @@ namespace Api.Controllers
             await _reservationsService.DeleteReservation(tripid, userid, cancellationToken);
             return Ok();
         }
+
+        [Route("{tripid}-{userid}")]
+        [HttpPut]
+        public async Task<ActionResult> UpdateReservation(int tripid, int userid, [FromBody] int seats, CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                await _reservationsService.UpdateReservation(tripid, userid, seats, cancellationToken);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
