@@ -10,7 +10,8 @@ import { ISearchTrip } from '../../models/search-trip';
 export class SearchTripComponent implements OnInit {
   searchTripsForm: FormGroup = new FormGroup({
     from: new FormControl(''),
-    to: new FormControl('')
+    to: new FormControl(''),
+    date: new FormControl('')
   });
   @Output() searchChanged: EventEmitter<ISearchTrip> = new EventEmitter();
 
@@ -22,7 +23,8 @@ export class SearchTripComponent implements OnInit {
   searchTrips(): void {
     let searchTrip: ISearchTrip = {
       from: this.searchTripsForm.value.from,
-      to: this.searchTripsForm.value.to
+      to: this.searchTripsForm.value.to,
+      date: this.searchTripsForm.value.date
     }
     this.searchChanged.emit(searchTrip);
   }

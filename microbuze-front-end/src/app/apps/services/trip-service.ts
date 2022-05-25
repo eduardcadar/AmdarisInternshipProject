@@ -1,7 +1,6 @@
 import { HttpClient } from "@angular/common/http"
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { IReservationCreate } from "../models/create/reservationCreate";
 import { ITripCreate } from "../models/create/tripCreate";
 import { ITrip } from "../models/entities/trip";
 
@@ -12,10 +11,23 @@ export class TripService {
 
     constructor(private httpClient: HttpClient) {}
 
-    getTrips(from?: string, to?: string): Observable<any> {
-        if (from == null) from = "";
-        if (to == null) to = "";
-        return this.httpClient.get(this.url + "?departure=" + from + "&destination="+ to);
+    getTrips(from?: string, to?: string, date?: string): Observable<any> {
+        let query: boolean = false, u: string = this.url;
+        if (from && from.trim()) {
+            query = true;
+            u += '?departure=' + from.trim();
+        }
+        if (to && to.trim()) {
+            if (!query) u += '?';
+            else u += '&';
+            u += 'destination=' + to.trim();
+        }
+        if (date && date.trim()) {
+            if (!query) u += '?';
+            else u += '&';
+            u += 'date=' + date.trim();
+        }
+        return this.httpClient.get(u);
     }
 
     saveTrip(trip: ITripCreate): Observable<any> {

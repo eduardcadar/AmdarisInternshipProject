@@ -1,9 +1,13 @@
-<form class="form-inline justify-content-center" [formGroup]="searchTripsForm" (ngSubmit)="searchTrips()">
-    <div class="form-group">
-        <input type="text" class="form-control" id="searchFrom" formControlName="from" placeholder="Oras plecare">
-        <input type="text" class="form-control" id="searchTo" formControlName="to" placeholder="Oras destinatie">
-        <button type="submit" class="btn btn-lg btn-default shadow-none">
-            <span class="p-2 mb-2 bg-dark rounded">Cauta curse</span>
-        </button>
+<div class="row">
+    <form class="form-inline justify-content-center" [formGroup]="searchTripsForm" (ngSubmit)="searchTrips()">
+        <div class="form-group col-lg-12 col-md-12 no-trans">
+            <input type="text" class="form-control" formControlName="from" placeholder="Oras plecare">
+            <input type="text" class="form-control" formControlName="to" placeholder="Oras destinatie">
+            <input type="text" onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}"
+                class="form-control" formControlName="date" placeholder="Zi plecare">
+            <button type="submit" class="btn btn-lg btn-default shadow-none">
+                <span class="p-2 mb-2 bg-dark rounded">Cauta curse</span>
+            </button>
+        </div>
+    </form>
 </div>
-</form>

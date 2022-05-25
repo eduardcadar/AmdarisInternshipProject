@@ -8,9 +8,7 @@
       </div>
     </div>
     <div class="row justify-content-center">
-      <div>
-        <app-search-trip (searchChanged)="reloadTrips($event)"></app-search-trip>
-      </div>
+      <app-search-trip (searchChanged)="reloadTrips($event)"></app-search-trip>
       <div>
         <button class="btn btn-lg btn-default shadow-none" routerLink="/createTrip">
           <span class="p-2 mb-2 bg-dark rounded">Creeaza cursa</span>

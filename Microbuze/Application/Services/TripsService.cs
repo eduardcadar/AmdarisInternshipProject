@@ -33,7 +33,7 @@ namespace Application.Services
             => await _findTripById.Find(id, cancellationToken);
 
         public async Task<IEnumerable<TripDTO>> FindTripsFiltered(string departureLocation, string destination,
-            CancellationToken cancellationToken = default)
-            => await _findTripsFiltered.Find(departureLocation, destination, cancellationToken);
+            DateTime? date = null, CancellationToken cancellationToken = default)
+            => await _findTripsFiltered.Find(departureLocation, destination, date, cancellationToken);
     }
 }

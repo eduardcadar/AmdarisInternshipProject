@@ -35,15 +35,18 @@ namespace Api.Controllers
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TripDTO>>> GetTrips([FromQuery(Name = "departure")] string? departureLocation,
-            [FromQuery(Name = "destination")] string? destination, CancellationToken cancellationToken = default)
+            [FromQuery(Name = "destination")] string? destination, [FromQuery(Name = "date")] string? dateString, CancellationToken cancellationToken = default)
         {
             try
             {
+                DateTime? date = null;
                 if (departureLocation == null)
                     departureLocation = "";
                 if (destination == null)
                     destination = "";
-                var filteredTrips = await _tripsService.FindTripsFiltered(departureLocation, destination, cancellationToken);
+                if (dateString != null)
+                    date = DateTime.Parse(dateString);
+                var filteredTrips = await _tripsService.FindTripsFiltered(departureLocation, destination, date, cancellationToken);
                 return Ok(filteredTrips);
             }
             catch (Exception ex)

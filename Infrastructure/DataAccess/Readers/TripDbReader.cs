@@ -5,6 +5,7 @@ using Application.DTOs;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Infrastructure.DataAccess.Readers
 {
@@ -28,10 +29,14 @@ namespace Infrastructure.DataAccess.Readers
             return dTrip;
         }
 
-        public async Task<IEnumerable<TripDTO>> GetFiltered(string departureLocation = "", string destination = "", CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<TripDTO>> GetFiltered(string departureLocation = "", string destination = "", DateTime? date = null, CancellationToken cancellationToken = default)
         {
-            var filteredTripEntities = await _dbContext.Trips
-                .Where(t => t.DepartureLocation.Contains(departureLocation) && t.Destination.Contains(destination) && t.DepartureTime > System.DateTime.Now)
+            var query = _dbContext.Trips
+                .Where(t => t.DepartureLocation.Contains(departureLocation) && t.Destination.Contains(destination) && t.DepartureTime > DateTime.Now);
+            if (date != null)
+                query = query.Where(t => t.DepartureTime.Date == date.Value.Date);
+
+            var filteredTripEntities = await query
                 .OrderBy(t => t.DepartureTime)
                 .ToListAsync(cancellationToken);
 
