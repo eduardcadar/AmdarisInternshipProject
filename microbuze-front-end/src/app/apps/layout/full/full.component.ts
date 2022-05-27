@@ -9,7 +9,7 @@ import { IRegularUser } from '../../models/entities/regular-user';
 export class FullComponent implements OnInit {
   loggedUser: IRegularUser = {
     regularUserId: 1,
-    username: 'my username',
+    username: 'edi',
     firstname: 'firstname',
     lastname: 'lastname'
   };

@@ -20,6 +20,7 @@ export class TripService {
         if (to && to.trim()) {
             if (!query) u += '?';
             else u += '&';
+            query = true;
             u += 'destination=' + to.trim();
         }
         if (date && date.trim()) {
