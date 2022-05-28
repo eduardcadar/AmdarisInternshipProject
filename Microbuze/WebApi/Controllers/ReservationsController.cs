@@ -4,6 +4,8 @@ using Application.Services.Interfaces;
 using Application.DTOs;
 using Domain.Domain;
 using Api.DTO;
+using Microsoft.AspNetCore.Authorization;
+using Authentication;
 
 namespace Api.Controllers
 {
@@ -68,6 +70,7 @@ namespace Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = Constants.Roles.REGULARUSER)]
         public async Task<ActionResult> CreateReservation([FromBody] ReservationCreateDTO reservation,
             CancellationToken cancellationToken = default)
         {

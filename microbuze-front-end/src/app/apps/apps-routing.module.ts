@@ -6,6 +6,7 @@ import { AboutComponent } from './about/about.component';
 import { BlogDetailComponent } from './blog/blog-detail/blog-detail.component';
 import { FullComponent } from './layout/full/full.component';
 import { CreateTripComponent } from './trips/create-trip/create-trip.component';
+import { LoginComponent } from './account/login/login.component';
 
 
 const routes: Routes = [
@@ -13,10 +14,12 @@ const routes: Routes = [
     path: '',
     component: FullComponent,
     children: [
-      { path: '', component: TripsListComponent },
+      { path: '', redirectTo: 'trips', pathMatch: 'full' },
+      { path: 'trips', component: TripsListComponent },
       { path: 'blogDetail/:id', component: BlogDetailComponent },
       { path: 'about', component: AboutComponent },
-      { path: 'createTrip', component: CreateTripComponent}
+      { path: 'createTrip', component: CreateTripComponent },
+      { path: 'login', component: LoginComponent }
     ]
   }
 ];

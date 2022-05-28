@@ -2,6 +2,8 @@
 using Application.Services.Interfaces;
 using Application.DTOs;
 using Api.DTO;
+using Microsoft.AspNetCore.Authorization;
+using Authentication;
 
 namespace Api.Controllers
 {
@@ -56,6 +58,7 @@ namespace Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = Constants.Roles.AGENCYUSER)]
         public async Task<ActionResult> CreateTrip([FromBody] TripCreateDTO trip, CancellationToken cancellationToken = default)
         {
             try

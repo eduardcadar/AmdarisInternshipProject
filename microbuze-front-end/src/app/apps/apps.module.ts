@@ -27,6 +27,8 @@ import { ReservationsListComponent } from './about/reservations/reservations-lis
 import { ReserveButtonComponent } from './trips/reserve-button/reserve-button.component';
 import { CreateTripComponent } from './trips/create-trip/create-trip.component';
 import { UpdateReservationComponent } from './about/reservations/update-reservation/update-reservation.component';
+import { LoginComponent } from './account/login/login.component';
+import { LoginFormComponent } from './account/login/login-form/login-form.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,8 @@ import { UpdateReservationComponent } from './about/reservations/update-reservat
     ReserveButtonComponent,
     CreateTripComponent,
     UpdateReservationComponent,
+    LoginComponent,
+    LoginFormComponent,
   ],
   imports: [
     CommonModule,
