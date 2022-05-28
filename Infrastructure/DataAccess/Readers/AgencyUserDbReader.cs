@@ -17,14 +17,12 @@ namespace Infrastructure.DataAccess.Readers
             _dbContext.Database.EnsureCreated();
         }
 
-        public async Task<AgencyUserDTO> GetById(int id, CancellationToken cancellationToken = default)
+        public async Task<AgencyUserDTO> GetById(string id, CancellationToken cancellationToken = default)
         {
             var agencyUser = await _dbContext.AgencyUsers
                 .SingleOrDefaultAsync(a => a.Id.Equals(id), cancellationToken);
             if (agencyUser == null)
                 return null;
-            agencyUser.Agency = await _dbContext.Agencies
-                .SingleOrDefaultAsync(a => a.Id.Equals(agencyUser.AgencyId), cancellationToken);
             var agencyUserDto = EntityUtils.AgencyUserToAgencyUserDTO(agencyUser);
             return agencyUserDto;
         }

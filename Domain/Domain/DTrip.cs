@@ -6,7 +6,7 @@ namespace Domain.Domain
     public class DTrip : IVisitable
     {
         public int Id { get; set; }
-        public DAgency Agency { get; set; }
+        public DAgencyUser AgencyUser { get; set; }
         public string DepartureLocation { get; set; }
         public string Destination { get; set; }
         public DateTime DepartureTime { get; set; }
@@ -22,9 +22,9 @@ namespace Domain.Domain
             Price = 1;
             Seats = 1;
         }
-        public DTrip(DAgency agency, string departureLocation, string destination, DateTime departureTime, TimeSpan duration, double price, int seats)
+        public DTrip(DAgencyUser agencyUser, string departureLocation, string destination, DateTime departureTime, TimeSpan duration, double price, int seats)
         {
-            Agency = agency;
+            AgencyUser = agencyUser;
             DepartureLocation = departureLocation;
             Destination = destination;
             DepartureTime = departureTime;

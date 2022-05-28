@@ -14,10 +14,13 @@ namespace Application.UseCases.Create
             _agencyUserRepo = repo;
         }
 
-        public async Task<DAgencyUser> Create(string username, string password, string phoneNumber,
-            int agencyId, CancellationToken cancellationToken = default)
+        public async Task<DAgencyUser> Create(string id, string username, string phoneNumber,
+            string agency, CancellationToken cancellationToken = default)
         {
-            var dAgencyUser = new DAgencyUser(username, password, phoneNumber, new DAgency { Id = agencyId });
+            var dAgencyUser = new DAgencyUser(username, phoneNumber, agency)
+            {
+                Id = id
+            };
             return await _agencyUserRepo.Add(dAgencyUser, cancellationToken);
         }
     }

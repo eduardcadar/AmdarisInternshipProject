@@ -60,7 +60,7 @@ namespace Api.Controllers
         {
             try
             {
-                var createdTrip = await _tripsService.CreateTrip(trip.AgencyId, trip.DepartureLocation, trip.Destination,
+                var createdTrip = await _tripsService.CreateTrip(trip.AgencyUserId, trip.DepartureLocation, trip.Destination,
                     DateTime.Parse(trip.DepartureTime), TimeSpan.Parse(trip.Duration), trip.Price, trip.Seats, cancellationToken);
                 return CreatedAtAction(nameof(GetTripById), new { id = createdTrip.Id }, createdTrip);
             }

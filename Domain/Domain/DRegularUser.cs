@@ -5,24 +5,15 @@ namespace Domain.Domain
 {
     public class DRegularUser
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Username { get; set; }
-        public string Password { get; set; }
         public string PhoneNumber { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public DRegularUser()
-        {
-            Username = "default";
-            Password = "default";
-            PhoneNumber = "0700000000";
-            FirstName = "default";
-            LastName = "default";
-        }
-        public DRegularUser(string username, string password, string phoneNumber, string firstName, string lastName)
+        public DRegularUser() { }
+        public DRegularUser(string username, string phoneNumber, string firstName, string lastName)
         {
             Username = username;
-            Password = password;
             PhoneNumber = phoneNumber;
             FirstName = firstName;
             LastName = lastName;
@@ -32,14 +23,8 @@ namespace Domain.Domain
         {
             if (string.IsNullOrWhiteSpace(Username))
                 throw new ArgumentException("Enter an username");
-            if (string.IsNullOrWhiteSpace(Password))
-                throw new ArgumentException("Enter a password");
-            if (Password.Contains(' '))
-                throw new ArgumentException("Password cannot contain spaces");
             if (Username.Trim().Length < 6)
                 throw new ArgumentException("Username length cannot be less than 6");
-            if (Password.Trim().Length < 6)
-                throw new ArgumentException("Password length cannot be less than 6");
             if (!Regex.IsMatch(PhoneNumber, @"^0[0-9]{9}$", RegexOptions.Compiled, TimeSpan.FromMilliseconds(250)))
                 throw new ArgumentException("Invalid phone number");
             if (string.IsNullOrWhiteSpace(FirstName))

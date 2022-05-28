@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Application.Services.Interfaces;
 using Domain.Domain;
 using Application.DTOs;
@@ -20,7 +19,7 @@ namespace Api.Controllers
 
         [Route("{id}")]
         [HttpGet]
-        public async Task<ActionResult<RegularUserDTO>> GetRegularUserById(int id, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<RegularUserDTO>> GetRegularUserById(string id, CancellationToken cancellationToken = default)
         {
             try
             {
@@ -35,14 +34,14 @@ namespace Api.Controllers
             }
         }
 
-        [Route("login")]
+        [Route("byname/{username}")]
         [HttpPost]
-        public async Task<ActionResult<DRegularUser>> GetRegularUserByUsernameAndPassword([FromBody] LoginDTO login,
+        public async Task<ActionResult<DRegularUser>> GetRegularUserByUsername(string username,
             CancellationToken cancellationToken = default)
         {
             try
             {
-                var regularUserDto = await _regularUsersService.FindRegularUserByUsernameAndPassword(login.Username, login.Password, cancellationToken);
+                var regularUserDto = await _regularUsersService.FindRegularUserByUsername(username, cancellationToken);
                 if (regularUserDto == null)
                     return NotFound();
                 return Ok(regularUserDto);
@@ -58,7 +57,7 @@ namespace Api.Controllers
         {
             try
             {
-                var createdRegularUser = await _regularUsersService.CreateRegularUser(regularUser.Username, regularUser.Password,
+                var createdRegularUser = await _regularUsersService.CreateRegularUser(regularUser.Id, regularUser.Username,
                     regularUser.PhoneNumber, regularUser.FirstName, regularUser.LastName, cancellationToken);
                 return CreatedAtAction(nameof(GetRegularUserById), new { id = createdRegularUser.Id }, createdRegularUser);
             }

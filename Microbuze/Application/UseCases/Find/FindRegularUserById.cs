@@ -14,9 +14,9 @@ namespace Application.UseCases.Find
             _reader = reader;
         }
 
-        public async Task<RegularUserDTO> Find(int id, CancellationToken cancellationToken = default)
+        public async Task<RegularUserDTO> Find(string regularUserId, CancellationToken cancellationToken = default)
         {
-            var regularUserDto = await _reader.GetById(id, cancellationToken);
+            var regularUserDto = await _reader.GetById(regularUserId, cancellationToken);
             return regularUserDto;
         }
     }

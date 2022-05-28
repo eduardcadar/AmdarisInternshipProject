@@ -12,8 +12,8 @@ namespace Infrastructure.Persistence.Entities
         public TimeSpan Duration { get; set; }
         public double Price { get; set; }
         public int Seats { get; set; }
-        public int AgencyId { get; set; }
-        public Agency Agency { get; set; } = null!;
+        public string AgencyUserId { get; set; }
+        public AgencyUser AgencyUser { get; set; } = null!;
         public ICollection<Reservation> Reservations { get; set; }
     }
 }

@@ -18,7 +18,7 @@ namespace Infrastructure.DataAccess.Repos
             _dbContext.Database.EnsureCreated();
         }
 
-        public async Task Delete(int tripId, int regularUserId, CancellationToken cancellationToken = default)
+        public async Task Delete(int tripId, string regularUserId, CancellationToken cancellationToken = default)
         {
             var reservation = new Reservation()
             {
@@ -37,8 +37,9 @@ namespace Infrastructure.DataAccess.Repos
             if (trip == null)
                 throw new RepositoryException("Cursa nu exista");
 
-            trip.Agency = await _dbContext.Agencies.SingleOrDefaultAsync(a => a.Id.Equals(trip.AgencyId), cancellationToken);
-            if (trip.Agency == null)
+            trip.AgencyUser = await _dbContext.AgencyUsers
+                .SingleOrDefaultAsync(a => a.Id.Equals(trip.AgencyUserId), cancellationToken);
+            if (trip.AgencyUser == null)
                 throw new RepositoryException("Agentia nu exista");
 
             var regularUser = await _dbContext.RegularUsers
@@ -76,7 +77,7 @@ namespace Infrastructure.DataAccess.Repos
             return dReservation;
         }
 
-        public async Task Update(int tripId, int regularUserId, int seats, CancellationToken cancellationToken = default)
+        public async Task Update(int tripId, string regularUserId, int seats, CancellationToken cancellationToken = default)
         {
             var trip = await _dbContext.Trips
                 .SingleOrDefaultAsync(t => t.Id.Equals(tripId), cancellationToken);
@@ -86,7 +87,7 @@ namespace Infrastructure.DataAccess.Repos
             if (seats <= 0)
                 throw new RepositoryException("Introdu numarul de locuri");
             var dbReservation = await _dbContext.Reservations.SingleOrDefaultAsync(
-                r => r.RegularUserId == regularUserId && r.TripId == tripId, cancellationToken);
+                r => r.RegularUserId.Equals(regularUserId) && r.TripId == tripId, cancellationToken);
             if (dbReservation == null)
                 throw new RepositoryException("Nu exista rezervare de la user pentru trip");
 

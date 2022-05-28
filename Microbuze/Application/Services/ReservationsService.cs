@@ -36,22 +36,22 @@ namespace Application.Services
             _updateReservation = updateReservation;
         }
 
-        public async Task<DReservation> CreateReservation(int tripId, int regularUserId, int seats, CancellationToken cancellationToken = default)
+        public async Task<DReservation> CreateReservation(int tripId, string regularUserId, int seats, CancellationToken cancellationToken = default)
             => await _createReservation.Create(tripId, regularUserId, seats, cancellationToken);
 
-        public Task<ReservationDTO> FindReservationById(int userId, int tripId, CancellationToken cancellationToken = default)
+        public Task<ReservationDTO> FindReservationById(string userId, int tripId, CancellationToken cancellationToken = default)
             => _findReservationsById.Find(userId, tripId, cancellationToken);
 
-        public async Task<IEnumerable<ReservationDTO>> FindReservationsByRegularUserId(int id, CancellationToken cancellationToken = default)
-            => await _findReservationsByRegularUserId.Find(id, cancellationToken);
+        public async Task<IEnumerable<ReservationDTO>> FindReservationsByRegularUserId(string regularUserId, CancellationToken cancellationToken = default)
+            => await _findReservationsByRegularUserId.Find(regularUserId, cancellationToken);
 
-        public async Task<IEnumerable<ReservationDTO>> FindReservationsByTripId(int id, CancellationToken cancellationToken = default)
-            => await _findReservationsByTripId.Find(id, cancellationToken);
+        public async Task<IEnumerable<ReservationDTO>> FindReservationsByTripId(int tripId, CancellationToken cancellationToken = default)
+            => await _findReservationsByTripId.Find(tripId, cancellationToken);
 
-        public async Task DeleteReservation(int tripId, int regularUserId, CancellationToken cancellationToken = default)
+        public async Task DeleteReservation(int tripId, string regularUserId, CancellationToken cancellationToken = default)
             => await _deleteReservation.Delete(tripId, regularUserId, cancellationToken);
 
-        public Task UpdateReservation(int tripId, int regularUserId, int seats,
+        public Task UpdateReservation(int tripId, string regularUserId, int seats,
             CancellationToken cancellationToken = default)
             => _updateReservation.Update(tripId, regularUserId, seats, cancellationToken);
     }

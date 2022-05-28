@@ -22,15 +22,15 @@ namespace Application.Services
             _findRegularUserById = findRegularUserById;
         }
 
-        public async Task<DRegularUser> CreateRegularUser(string username, string password, string phoneNumber,
+        public async Task<DRegularUser> CreateRegularUser(string regularUserId, string username, string phoneNumber,
             string firstName, string lastName, CancellationToken cancellationToken = default)
-            => await _createRegularUser.Create(username, password, phoneNumber, firstName, lastName, cancellationToken);
+            => await _createRegularUser.Create(regularUserId, username, phoneNumber, firstName, lastName, cancellationToken);
 
-        public async Task<RegularUserDTO> FindRegularUserById(int id, CancellationToken cancellationToken = default)
-            => await _findRegularUserById.Find(id, cancellationToken);
+        public async Task<RegularUserDTO> FindRegularUserById(string regularUserId, CancellationToken cancellationToken = default)
+            => await _findRegularUserById.Find(regularUserId, cancellationToken);
 
-        public async Task<DRegularUser> FindRegularUserByUsernameAndPassword(string username, string password,
+        public async Task<DRegularUser> FindRegularUserByUsername(string username,
             CancellationToken cancellationToken = default)
-            => await _findRegularUser.Find(username, password, cancellationToken);
+            => await _findRegularUser.Find(username, cancellationToken);
     }
 }

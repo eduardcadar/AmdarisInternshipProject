@@ -13,7 +13,7 @@ namespace Application.UseCases.Delete
             _reservationRepo = reservationRepo;
         }
 
-        public async Task Delete(int tripId, int regularUserId, CancellationToken cancellationToken = default)
+        public async Task Delete(int tripId, string regularUserId, CancellationToken cancellationToken = default)
             => await _reservationRepo.Delete(tripId, regularUserId, cancellationToken);
     }
 }

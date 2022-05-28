@@ -19,12 +19,12 @@ namespace Infrastructure.DataAccess.Repos
         public async Task<DTrip> Add(DTrip dTrip, CancellationToken cancellationToken = default)
         {
             var trip = EntityUtils.DTripToTrip(dTrip);
-            trip.Agency = null;
+            trip.AgencyUser = null;
             await _dbContext.Trips.AddAsync(trip, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);
-            var agency = EntityUtils.AgencyToDAgency(await _dbContext.Agencies
-                .SingleOrDefaultAsync(a => a.Id.Equals(trip.AgencyId), cancellationToken: cancellationToken));
-            dTrip.Agency = agency;
+            var agencyUser = EntityUtils.AgencyUserToDAgencyUser(await _dbContext.AgencyUsers
+                .SingleOrDefaultAsync(a => a.Id.Equals(trip.AgencyUserId), cancellationToken: cancellationToken));
+            dTrip.AgencyUser = agencyUser;
             dTrip.Id = trip.Id;
             return dTrip;
         }

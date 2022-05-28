@@ -7,10 +7,10 @@ namespace Application.Services.Interfaces
 {
     public interface IRegularUsersService
     {
-        Task<DRegularUser> CreateRegularUser(string username, string password, string phoneNumber,
+        Task<DRegularUser> CreateRegularUser(string regularUserId, string username, string phoneNumber,
             string firstName, string lastName, CancellationToken cancellationToken = default);
-        Task<DRegularUser> FindRegularUserByUsernameAndPassword(string username, string password,
+        Task<DRegularUser> FindRegularUserByUsername(string username,
             CancellationToken cancellationToken = default);
-        Task<RegularUserDTO> FindRegularUserById(int id, CancellationToken cancellationToken = default);
+        Task<RegularUserDTO> FindRegularUserById(string regularUserId, CancellationToken cancellationToken = default);
     }
 }

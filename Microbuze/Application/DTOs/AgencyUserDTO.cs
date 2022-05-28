@@ -1,13 +1,10 @@
-﻿using Domain.Domain;
-
-namespace Application.DTOs
+﻿namespace Application.DTOs
 {
     public record AgencyUserDTO
     {
-        public int Id { get; init; }
+        public string Id { get; init; }
         public string Username { get; init; }
-        public string Password { get; init; }
         public string PhoneNumber { get; init; }
-        public DAgency Agency { get; init; }
+        public string Agency { get; init; }
     }
 }

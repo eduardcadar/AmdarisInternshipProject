@@ -15,10 +15,10 @@ namespace Application.UseCases.Create
             _tripRepo = repo;
         }
 
-        public async Task<DTrip> Create(int agencyId, string departureLocation, string destination,
+        public async Task<DTrip> Create(string agencyUserId, string departureLocation, string destination,
             DateTime departureTime, TimeSpan duration, double price, int seats, CancellationToken cancellationToken = default)
         {
-            var trip = new DTrip(new DAgency { Id = agencyId }, departureLocation, destination, departureTime, duration, price, seats);
+            var trip = new DTrip(new DAgencyUser { Id = agencyUserId }, departureLocation, destination, departureTime, duration, price, seats);
             return await _tripRepo.Add(trip, cancellationToken);
         }
     }

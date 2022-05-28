@@ -7,10 +7,10 @@ namespace Application.Services.Interfaces
 {
     public interface IAgencyUsersService
     {
-        Task<DAgencyUser> CreateAgencyUser(string username, string password, string phoneNumber, int agencyId,
+        Task<DAgencyUser> CreateAgencyUser(string id, string username, string phoneNumber, string agency,
             CancellationToken cancellationToken = default);
-        Task<DAgencyUser> FindAgencyUserByUsernameAndPassword(string username, string password,
+        Task<DAgencyUser> FindAgencyUserByUsername(string username,
             CancellationToken cancellationToken = default);
-        Task<AgencyUserDTO> FindAgencyUserById(int id, CancellationToken cancellationToken = default);
+        Task<AgencyUserDTO> FindAgencyUserById(string agencyUserId, CancellationToken cancellationToken = default);
     }
 }

@@ -14,7 +14,7 @@ namespace Application.UseCases.Find
             _agencyUserRepo = repo;
         }
 
-        public async Task<DAgencyUser> Find(string username, string password, CancellationToken cancellationToken = default)
-            => await _agencyUserRepo.GetByUsernameAndPassword(username, password, cancellationToken);
+        public async Task<DAgencyUser> Find(string username, CancellationToken cancellationToken = default)
+            => await _agencyUserRepo.GetByUsername(username, cancellationToken);
     }
 }

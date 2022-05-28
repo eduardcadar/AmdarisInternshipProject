@@ -8,11 +8,7 @@ namespace Infrastructure
     {
         public static DAgencyUser AgencyUserToDAgencyUser(AgencyUser agencyUser)
         {
-            var dAgency = new DAgency(agencyUser.Agency.AgencyName, agencyUser.PhoneNumber)
-            {
-                Id = agencyUser.AgencyId,
-            };
-            var dAgencyUser = new DAgencyUser(agencyUser.Username, agencyUser.Password, agencyUser.PhoneNumber, dAgency)
+            var dAgencyUser = new DAgencyUser(agencyUser.Username, agencyUser.PhoneNumber, agencyUser.Agency)
             {
                 Id = agencyUser.Id,
             };
@@ -25,7 +21,6 @@ namespace Infrastructure
             {
                 Id = dRegularUser.Id,
                 Username = dRegularUser.Username,
-                Password = dRegularUser.Password,
                 PhoneNumber = dRegularUser.PhoneNumber,
                 FirstName = dRegularUser.FirstName,
                 LastName = dRegularUser.LastName
@@ -38,9 +33,8 @@ namespace Infrastructure
             var agencyUserDto = new AgencyUserDTO
             {
                 Id = agencyUser.Id,
-                Agency = AgencyToDAgency(agencyUser.Agency),
+                Agency = agencyUser.Agency,
                 Username = agencyUser.Username,
-                Password = agencyUser.Password,
                 PhoneNumber = agencyUser.PhoneNumber
             };
             return agencyUserDto;
@@ -48,8 +42,8 @@ namespace Infrastructure
 
         public static DTrip TripToDTrip(Trip trip)
         {
-            var dAgency = AgencyToDAgency(trip.Agency);
-            var dTrip = new DTrip(dAgency, trip.DepartureLocation, trip.Destination,
+            var dAgencyUser = AgencyUserToDAgencyUser(trip.AgencyUser);
+            var dTrip = new DTrip(dAgencyUser, trip.DepartureLocation, trip.Destination,
                 trip.DepartureTime, trip.Duration, trip.Price, trip.Seats)
             {
                 Id = trip.Id
@@ -57,43 +51,13 @@ namespace Infrastructure
             return dTrip;
         }
 
-        public static Agency DAgencytoAgency(DAgency dAgency)
-        {
-            var agency = new Agency
-            {
-                Id = dAgency.Id,
-                AgencyName = dAgency.AgencyName,
-                PhoneNumber = dAgency.PhoneNumber
-            };
-            return agency;
-        }
-
-        public static DAgency AgencyToDAgency(Agency agency)
-        {
-            var dAgency = new DAgency(agency.AgencyName, agency.PhoneNumber)
-            {
-                Id = agency.Id
-            };
-            return dAgency;
-        }
-
-        public static AgencyDTO AgencyToAgencyDTO(Agency agency)
-        {
-            var agencyDto = new AgencyDTO
-            {
-                Id= agency.Id,
-                AgencyName = agency.AgencyName,
-                PhoneNumber = agency.PhoneNumber
-            };
-            return agencyDto;
-        }
-
         public static TripDTO TripToTripDTO(Trip trip)
         {
+            var agencyUserDTO = AgencyUserToAgencyUserDTO(trip.AgencyUser);
             return new TripDTO
             {
                 Id = trip.Id,
-                Agency = AgencyToAgencyDTO(trip.Agency),
+                AgencyUser = agencyUserDTO,
                 DepartureLocation = trip.DepartureLocation,
                 Destination = trip.Destination,
                 DepartureTime = trip.DepartureTime,
@@ -108,7 +72,7 @@ namespace Infrastructure
             var trip = new Trip
             {
                 Id = dTrip.Id,
-                AgencyId = dTrip.Agency.Id,
+                AgencyUserId = dTrip.AgencyUser.Id,
                 DepartureLocation = dTrip.DepartureLocation,
                 Destination = dTrip.Destination,
                 DepartureTime = dTrip.DepartureTime,
@@ -121,7 +85,7 @@ namespace Infrastructure
 
         public static DRegularUser RegularUserToDRegularUser(RegularUser regularUser)
         {
-            var dRegularUser = new DRegularUser(regularUser.Username, regularUser.Password, regularUser.PhoneNumber, regularUser.FirstName, regularUser.LastName)
+            var dRegularUser = new DRegularUser(regularUser.Username, regularUser.PhoneNumber, regularUser.FirstName, regularUser.LastName)
             {
                 Id = regularUser.Id
             };
@@ -141,12 +105,9 @@ namespace Infrastructure
 
         public static AgencyUser DAgencyUserToAgencyUser(DAgencyUser dAgencyUser)
         {
-            var agency = DAgencytoAgency(dAgencyUser.Agency);
             var agencyUser = new AgencyUser {
                 Id = dAgencyUser.Id,
-                Agency = agency,
-                AgencyId = agency.Id,
-                Password = dAgencyUser.Password,
+                Agency = dAgencyUser.Agency,
                 Username = dAgencyUser.Username,
                 PhoneNumber = dAgencyUser.PhoneNumber
             };
@@ -159,7 +120,6 @@ namespace Infrastructure
             {
                 Id = r.Id,
                 Username = r.Username,
-                Password = r.Password,
                 FirstName = r.FirstName,
                 LastName = r.LastName,
                 PhoneNumber = r.PhoneNumber

@@ -6,6 +6,6 @@ namespace Application.ReaderInterfaces
 {
     public interface IAgencyUserReader
     {
-        Task<AgencyUserDTO> GetById(int id, CancellationToken cancellationToken = default);
+        Task<AgencyUserDTO> GetById(string id, CancellationToken cancellationToken = default);
     }
 }

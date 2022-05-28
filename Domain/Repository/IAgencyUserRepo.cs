@@ -6,7 +6,7 @@ namespace Domain.Repository
 {
     public interface IAgencyUserRepo
     {
-        Task<DAgencyUser> GetByUsernameAndPassword(string username, string password, CancellationToken cancellationToken = default);
+        Task<DAgencyUser> GetByUsername(string username, CancellationToken cancellationToken = default);
         Task<DAgencyUser> Add(DAgencyUser dAgencyUser, CancellationToken cancellationToken = default);
     }
 }

@@ -24,7 +24,8 @@ namespace Infrastructure.DataAccess.Readers
             var trip = await _dbContext.Trips.SingleOrDefaultAsync(t => t.Id.Equals(id), cancellationToken);
             if (trip == null)
                 return null;
-            trip.Agency = await _dbContext.Agencies.SingleOrDefaultAsync(a => a.Id.Equals(trip.AgencyId), cancellationToken);
+            trip.AgencyUser = await _dbContext.AgencyUsers
+                .SingleOrDefaultAsync(a => a.Id.Equals(trip.AgencyUserId), cancellationToken);
             var dTrip = EntityUtils.TripToTripDTO(trip);
             return dTrip;
         }
@@ -42,7 +43,8 @@ namespace Infrastructure.DataAccess.Readers
 
             foreach (var trip in filteredTripEntities)
             {
-                trip.Agency = await _dbContext.Agencies.SingleOrDefaultAsync(a => a.Id.Equals(trip.AgencyId), cancellationToken);
+                trip.AgencyUser = await _dbContext.AgencyUsers
+                    .SingleOrDefaultAsync(a => a.Id.Equals(trip.AgencyUserId), cancellationToken);
                 trip.Seats -= _dbContext.Reservations.Where(r => r.TripId == trip.Id).Sum(r => r.Seats);
             }
             var tripDtos = filteredTripEntities

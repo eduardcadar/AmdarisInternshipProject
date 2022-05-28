@@ -2,7 +2,7 @@
 {
     public record TripCreateDTO
     {
-        public int AgencyId { get; set; }
+        public string AgencyUserId { get; set; }
         public string DepartureLocation { get; set; }
         public string Destination { get; set; }
         public string DepartureTime { get; set; }

@@ -19,7 +19,7 @@ namespace Api.Controllers
 
         [Route("{id}")]
         [HttpGet]
-        public async Task<ActionResult<AgencyUserDTO>> GetAgencyUserById(int id, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<AgencyUserDTO>> GetAgencyUserById(string id, CancellationToken cancellationToken = default)
         {
             try
             {
@@ -32,18 +32,17 @@ namespace Api.Controllers
             {
                 return BadRequest(ex.ToString());
             }
-            
         }
 
-        [Route("login")]
+        [Route("byname/{username}")]
         [HttpPost]
-        public async Task<ActionResult<DAgencyUser>> GetAgencyUserByUsernameAndPassword([FromBody] LoginDTO loginDTO,
+        public async Task<ActionResult<DAgencyUser>> GetAgencyUserByUsername(string username,
             CancellationToken cancellationToken = default)
         {
             try
             {
-                var agencyUserDto = await _agencyUsersService.FindAgencyUserByUsernameAndPassword(
-                    loginDTO.Username, loginDTO.Password, cancellationToken);
+                var agencyUserDto = await _agencyUsersService.FindAgencyUserByUsername(
+                    username, cancellationToken);
                 if (agencyUserDto == null)
                     return NotFound();
                 return Ok(agencyUserDto);
@@ -59,8 +58,8 @@ namespace Api.Controllers
         {
             try
             {
-                var createdAgencyUser = await _agencyUsersService.CreateAgencyUser(agencyUser.Username,
-                    agencyUser.Password, agencyUser.PhoneNumber, agencyUser.AgencyId, cancellationToken);
+                var createdAgencyUser = await _agencyUsersService.CreateAgencyUser(agencyUser.Id, agencyUser.Username,
+                    agencyUser.PhoneNumber, agencyUser.Agency, cancellationToken);
                 return CreatedAtAction(nameof(GetAgencyUserById), new { id = createdAgencyUser.Id }, createdAgencyUser);
             }
             catch (Exception ex)

@@ -14,7 +14,7 @@ namespace Application.UseCases.Find
             _reader = reader;
         }
 
-        public async Task<ReservationDTO> Find(int userId, int tripId, CancellationToken cancellationToken = default)
+        public async Task<ReservationDTO> Find(string userId, int tripId, CancellationToken cancellationToken = default)
             => await _reader.GetById(userId, tripId, cancellationToken);
     }
 }

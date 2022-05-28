@@ -14,11 +14,12 @@ namespace Application.UseCases.Create
             _regularUserRepo = repo;
         }
 
-        public async Task<DRegularUser> Create(string username, string password, string phoneNumber,
+        public async Task<DRegularUser> Create(string regularUserId, string username, string phoneNumber,
             string firstName, string lastName, CancellationToken cancellationToken = default)
         {
-            var dRegularUser = new DRegularUser(username, password, phoneNumber,
-                firstName, lastName);
+            var dRegularUser = new DRegularUser(username, phoneNumber,
+                firstName, lastName)
+            { Id = regularUserId };
             return await _regularUserRepo.Add(dRegularUser, cancellationToken);
         }
     }

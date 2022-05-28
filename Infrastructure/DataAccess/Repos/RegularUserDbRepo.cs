@@ -25,10 +25,10 @@ namespace Infrastructure.DataAccess.Repos
             return dRegularUser;
         }
 
-        public async Task<DRegularUser> GetByUsernameAndPassword(string username, string password, CancellationToken cancellationToken = default)
+        public async Task<DRegularUser> GetByUsername(string username, CancellationToken cancellationToken = default)
         {
             var regularUser = await _dbContext.RegularUsers
-                .SingleOrDefaultAsync(r => r.Username.Equals(username) && r.Password.Equals(password), cancellationToken);
+                .SingleOrDefaultAsync(r => r.Username.Equals(username), cancellationToken);
             if (regularUser == null)
                 return null;
             var dRegularUser = EntityUtils.RegularUserToDRegularUser(regularUser);

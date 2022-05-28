@@ -13,7 +13,7 @@ namespace Application.UseCases.Update
             _reservationRepo = reservationRepo;
         }
 
-        public async Task Update(int tripId, int regularUserId, int seats,
+        public async Task Update(int tripId, string regularUserId, int seats,
             CancellationToken cancellationToken = default)
             => await _reservationRepo.Update(tripId, regularUserId, seats, cancellationToken);
     }

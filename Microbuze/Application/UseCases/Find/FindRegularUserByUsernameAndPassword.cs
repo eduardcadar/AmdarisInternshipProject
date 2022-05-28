@@ -14,7 +14,7 @@ namespace Application.UseCases.Find
             _regularUserRepo = repo;
         }
 
-        public async Task<DRegularUser> Find(string username, string password, CancellationToken cancellationToken = default)
-            => await _regularUserRepo.GetByUsernameAndPassword(username, password, cancellationToken);
+        public async Task<DRegularUser> Find(string username, CancellationToken cancellationToken = default)
+            => await _regularUserRepo.GetByUsername(username, cancellationToken);
     }
 }

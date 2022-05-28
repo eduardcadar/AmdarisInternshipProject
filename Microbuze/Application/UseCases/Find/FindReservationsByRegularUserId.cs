@@ -16,7 +16,7 @@ namespace Application.UseCases.Find
             _reservationReader = reader;
         }
 
-        public async Task<IEnumerable<ReservationDTO>> Find(int id, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<ReservationDTO>> Find(string id, CancellationToken cancellationToken = default)
             => await _reservationReader.GetByRegularUserId(id, cancellationToken);
     }
 }

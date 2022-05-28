@@ -19,7 +19,7 @@ namespace Infrastructure.DataAccess.Readers
             _dbContext.Database.EnsureCreated();
         }
 
-        public async Task<ReservationDTO> GetById(int userId, int tripId, CancellationToken cancellationToken = default)
+        public async Task<ReservationDTO> GetById(string userId, int tripId, CancellationToken cancellationToken = default)
         {
             var reservation = await _dbContext.Reservations.SingleOrDefaultAsync(
                 r => r.RegularUserId == userId && r.TripId == tripId, cancellationToken);
@@ -28,7 +28,8 @@ namespace Infrastructure.DataAccess.Readers
 
             var trip = await _dbContext.Trips
                 .SingleOrDefaultAsync(t => t.Id.Equals(tripId), cancellationToken);
-            trip.Agency = await _dbContext.Agencies.SingleOrDefaultAsync(a => a.Id.Equals(trip.AgencyId), cancellationToken);
+            trip.AgencyUser = await _dbContext.AgencyUsers
+                .SingleOrDefaultAsync(a => a.Id.Equals(trip.AgencyUserId), cancellationToken);
             reservation.Trip = trip;
             var regularUser = await _dbContext.RegularUsers
                 .SingleOrDefaultAsync(r => r.Id.Equals(userId), cancellationToken);
@@ -38,7 +39,7 @@ namespace Infrastructure.DataAccess.Readers
             return reservationDTO;
         }
 
-        public async Task<IEnumerable<ReservationDTO>> GetByRegularUserId(int regularUserId, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<ReservationDTO>> GetByRegularUserId(string regularUserId, CancellationToken cancellationToken = default)
         {
             var reservations = await _dbContext.Reservations
                 .Where(r => r.RegularUserId == regularUserId).ToListAsync(cancellationToken: cancellationToken);
@@ -47,7 +48,8 @@ namespace Infrastructure.DataAccess.Readers
             {
                 var trip = await _dbContext.Trips
                 .SingleOrDefaultAsync(t => t.Id.Equals(reservation.TripId), cancellationToken);
-                trip.Agency = await _dbContext.Agencies.SingleOrDefaultAsync(a => a.Id.Equals(trip.AgencyId), cancellationToken);
+                trip.AgencyUser = await _dbContext.AgencyUsers
+                    .SingleOrDefaultAsync(a => a.Id.Equals(trip.AgencyUserId), cancellationToken);
                 reservation.Trip = trip;
                 var regularUser = await _dbContext.RegularUsers
                     .SingleOrDefaultAsync(r => r.Id.Equals(reservation.RegularUserId), cancellationToken);
@@ -68,7 +70,8 @@ namespace Infrastructure.DataAccess.Readers
             {
                 var trip = await _dbContext.Trips
                 .SingleOrDefaultAsync(t => t.Id.Equals(reservation.TripId), cancellationToken);
-                trip.Agency = await _dbContext.Agencies.SingleOrDefaultAsync(a => a.Id.Equals(trip.AgencyId), cancellationToken);
+                trip.AgencyUser = await _dbContext.AgencyUsers
+                    .SingleOrDefaultAsync(a => a.Id.Equals(trip.AgencyUserId), cancellationToken);
                 reservation.Trip = trip;
                 var regularUser = await _dbContext.RegularUsers
                     .SingleOrDefaultAsync(r => r.Id.Equals(reservation.RegularUserId), cancellationToken);

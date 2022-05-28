@@ -8,13 +8,13 @@ namespace Application.Services.Interfaces
 {
     public interface IReservationsService
     {
-        Task<DReservation> CreateReservation(int tripId, int regularUserId, int seats, CancellationToken cancellationToken = default);
-        Task<IEnumerable<ReservationDTO>> FindReservationsByRegularUserId(int id,
+        Task<DReservation> CreateReservation(int tripId, string regularUserId, int seats, CancellationToken cancellationToken = default);
+        Task<IEnumerable<ReservationDTO>> FindReservationsByRegularUserId(string regularUserId,
             CancellationToken cancellationToken = default);
-        Task<IEnumerable<ReservationDTO>> FindReservationsByTripId(int id,
+        Task<IEnumerable<ReservationDTO>> FindReservationsByTripId(int tripId,
             CancellationToken cancellationToken = default);
-        Task<ReservationDTO> FindReservationById(int userId, int tripId, CancellationToken cancellationToken = default);
-        Task DeleteReservation(int tripId, int regularUserId, CancellationToken cancellationToken = default);
-        Task UpdateReservation(int tripId, int regularUserId, int seats, CancellationToken cancellationToken = default);
+        Task<ReservationDTO> FindReservationById(string userId, int tripId, CancellationToken cancellationToken = default);
+        Task DeleteReservation(int tripId, string regularUserId, CancellationToken cancellationToken = default);
+        Task UpdateReservation(int tripId, string regularUserId, int seats, CancellationToken cancellationToken = default);
     }
 }

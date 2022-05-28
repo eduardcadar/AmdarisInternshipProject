@@ -20,7 +20,7 @@ namespace Api.Controllers
 
         [Route("{tripid}-{userid}")]
         [HttpGet]
-        public async Task<ActionResult<ReservationDTO>> GetReservationById(int tripid, int userid, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<ReservationDTO>> GetReservationById(int tripid, string userid, CancellationToken cancellationToken = default)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace Api.Controllers
 
         [Route("byRegularUserId/{id}")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ReservationDTO>>> GetReservationsByRegularUserId(int id,
+        public async Task<ActionResult<IEnumerable<ReservationDTO>>> GetReservationsByRegularUserId(string id,
             CancellationToken cancellationToken = default)
         {
             try
@@ -87,7 +87,7 @@ namespace Api.Controllers
 
         [Route("{tripid}-{userid}")]
         [HttpDelete]
-        public async Task<ActionResult> DeleteReservation(int tripid, int userid, CancellationToken cancellationToken = default)
+        public async Task<ActionResult> DeleteReservation(int tripid, string userid, CancellationToken cancellationToken = default)
         {
             await _reservationsService.DeleteReservation(tripid, userid, cancellationToken);
             return Ok();
@@ -95,7 +95,7 @@ namespace Api.Controllers
 
         [Route("{tripid}-{userid}")]
         [HttpPut]
-        public async Task<ActionResult> UpdateReservation(int tripid, int userid, [FromBody] int seats, CancellationToken cancellationToken = default)
+        public async Task<ActionResult> UpdateReservation(int tripid, string userid, [FromBody] int seats, CancellationToken cancellationToken = default)
         {
             try
             {

@@ -22,16 +22,16 @@ namespace Application.Services
             _findAgencyUserById = findAgencyUserById;
         }
 
-        public async Task<DAgencyUser> CreateAgencyUser(string username, string password, string phoneNumber, int agencyId,
+        public async Task<DAgencyUser> CreateAgencyUser(string id, string username, string phoneNumber, string agency,
             CancellationToken cancellationToken = default)
-            => await _createAgencyUser.Create(username, password, phoneNumber, agencyId, cancellationToken);
+            => await _createAgencyUser.Create(id, username, phoneNumber, agency, cancellationToken);
 
-        public async Task<AgencyUserDTO> FindAgencyUserById(int id, CancellationToken cancellationToken = default)
+        public async Task<AgencyUserDTO> FindAgencyUserById(string id, CancellationToken cancellationToken = default)
             => await _findAgencyUserById.Find(id, cancellationToken);
 
-        public async Task<DAgencyUser> FindAgencyUserByUsernameAndPassword(string username, string password,
+        public async Task<DAgencyUser> FindAgencyUserByUsername(string username,
             CancellationToken cancellationToken = default)
-            => await _findAgencyUser.Find(username, password, cancellationToken);
+            => await _findAgencyUser.Find(username, cancellationToken);
 
 
     }
