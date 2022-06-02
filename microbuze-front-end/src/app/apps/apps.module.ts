@@ -29,6 +29,9 @@ import { CreateTripComponent } from './trips/create-trip/create-trip.component';
 import { UpdateReservationComponent } from './about/reservations/update-reservation/update-reservation.component';
 import { LoginComponent } from './account/login/login.component';
 import { LoginFormComponent } from './account/login/login-form/login-form.component';
+import { RegisterComponent } from './account/register/register.component';
+import { RegisterRegularuserFormComponent } from './account/register/register-regularuser-form/register-regularuser-form.component';
+import { RegisterAgencyuserFormComponent } from './account/register/register-agencyuser-form/register-agencyuser-form.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +53,9 @@ import { LoginFormComponent } from './account/login/login-form/login-form.compon
     UpdateReservationComponent,
     LoginComponent,
     LoginFormComponent,
+    RegisterComponent,
+    RegisterRegularuserFormComponent,
+    RegisterAgencyuserFormComponent,
   ],
   imports: [
     CommonModule,
