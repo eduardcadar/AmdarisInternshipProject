@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AccountService } from '../../services/account-service';
 
 @Component({
   selector: 'app-banner-navigation',
@@ -6,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./banner-navigation.component.css']
 })
 export class BannerNavigationComponent implements OnInit {
-  logoutStatus = false;
+  isLogged: boolean = false;
 
-  constructor() { }
+  constructor(private accountService: AccountService) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.accountService.currentUser
+      .subscribe(x => {
+        this.isLogged = x != null;
+      })
+  }
 }

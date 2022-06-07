@@ -34,6 +34,6 @@ export class LoginFormComponent implements OnInit {
   }
 
   setLoggedUser(loginResponse: ILoginResponse): void {
-    alert(loginResponse.username);
+    
   }
 }

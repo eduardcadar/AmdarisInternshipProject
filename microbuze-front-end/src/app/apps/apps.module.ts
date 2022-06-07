@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppsRoutingModule } from './apps-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppsComponent } from './apps.component';
 import { TripsListComponent } from './trips/trips-list/trips-list.component';
@@ -33,6 +33,7 @@ import { RegisterComponent } from './account/register/register.component';
 import { RegisterRegularuserFormComponent } from './account/register/register-regularuser-form/register-regularuser-form.component';
 import { RegisterAgencyuserFormComponent } from './account/register/register-agencyuser-form/register-agencyuser-form.component';
 import { AccountService } from './services/account-service';
+import { AuthenticationInterceptor } from './interceptors/authentication.Interceptor';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,11 @@ import { AccountService } from './services/account-service';
     ServiceblogService,
     TripService,
     ReservationsService,
-    AccountService
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthenticationInterceptor,
+      multi: true
+    }
   ],
 })
 export class AppsModule {}

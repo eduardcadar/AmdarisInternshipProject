@@ -14,12 +14,16 @@ namespace Authentication
         private readonly JwtSettings _jwtSettings;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AuthenticationService(IOptions<JwtSettings> jwtSettings, SignInManager<AppUser> signInManager, UserManager<AppUser> userManager)
+        public AuthenticationService(IOptions<JwtSettings> jwtSettings,
+            SignInManager<AppUser> signInManager, UserManager<AppUser> userManager,
+            RoleManager<IdentityRole> roleManager)
         {
             _jwtSettings = jwtSettings.Value;
             _signInManager = signInManager;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         public async Task<AuthenticationResponse> AuthenticateAsync(AuthenticationRequest request)
@@ -51,7 +55,19 @@ namespace Authentication
                 UserName = request.UserName,
                 IsAgency = request.IsAgency
             };
+
+            if (!await _roleManager.RoleExistsAsync(Constants.Roles.AGENCYUSER))
+                await _roleManager.CreateAsync(new IdentityRole(Constants.Roles.AGENCYUSER));
+            if (!await _roleManager.RoleExistsAsync(Constants.Roles.REGULARUSER))
+                await _roleManager.CreateAsync(new IdentityRole(Constants.Roles.REGULARUSER));
+
             var result = await _userManager.CreateAsync(user, request.Password);
+
+            if (request.IsAgency)
+                await _userManager.AddToRoleAsync(user, Constants.Roles.AGENCYUSER);
+            if (!request.IsAgency)
+                await _userManager.AddToRoleAsync(user, Constants.Roles.REGULARUSER);
+
             if (result.Succeeded)
                 return new RegistrationResponse { UserId = user.Id };
             throw new Exception($"{result.Errors}");

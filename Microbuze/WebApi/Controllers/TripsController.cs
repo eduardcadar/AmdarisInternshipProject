@@ -58,7 +58,7 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = Constants.Roles.AGENCYUSER)]
+        [Authorize]
         public async Task<ActionResult> CreateTrip([FromBody] TripCreateDTO trip, CancellationToken cancellationToken = default)
         {
             try
