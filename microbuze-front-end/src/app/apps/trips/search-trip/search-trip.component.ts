@@ -17,8 +17,7 @@ export class SearchTripComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   searchTrips(): void {
     let searchTrip: ISearchTrip = {

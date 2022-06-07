@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/account")]
     [ApiController]
     public class AccountController : ControllerBase
     {
@@ -24,8 +24,15 @@ namespace Api.Controllers
         [HttpPost("authenticate")]
         public async Task<ActionResult<AuthenticationResponse>> AuthenticateAsync(AuthenticationRequest request)
         {
-            var authenticationResponse = await _authenticationService.AuthenticateAsync(request);
-            return Ok(authenticationResponse);
+            try
+            {
+                var authenticationResponse = await _authenticationService.AuthenticateAsync(request);
+                return Ok(authenticationResponse);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpPost("register")]

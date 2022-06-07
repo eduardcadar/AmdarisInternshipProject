@@ -15,12 +15,12 @@
 
             <div *ngIf="!this.registerAsAgency">
                 <h1 class="title">Creeaza cont utilizator</h1>
-                <app-register-regularuser-form *ngIf="!this.registerAsAgency"></app-register-regularuser-form>
+                <app-register-regularuser-form (RegisterClicked)="register($event)" *ngIf="!this.registerAsAgency"></app-register-regularuser-form>
             </div>
 
             <div *ngIf="this.registerAsAgency">
                 <h1 class="title">Creeaza cont agentie</h1>
-                <app-register-agencyuser-form *ngIf="this.registerAsAgency"></app-register-agencyuser-form>
+                <app-register-agencyuser-form (RegisterClicked)="register($event)" *ngIf="this.registerAsAgency"></app-register-agencyuser-form>
             </div>
         </div>
     </div>

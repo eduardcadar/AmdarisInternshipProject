@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { IAgencyRegister } from 'src/app/apps/models/account/registerAgency';
+import { IRegisterData } from 'src/app/apps/models/account/registerData';
 
 @Component({
   selector: 'app-register-agencyuser-form',
@@ -14,13 +14,20 @@ export class RegisterAgencyuserFormComponent implements OnInit {
     agency: new FormControl(''),
     phonenumber: new FormControl('')
   });
-  @Output() LoginClicked: EventEmitter<IAgencyRegister> = new EventEmitter();
+  @Output() RegisterClicked: EventEmitter<IRegisterData> = new EventEmitter();
 
   constructor() { }
 
   ngOnInit(): void { }
 
   register(): void {
-
+    let registerData: IRegisterData = {
+      username: this.registerForm.value.username,
+      password: this.registerForm.value.password,
+      isAgency: true,
+      agency: this.registerForm.value.agency,
+      phonenumber: this.registerForm.value.phonenumber
+    };
+    this.RegisterClicked.emit(registerData);
   }
 }

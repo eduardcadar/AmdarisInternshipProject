@@ -32,6 +32,7 @@ import { LoginFormComponent } from './account/login/login-form/login-form.compon
 import { RegisterComponent } from './account/register/register.component';
 import { RegisterRegularuserFormComponent } from './account/register/register-regularuser-form/register-regularuser-form.component';
 import { RegisterAgencyuserFormComponent } from './account/register/register-agencyuser-form/register-agencyuser-form.component';
+import { AccountService } from './services/account-service';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { RegisterAgencyuserFormComponent } from './account/register/register-age
   providers: [
     ServiceblogService,
     TripService,
-    ReservationsService
+    ReservationsService,
+    AccountService
   ],
 })
 export class AppsModule {}
