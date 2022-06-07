@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ILoginData } from 'src/app/apps/models/account/loginData';
 import { ILoginResponse } from 'src/app/apps/models/account/loginResponse';
@@ -17,7 +18,7 @@ export class LoginFormComponent implements OnInit {
   });
   @Output() LoginClicked: EventEmitter<ILoginData> = new EventEmitter();
 
-  constructor(private accountService: AccountService) { }
+  constructor(private _router: Router, private accountService: AccountService) { }
 
   ngOnInit(): void { }
 
@@ -28,12 +29,8 @@ export class LoginFormComponent implements OnInit {
     };
     let response: Observable<ILoginResponse> = this.accountService.login(loginData);
     response.subscribe(
-      x => this.setLoggedUser(x),
+      loginResponse => this._router.navigate(['/']),
       error => alert(error.error)
     );
-  }
-
-  setLoggedUser(loginResponse: ILoginResponse): void {
-    
   }
 }

@@ -6,14 +6,11 @@ import { AccountService } from "../services/account-service";
 @Injectable()
 export class AuthenticationInterceptor implements HttpInterceptor {
     
-    constructor (private accountService: AccountService) {
-
-    }
+    constructor (private accountService: AccountService) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // let user = this.accountService.currentUser.;
         let user = localStorage.getItem('user');
-        alert('da');
         if (user != null) {
             let user2 = JSON.parse(user);
             req = req.clone({

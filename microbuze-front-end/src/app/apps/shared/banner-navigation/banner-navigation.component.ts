@@ -17,4 +17,8 @@ export class BannerNavigationComponent implements OnInit {
         this.isLogged = x != null;
       })
   }
+
+  logout(): void {
+    localStorage.removeItem('user');
+  }
 }
