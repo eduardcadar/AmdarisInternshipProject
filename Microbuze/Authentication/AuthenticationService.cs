@@ -24,10 +24,10 @@ namespace Authentication
 
         public async Task<AuthenticationResponse> AuthenticateAsync(AuthenticationRequest request)
         {
-            var user = await _userManager.FindByNameAsync(request.UserName);
-            if (user == null) throw new Exception($"User '{request.UserName}' not found");
+            var user = await _userManager.FindByNameAsync(request.Username);
+            if (user == null) throw new Exception($"User '{request.Username}' not found");
             var result = await _signInManager.PasswordSignInAsync(user.UserName, request.Password, false, false);
-            if (!result.Succeeded) throw new Exception($"Credentials for '{request.UserName}' aren't valid");
+            if (!result.Succeeded) throw new Exception($"Credentials for '{request.Username}' aren't valid");
 
             var jwtSecurityToken = await GenerateToken(user);
 
@@ -35,7 +35,7 @@ namespace Authentication
             {
                 Id = user.Id,
                 Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
-                UserName = user.UserName,
+                Username = user.UserName,
                 IsAgency = user.IsAgency
             };
             return response;

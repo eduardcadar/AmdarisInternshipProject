@@ -1,6 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { ILoginData } from "../models/account/loginData";
+import { ILoginResponse } from "../models/account/loginResponse";
 import { IRegisterData } from "../models/account/registerData";
 
 @Injectable()
@@ -11,5 +13,9 @@ export class AccountService {
 
     register(registerData: IRegisterData): Observable<any> {
         return this.httpClient.post(this.url + '/register', registerData);
+    }
+
+    login(loginData: ILoginData): Observable<ILoginResponse> {
+        return this.httpClient.post<ILoginResponse>(this.url + '/authenticate', loginData);
     }
 }
