@@ -20,6 +20,7 @@ builder.Services.AddIdentityServices(builder.Configuration);
 
 var app = builder.Build();
 app.UseCors(CORS_POLICY);
+app.UseAuthentication();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

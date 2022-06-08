@@ -16,8 +16,6 @@ namespace Domain.Domain
         }
         internal void Validate()
         {
-            Trip.Validate();
-            RegularUser.Validate();
             if (Seats < 1)
                 throw new ArgumentException("Introduceti numarul de locuri");
         }

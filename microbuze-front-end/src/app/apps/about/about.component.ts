@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ServiceblogService } from '../blog/blog-service.service';
-import { FullComponent } from '../layout/full/full.component';
 import { IRegularUser } from '../models/entities/regular-user';
+import { AccountService } from '../services/account-service';
 import { ReservationsService } from '../services/reservations-service';
 
 @Component({
@@ -10,16 +11,16 @@ import { ReservationsService } from '../services/reservations-service';
   styleUrls: ['./about.component.css']
 })
 export class AboutComponent implements OnInit {
-  loggedUser!: IRegularUser;
+  loggedUser!: Observable<IRegularUser>;
 
   constructor(
-    public _parent: FullComponent,
-    public service: ReservationsService
+    private _accountService: AccountService,
+    private reservationsService: ReservationsService
   ) {
     // this.service.showEdit=false;
+    const userId = this._accountService.loggedUser.id;
+    this.loggedUser = this._accountService.getRegularUser(userId);
   }
 
-  ngOnInit(): void {
-    this.loggedUser = this._parent.loggedUser;
-  }
+  ngOnInit(): void {}
 }

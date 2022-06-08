@@ -1,8 +1,8 @@
-import { IAgency } from "./agency";
+import { IAgencyUser } from "./agency-user";
 
 export interface ITrip {
     id: number;
-    agency: IAgency,
+    agencyUser: IAgencyUser,
     departureLocation: string;
     destination: string;
     departureTime: Date;

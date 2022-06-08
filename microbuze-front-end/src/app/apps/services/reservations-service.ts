@@ -8,7 +8,7 @@ export class ReservationsService {
     url: string = "https://localhost:7188/api/reservations";
     constructor(private httpClient: HttpClient) {}
 
-    getReservationsForRegularUser(regularUserId: number): Observable<any> {
+    getReservationsForRegularUser(regularUserId: string): Observable<any> {
         return this.httpClient.get(this.url + "/byRegularUserId/" + regularUserId);
     }
 
@@ -16,11 +16,11 @@ export class ReservationsService {
         return this.httpClient.post<IReservationCreate>(this.url, reservation);
     }
 
-    deleteReservation(tripId: number, regularUserId: number): Observable<any> {
+    deleteReservation(tripId: number, regularUserId: string): Observable<any> {
         return this.httpClient.delete<any>(this.url + '/' + tripId + '-' + regularUserId);
     }
 
-    updateReservation(tripId: number, regularUserId: number, seats: number): Observable<any> {
+    updateReservation(tripId: number, regularUserId: string, seats: number): Observable<any> {
         return this.httpClient.put<any>(this.url + '/' + tripId + '-' + regularUserId, seats);
     }
 }

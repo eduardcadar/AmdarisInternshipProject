@@ -1,5 +1,5 @@
 export interface IReservationCreate {
     tripId: number;
-    regularUserId: number;
+    regularUserId: string;
     seats: number;
 }

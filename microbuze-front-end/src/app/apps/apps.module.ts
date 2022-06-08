@@ -20,9 +20,7 @@ import { FullComponent } from './layout/full/full.component';
 import { BannerComponent } from './shared/banner/banner.component';
 import { BannerNavigationComponent } from './shared/banner-navigation/banner-navigation.component';
 import { FooterComponent } from './shared/footer/footer.component';
-import { TripService } from './services/trip-service';
 import { SearchTripComponent } from './trips/search-trip/search-trip.component';
-import { ReservationsService } from './services/reservations-service';
 import { ReservationsListComponent } from './about/reservations/reservations-list/reservations-list.component';
 import { ReserveButtonComponent } from './trips/reserve-button/reserve-button.component';
 import { CreateTripComponent } from './trips/create-trip/create-trip.component';
@@ -32,8 +30,9 @@ import { LoginFormComponent } from './account/login/login-form/login-form.compon
 import { RegisterComponent } from './account/register/register.component';
 import { RegisterRegularuserFormComponent } from './account/register/register-regularuser-form/register-regularuser-form.component';
 import { RegisterAgencyuserFormComponent } from './account/register/register-agencyuser-form/register-agencyuser-form.component';
-import { AccountService } from './services/account-service';
-import { AuthenticationInterceptor } from './interceptors/authentication.Interceptor';
+import { AuthenticationInterceptor } from './interceptors/authentication.interceptor';
+import { ReservationsService } from './services/reservations-service';
+import { TripService } from './services/trip-service';
 
 @NgModule({
   declarations: [

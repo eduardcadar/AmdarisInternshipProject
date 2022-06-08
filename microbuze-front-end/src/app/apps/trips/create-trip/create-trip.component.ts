@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FullComponent } from '../../layout/full/full.component';
 import { ITripCreate } from '../../models/create/tripCreate';
+import { AccountService } from '../../services/account-service';
 import { TripService } from '../../services/trip-service';
 
 @Component({
@@ -20,8 +21,8 @@ export class CreateTripComponent implements OnInit {
   });
   
   constructor(
-    private _parent: FullComponent,
-    private tripService: TripService
+    private _accountService: AccountService,
+    private _tripService: TripService
   ) { }
 
   ngOnInit(): void { }
@@ -32,7 +33,7 @@ export class CreateTripComponent implements OnInit {
     let dateDuration = new Date(end - start);
     let duration = (dateDuration.getHours() - 2) + ':' + dateDuration.getMinutes();
     let createdTrip: ITripCreate = {
-      agencyId: this._parent.agencyId,
+      agencyUserId: this._accountService.loggedUser.id,
       departureLocation: this.createTripForm.value.departureLocation,
       destination: this.createTripForm.value.destination,
       departureTime: this.createTripForm.value.departureTime.toString(),
@@ -40,7 +41,7 @@ export class CreateTripComponent implements OnInit {
       price: this.createTripForm.value.price,
       seats: this.createTripForm.value.seats
     };
-    this.tripService.saveTrip(createdTrip).subscribe(
+    this._tripService.saveTrip(createdTrip).subscribe(
       () => alert('Cursa creata'),
       error => alert(error.error)
     );

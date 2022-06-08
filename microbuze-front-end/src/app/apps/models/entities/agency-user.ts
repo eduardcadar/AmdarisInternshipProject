@@ -1,9 +1,6 @@
-import { IAgency } from "./agency";
-
 export interface IAgencyUser {
-    agencyUserId: number;
+    agencyUserId: string;
     username: string;
-    password: string;
     phoneNumber: string;
-    agency: IAgency;
+    agency: string;
 }

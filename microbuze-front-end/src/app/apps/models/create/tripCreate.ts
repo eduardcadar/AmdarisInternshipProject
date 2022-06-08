@@ -1,5 +1,5 @@
 export interface ITripCreate {
-    agencyId: number,
+    agencyUserId: string,
     departureLocation: string;
     destination: string;
     departureTime: string;

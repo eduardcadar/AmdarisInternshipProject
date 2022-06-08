@@ -9,11 +9,9 @@
     </div>
     <div class="row justify-content-center">
       <app-search-trip (searchChanged)="reloadTrips($event)"></app-search-trip>
-      <div>
-        <button class="btn btn-lg btn-default shadow-none" routerLink="/createTrip">
-          <span class="p-2 mb-2 bg-dark rounded">Creeaza cursa</span>
-        </button>
-      </div>
+      <button *ngIf="(isLoggedIn | async) && (isAgency | async)" class="btn btn-lg btn-default shadow-none" routerLink="/createTrip">
+        <span class="p-2 mb-2 bg-dark rounded">Creeaza cursa</span>
+      </button>
     </div>
   </div>
 </div>
@@ -44,13 +42,13 @@
           </div>
           <div class="col-md-3 no-trans">
             <h5 class="font-medium">
-              {{ trip.agency.agencyName }}
+              {{ trip.agencyUser.agency }}
             </h5>
             <h5 class="m-t-20">
               Locuri ramase: {{ trip.seatsLeft }}
             </h5>
           </div>
-          <div class="col-md-2 no-trans">
+          <div *ngIf="(isLoggedIn | async) && !(isAgency | async)" class="col-md-2 no-trans">
             <app-reserve-button (reserveClick)="reserveSeats($event, trip.id)"></app-reserve-button>
           </div>
         </div>

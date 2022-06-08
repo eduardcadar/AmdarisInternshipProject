@@ -11,6 +11,7 @@ import { DatePipe } from '@angular/common';
 import { ReservationsService } from '../../services/reservations-service';
 import { IReservationCreate } from '../../models/create/reservationCreate';
 import { FullComponent } from '../../layout/full/full.component';
+import { AccountService } from '../../services/account-service';
 
 @Component({
   selector: 'app-blog',
@@ -18,6 +19,8 @@ import { FullComponent } from '../../layout/full/full.component';
   styleUrls: ['./trips-list.component.css'],
 })
 export class TripsListComponent implements OnInit {
+  isLoggedIn!: Observable<boolean>;
+  isAgency!: Observable<boolean>;
   // blogsDetail: Blog[] = [];
   trips!: Observable<ITrip[]>;
   searched: boolean = false;
@@ -25,20 +28,22 @@ export class TripsListComponent implements OnInit {
 
   constructor(
     private _parent: FullComponent,
-    public tripService: TripService,
-    public reservationService: ReservationsService,
-    public router: Router,
-    public http: HttpClient
+    private _accountService: AccountService,
+    private _tripService: TripService,
+    private _reservationService: ReservationsService,
+    private _router: Router,
+    private _http: HttpClient
   ) {
+    this.isLoggedIn = _accountService.isLoggedIn;
+    this.isAgency = _accountService.isAgencyObs;
     // this.service.showEdit = true;
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   reloadTrips(searchTrip?: ISearchTrip): void {
     this.searched = true;
-    this.trips = this.tripService.getTrips(searchTrip?.from, searchTrip?.to, searchTrip?.date);
+    this.trips = this._tripService.getTrips(searchTrip?.from, searchTrip?.to, searchTrip?.date);
     // this.trips.forEach(t => t.map(t => t.arrivalTime = new Date(
     //   new Date(t.departureTime).getTime() + new Date(t.duration).getTime())));
   }
@@ -46,10 +51,10 @@ export class TripsListComponent implements OnInit {
   reserveSeats(seatsNumber: number, tripId: number): void {
     let reservation: IReservationCreate = {
       tripId: tripId,
-      regularUserId: this._parent.loggedUser.regularUserId,
+      regularUserId: this._accountService.loggedUser.id,
       seats: seatsNumber
     }
-    this.reservationService.saveReservation(reservation)
+    this._reservationService.saveReservation(reservation)
       .subscribe(
         data => {
           this.reloadTrips();
@@ -60,10 +65,10 @@ export class TripsListComponent implements OnInit {
   }
 
   loginClick() {
-    this.router.navigate(['/login']);
+    this._router.navigate(['/login']);
   }
 
   newPost() {
-    this.router.navigate(['/post']);
+    this._router.navigate(['/post']);
   }
 }

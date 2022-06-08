@@ -53,12 +53,12 @@ namespace Api.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.ToString());
+                return BadRequest(ex.Message);
             }
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles=Constants.Roles.AGENCYUSER)]
         public async Task<ActionResult> CreateTrip([FromBody] TripCreateDTO trip, CancellationToken cancellationToken = default)
         {
             try

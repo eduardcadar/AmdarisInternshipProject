@@ -39,18 +39,25 @@ namespace Api.Controllers
         public async Task<ActionResult<RegistrationResponse>> RegisterAsync(RegistrationRequest request,
             CancellationToken cancellationToken = default)
         {
-            var registrationResponse = await _authenticationService.RegisterAsync(request);
+            try
+            {
+                var registrationResponse = await _authenticationService.RegisterAsync(request);
 
-            if (request.IsAgency)
-                await _agencyUsersService
-                    .CreateAgencyUser(registrationResponse.UserId, request.UserName,
-                    request.PhoneNumber, request.Agency, cancellationToken);
-            else
-                await _regularUsersService
-                    .CreateRegularUser(registrationResponse.UserId, request.UserName,
-                    request.PhoneNumber, request.FirstName, request.LastName, cancellationToken);
+                if (request.IsAgency)
+                    await _agencyUsersService
+                        .CreateAgencyUser(registrationResponse.UserId, request.UserName,
+                        request.PhoneNumber, request.Agency, cancellationToken);
+                else
+                    await _regularUsersService
+                        .CreateRegularUser(registrationResponse.UserId, request.UserName,
+                        request.PhoneNumber, request.FirstName, request.LastName, cancellationToken);
 
-            return Ok(registrationResponse);
+                return Ok(registrationResponse);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }

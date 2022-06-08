@@ -29,9 +29,9 @@ namespace Authentication
         public async Task<AuthenticationResponse> AuthenticateAsync(AuthenticationRequest request)
         {
             var user = await _userManager.FindByNameAsync(request.Username);
-            if (user == null) throw new Exception($"User '{request.Username}' not found");
+            if (user == null) throw new Exception("Date de logare invalide");
             var result = await _signInManager.PasswordSignInAsync(user.UserName, request.Password, false, false);
-            if (!result.Succeeded) throw new Exception($"Credentials for '{request.Username}' aren't valid");
+            if (!result.Succeeded) throw new Exception("Date de logare invalide");
 
             var jwtSecurityToken = await GenerateToken(user);
 
@@ -48,7 +48,7 @@ namespace Authentication
         public async Task<RegistrationResponse> RegisterAsync(RegistrationRequest request)
         {
             var existingUser = await _userManager.FindByNameAsync(request.UserName);
-            if (existingUser != null) throw new Exception($"Username '{request.UserName}' already exists");
+            if (existingUser != null) throw new Exception($"Username-ul '{request.UserName}' exista deja");
 
             var user = new AppUser
             {

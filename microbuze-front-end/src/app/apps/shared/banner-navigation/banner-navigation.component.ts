@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { AccountService } from '../../services/account-service';
 
 @Component({
@@ -7,18 +8,16 @@ import { AccountService } from '../../services/account-service';
   styleUrls: ['./banner-navigation.component.css']
 })
 export class BannerNavigationComponent implements OnInit {
-  isLogged: boolean = false;
+  isLoggedIn!: Observable<boolean>;
 
-  constructor(private accountService: AccountService) {}
-
-  ngOnInit(): void {
-    this.accountService.currentUser
-      .subscribe(x => {
-        this.isLogged = x != null;
-      })
+  constructor(private accountService: AccountService) {
+    this.isLoggedIn = accountService.isLoggedIn;
   }
+
+  ngOnInit(): void { }
 
   logout(): void {
     localStorage.removeItem('user');
+    this.accountService.logout();
   }
 }

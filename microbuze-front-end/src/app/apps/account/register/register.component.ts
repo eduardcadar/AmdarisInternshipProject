@@ -21,8 +21,8 @@ export class RegisterComponent implements OnInit {
   register(registerData: IRegisterData): void {
     this.accountService.register(registerData)
       .subscribe(
-        data => alert('cont creat'),
-        error => alert('nu')
+        data => alert('Contul a fost creat!'),
+        error => alert(error.error)
       );
   }
 }

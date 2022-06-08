@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AccountService } from 'src/app/apps/services/account-service';
 import { FullComponent } from '../../../layout/full/full.component';
 import { IReservation } from '../../../models/entities/reservation';
 import { ReservationsService } from '../../../services/reservations-service';
@@ -14,7 +15,8 @@ export class ReservationsListComponent implements OnInit {
 
   constructor(
     private _parent: FullComponent,
-    private reservationService: ReservationsService
+    private _accountService: AccountService,
+    private _reservationService: ReservationsService
   ) { }
 
   ngOnInit(): void {
@@ -22,19 +24,19 @@ export class ReservationsListComponent implements OnInit {
   }
 
   reloadReservations(): void {
-    this.reservations = this.reservationService
-      .getReservationsForRegularUser(this._parent.loggedUser.regularUserId);
+    this.reservations = this._reservationService
+      .getReservationsForRegularUser(this._accountService.loggedUser.id);
   }
 
   deleteReservation(tripId: number): void {
-    this.reservationService
-      .deleteReservation(tripId, this._parent.loggedUser.regularUserId)
+    this._reservationService
+      .deleteReservation(tripId, this._accountService.loggedUser.id)
       .subscribe(() => this.reloadReservations());
   }
 
   updateReservation(seatsNumber: number, tripId: number): void {
-    this.reservationService
-      .updateReservation(tripId, this._parent.loggedUser.regularUserId, seatsNumber)
+    this._reservationService
+      .updateReservation(tripId, this._accountService.loggedUser.id, seatsNumber)
       .subscribe(
         data => {
           this.reloadReservations();

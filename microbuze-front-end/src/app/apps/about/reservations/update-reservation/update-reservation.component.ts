@@ -16,8 +16,7 @@ export class UpdateReservationComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   toggleUpdateSeats(): void {
     this.showUpdateSeats = !this.showUpdateSeats;
