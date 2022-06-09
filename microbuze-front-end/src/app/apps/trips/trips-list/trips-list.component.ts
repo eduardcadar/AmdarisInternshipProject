@@ -27,12 +27,10 @@ export class TripsListComponent implements OnInit {
   pipe = new DatePipe('en-GB');
 
   constructor(
-    private _parent: FullComponent,
     private _accountService: AccountService,
     private _tripService: TripService,
     private _reservationService: ReservationsService,
-    private _router: Router,
-    private _http: HttpClient
+    private _router: Router
   ) {
     this.isLoggedIn = _accountService.isLoggedIn;
     this.isAgency = _accountService.isAgencyObs;

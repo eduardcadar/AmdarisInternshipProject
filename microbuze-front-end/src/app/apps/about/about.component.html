@@ -6,7 +6,10 @@
     <!-- Row  -->
     <div class="row justify-content-center">
       <!-- Column -->
-      <div *ngIf="(loggedUser | async) let user" class="col-lg-9 col-md-6 no-trans align-self-center text-center">
+      <div *ngIf="(loggedRegularUser | async) let user" class="col-lg-9 col-md-6 no-trans align-self-center text-center">
+        <h1 class="title"> {{ user.username }} </h1>
+      </div>
+      <div *ngIf="(loggedAgencyUser | async) let user" class="col-lg-9 col-md-6 no-trans align-self-center text-center">
         <h1 class="title"> {{ user.username }} </h1>
       </div>
       <!-- Column -->

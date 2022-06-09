@@ -18,7 +18,7 @@ namespace Api.Controllers
             _reservationsService = reservationsService;
         }
 
-        [Route("{tripid}-{userid}")]
+        [Route("{tripid}:{userid}")]
         [HttpGet]
         public async Task<ActionResult<ReservationDTO>> GetReservationById(int tripid, string userid, CancellationToken cancellationToken = default)
         {
@@ -86,16 +86,18 @@ namespace Api.Controllers
             }
         }
 
-        [Route("{tripid}-{userid}")]
+        [Route("{tripid}:{userid}")]
         [HttpDelete]
+        [Authorize(Roles=Constants.Roles.REGULARUSER)]
         public async Task<ActionResult> DeleteReservation(int tripid, string userid, CancellationToken cancellationToken = default)
         {
             await _reservationsService.DeleteReservation(tripid, userid, cancellationToken);
             return Ok();
         }
 
-        [Route("{tripid}-{userid}")]
+        [Route("{tripid}:{userid}")]
         [HttpPut]
+        [Authorize(Roles=Constants.Roles.REGULARUSER)]
         public async Task<ActionResult> UpdateReservation(int tripid, string userid, [FromBody] int seats, CancellationToken cancellationToken = default)
         {
             try

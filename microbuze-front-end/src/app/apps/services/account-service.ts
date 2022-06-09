@@ -6,6 +6,7 @@ import { ILoginResponse } from "../models/account/loginResponse";
 import { IRegisterData } from "../models/account/registerData";
 import { map } from "rxjs/operators";
 import { IRegularUser } from "../models/entities/regular-user";
+import { IAgencyUser } from "../models/entities/agency-user";
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
@@ -68,5 +69,9 @@ export class AccountService {
 
     getRegularUser(id: string): Observable<IRegularUser> {
         return this.httpClient.get<IRegularUser>(this.url + `/regularUsers/${id}`);
+    }
+
+    getAgencyUser(id: string): Observable<IAgencyUser> {
+        return this.httpClient.get<IAgencyUser>(this.url + `/agencyUsers/${id}`);
     }
 }

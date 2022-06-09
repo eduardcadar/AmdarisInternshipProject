@@ -1,5 +1,5 @@
 export interface IAgencyUser {
-    agencyUserId: string;
+    id: string;
     username: string;
     phoneNumber: string;
     agency: string;

@@ -17,10 +17,10 @@ export class ReservationsService {
     }
 
     deleteReservation(tripId: number, regularUserId: string): Observable<any> {
-        return this.httpClient.delete<any>(this.url + '/' + tripId + '-' + regularUserId);
+        return this.httpClient.delete<any>(this.url + '/' + tripId + ':' + regularUserId);
     }
 
     updateReservation(tripId: number, regularUserId: string, seats: number): Observable<any> {
-        return this.httpClient.put<any>(this.url + '/' + tripId + '-' + regularUserId, seats);
+        return this.httpClient.put<any>(this.url + '/' + tripId + ':' + regularUserId, seats);
     }
 }
