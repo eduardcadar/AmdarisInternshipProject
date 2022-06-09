@@ -11,7 +11,7 @@ export class TripService {
 
     constructor(private httpClient: HttpClient) {}
 
-    getTrips(from?: string, to?: string, date?: string): Observable<any> {
+    getTrips(from?: string, to?: string, date?: string): Observable<ITrip[]> {
         let query: boolean = false, u: string = this.url;
         if (from && from.trim()) {
             query = true;
@@ -28,7 +28,7 @@ export class TripService {
             else u += '&';
             u += 'date=' + date.trim();
         }
-        return this.httpClient.get(u);
+        return this.httpClient.get<ITrip[]>(u);
     }
 
     saveTrip(trip: ITripCreate): Observable<any> {

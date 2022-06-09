@@ -27,7 +27,9 @@ export class AccountService {
     }
 
     get accessToken() {
-        return this.user.token;
+        if (this.user)
+            return this.user.token;
+        return this.user;
     }
 
     constructor(private httpClient: HttpClient) {
@@ -61,6 +63,7 @@ export class AccountService {
 
     logout(): void {
         this.loggedIn.next(false);
+        this.user.token = '';
     }
 
     getRegularUser(id: string): Observable<IRegularUser> {

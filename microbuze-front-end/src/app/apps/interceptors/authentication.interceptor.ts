@@ -8,13 +8,15 @@ export class AuthenticationInterceptor implements HttpInterceptor {
     constructor (private accountService: AccountService) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        let token = this.accountService.accessToken;
-        if (token) {
-            req = req.clone({
-                setHeaders: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
+        if (this.accountService.accessToken) {
+            let token = this.accountService.accessToken;
+            if (token) {
+                req = req.clone({
+                    setHeaders: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+            }
         }
         return next.handle(req);
     }
