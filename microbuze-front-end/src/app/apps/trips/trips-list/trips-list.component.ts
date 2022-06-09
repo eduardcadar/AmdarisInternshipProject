@@ -41,7 +41,7 @@ export class TripsListComponent implements OnInit {
 
   reloadTrips(searchTrip?: ISearchTrip): void {
     this.searched = true;
-    this.trips = this._tripService.getTrips(searchTrip?.from, searchTrip?.to, searchTrip?.date);
+    this.trips = this._tripService.getTrips(undefined, searchTrip?.from, searchTrip?.to, searchTrip?.date);
     // this.trips.forEach(t => t.map(t => t.arrivalTime = new Date(
     //   new Date(t.departureTime).getTime() + new Date(t.duration).getTime())));
   }

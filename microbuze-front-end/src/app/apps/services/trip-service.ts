@@ -11,22 +11,23 @@ export class TripService {
 
     constructor(private httpClient: HttpClient) {}
 
-    getTrips(from?: string, to?: string, date?: string): Observable<ITrip[]> {
-        let query: boolean = false, u: string = this.url;
+    getTrips(agency?: string, from?: string,
+            to?: string, date?: string): Observable<ITrip[]> {
+        let u: string = this.url, q: string = '?';
+        if (agency && agency.trim()) {
+            u += `${q}agency=${agency.trim()}`;
+            q = '&';
+        }
         if (from && from.trim()) {
-            query = true;
-            u += '?departure=' + from.trim();
+            u += `${q}departure=${from.trim()}`;
+            q = '&';
         }
         if (to && to.trim()) {
-            if (!query) u += '?';
-            else u += '&';
-            query = true;
-            u += 'destination=' + to.trim();
+            u += `${q}destination=${to.trim()}`;
+            q = '&';
         }
         if (date && date.trim()) {
-            if (!query) u += '?';
-            else u += '&';
-            u += 'date=' + date.trim();
+            u += `${q}date=${date.trim()}`;
         }
         return this.httpClient.get<ITrip[]>(u);
     }
@@ -36,6 +37,6 @@ export class TripService {
     }
 
     deleteTrip(id: number): Observable<any> {
-        return this.httpClient.delete<number>(this.url)
+        return this.httpClient.delete<number>(this.url + `/${id}`);
     }
 }

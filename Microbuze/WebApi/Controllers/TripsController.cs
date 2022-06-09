@@ -4,6 +4,7 @@ using Application.DTOs;
 using Api.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Authentication;
+using Domain.Repository;
 
 namespace Api.Controllers
 {
@@ -32,6 +33,22 @@ namespace Api.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.ToString());
+            }
+        }
+
+        [Route("tripid")]
+        [HttpDelete]
+        [Authorize(Roles=Constants.Roles.AGENCYUSER)]
+        public async Task<ActionResult> DeleteTrip(int tripid, CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                await _tripsService.DeleteTrip(tripid, cancellationToken);
+                return Ok();
+            }
+            catch (RepositoryException e)
+            {
+                return NotFound(e.Message);
             }
         }
 

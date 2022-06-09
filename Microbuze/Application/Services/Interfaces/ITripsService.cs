@@ -14,5 +14,6 @@ namespace Application.Services.Interfaces
         Task<IEnumerable<TripDTO>> FindTripsFiltered(string agency, string departureLocation, string destination,
             DateTime? date = null, CancellationToken cancellationToken = default);
         Task<TripDTO> FindTripById(int id, CancellationToken cancellationToken = default);
+        Task DeleteTrip(int tripId, CancellationToken cancellationToken = default);
     }
 }

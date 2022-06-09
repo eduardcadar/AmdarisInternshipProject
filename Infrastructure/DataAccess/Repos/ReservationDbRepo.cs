@@ -20,12 +20,10 @@ namespace Infrastructure.DataAccess.Repos
 
         public async Task Delete(int tripId, string regularUserId, CancellationToken cancellationToken = default)
         {
-            var reservation = new Reservation()
-            {
-                TripId = tripId,
-                RegularUserId = regularUserId
-            };
-            _dbContext.Reservations.Attach(reservation);
+            var reservation = await _dbContext.Reservations
+                .SingleOrDefaultAsync(r => r.TripId.Equals(tripId) && r.RegularUserId.Equals(regularUserId), cancellationToken);
+            if (reservation == null)
+                throw new RepositoryException("Nu exista aceasta rezervare");
             _dbContext.Reservations.Remove(reservation);
             await _dbContext.SaveChangesAsync(cancellationToken);
         }

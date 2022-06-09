@@ -17,5 +17,4 @@ export class AgencyUserProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {}
-
 }

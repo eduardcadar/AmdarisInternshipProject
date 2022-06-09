@@ -21,6 +21,7 @@ namespace Application
             services.AddScoped<CreateTrip>();
             services.AddScoped<FindTripById>();
             services.AddScoped<FindTripsFiltered>();
+            services.AddScoped<DeleteTrip>();
             services.AddScoped<CreateReservation>();
             services.AddScoped<FindReservationById>();
             services.AddScoped<FindReservationsByRegularUserId>();

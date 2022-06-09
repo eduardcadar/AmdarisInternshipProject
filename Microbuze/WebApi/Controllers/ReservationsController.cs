@@ -4,6 +4,7 @@ using Application.DTOs;
 using Api.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Authentication;
+using Domain.Repository;
 
 namespace Api.Controllers
 {
@@ -91,8 +92,15 @@ namespace Api.Controllers
         [Authorize(Roles=Constants.Roles.REGULARUSER)]
         public async Task<ActionResult> DeleteReservation(int tripid, string userid, CancellationToken cancellationToken = default)
         {
-            await _reservationsService.DeleteReservation(tripid, userid, cancellationToken);
-            return Ok();
+            try
+            {
+                await _reservationsService.DeleteReservation(tripid, userid, cancellationToken);
+                return Ok();
+            }
+            catch (RepositoryException e)
+            {
+                return NotFound(e.Message);
+            }
         }
 
         [Route("{tripid}:{userid}")]
