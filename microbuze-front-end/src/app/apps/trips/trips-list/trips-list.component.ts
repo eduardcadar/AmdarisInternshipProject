@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Blog } from '../../blog/blog-type';
 import { ServiceblogService } from '../../blog/blog-service.service';
 import { Router } from '@angular/router';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { TripService } from '../../services/trip-service';
 import { ITrip } from '../../models/entities/trip';
 import { ISearchTrip } from '../../models/search-trip';
@@ -10,7 +9,6 @@ import { Observable } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { ReservationsService } from '../../services/reservations-service';
 import { IReservationCreate } from '../../models/create/reservationCreate';
-import { FullComponent } from '../../layout/full/full.component';
 import { AccountService } from '../../services/account-service';
 
 @Component({

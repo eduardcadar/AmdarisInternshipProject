@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { IRegularUser } from 'src/app/apps/models/entities/regular-user';
 import { AccountService } from 'src/app/apps/services/account-service';
-import { FullComponent } from '../../../layout/full/full.component';
 import { IReservation } from '../../../models/entities/reservation';
 import { ReservationsService } from '../../../services/reservations-service';
 
@@ -12,31 +12,39 @@ import { ReservationsService } from '../../../services/reservations-service';
 })
 export class ReservationsListComponent implements OnInit {
   reservations!: Observable<IReservation[]>;
+  loggedRegularUser!: IRegularUser;
 
   constructor(
-    private _parent: FullComponent,
     private _accountService: AccountService,
     private _reservationService: ReservationsService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    this.reloadReservations();
+    let id: string = this._accountService.loggedUser.id;
+    this._accountService.getRegularUser(id)
+      .subscribe(u => {
+        this.loggedRegularUser = u;
+        this.reloadReservations();
+      });
   }
 
   reloadReservations(): void {
     this.reservations = this._reservationService
-      .getReservationsForRegularUser(this._accountService.loggedUser.id);
+      .getReservationsForRegularUser(this.loggedRegularUser.id);
   }
 
   deleteReservation(tripId: number): void {
     this._reservationService
-      .deleteReservation(tripId, this._accountService.loggedUser.id)
-      .subscribe(() => this.reloadReservations());
+      .deleteReservation(tripId, this.loggedRegularUser.id)
+      .subscribe(
+        ok => this.reloadReservations(),
+        error => alert(error.error)
+      );
   }
 
   updateReservation(seatsNumber: number, tripId: number): void {
     this._reservationService
-      .updateReservation(tripId, this._accountService.loggedUser.id, seatsNumber)
+      .updateReservation(tripId, this.loggedRegularUser.id, seatsNumber)
       .subscribe(
         data => {
           this.reloadReservations();

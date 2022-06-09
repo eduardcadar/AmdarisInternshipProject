@@ -1,1 +1,35 @@
-<p>agency-trips-list works!</p>
+  <div class="container-fluid">
+    <div class="row m-t-40 justify-content-center">
+      <!-- Column -->
+      <div class="col-md-12 no-trans border-bottom mb-4" *ngFor="let trip of trips | async">
+        <div class="card" data-aos="flip-left" data-aos-duration="1200">
+          <div class="row text-center">
+            <div class="col-md-3 no-trans">
+              <p class="text-dark font-medium">{{ trip.departureLocation }}</p>
+              <p class="text-dark font-medium"><i class="ti-arrow-down"></i></p>
+              <p class="text-dark font-medium">{{ trip.destination }}</p>
+            </div>
+            <div class="col-md-3 no-trans">
+              <p class="text-dark font-medium">{{ trip.departureTime | date:'medium' }}</p>
+              <p class="text-dark font-medium"><i class="sl-icon-clock"></i></p>
+              <p class="text-dark font-medium">{{ trip.duration }}</p>
+            </div>
+            <div class="col-md-3 no-trans">
+              <h5 class="font-medium">
+                {{ trip.agencyUser.agency }}
+              </h5>
+              <h5 class="m-t-20">
+                Locuri ramase: {{ trip.seatsLeft }}
+              </h5>
+            </div>
+            <div class="col-md-3 no-trans">
+              <p class="font-medium text-themecolor m-t-10 cursor-pointer">
+                <i class="ti-trash fa-lg"></i>
+                <span (click)="deleteTrip(trip.id)">Sterge cursa</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
