@@ -1,0 +1,20 @@
+<div
+    class="banner-innerpage"
+    style="background-image: url(assets/images/landingpage/tickets.jpg)"
+>
+<div class="container">
+  <!-- Row  -->
+  <div class="row justify-content-center">
+    <!-- Column -->
+    <div *ngIf="(loggedAgencyUser | async) let user" class="col-lg-9 col-md-6 no-trans align-self-center text-center">
+      <h1 class="title"> {{ user.username }} </h1>
+    </div>
+    <!-- Column -->
+  </div>
+</div>
+</div>
+
+<div class="container">
+    <!-- trips created by agency -->
+    <app-reservations-list></app-reservations-list>
+</div>

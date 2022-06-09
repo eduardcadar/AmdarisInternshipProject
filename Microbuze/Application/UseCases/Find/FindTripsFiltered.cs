@@ -16,7 +16,7 @@ namespace Application.UseCases.Find
             _tripReader = reader;
         }
 
-        public async Task<IEnumerable<TripDTO>> Find(string departureLocation, string destination, DateTime? date = null, CancellationToken cancellationToken = default)
-            => await _tripReader.GetFiltered(departureLocation, destination, date, cancellationToken);
+        public async Task<IEnumerable<TripDTO>> Find(string agency, string departureLocation, string destination, DateTime? date = null, CancellationToken cancellationToken = default)
+            => await _tripReader.GetFiltered(agency, departureLocation, destination, date, cancellationToken);
     }
 }

@@ -33,6 +33,8 @@ import { RegisterAgencyuserFormComponent } from './account/register/register-age
 import { AuthenticationInterceptor } from './interceptors/authentication.interceptor';
 import { ReservationsService } from './services/reservations-service';
 import { TripService } from './services/trip-service';
+import { AgencyUserProfileComponent } from './about/agency-user-profile/agency-user-profile.component';
+import { RegularUserProfileComponent } from './about/regular-user-profile/regular-user-profile.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,8 @@ import { TripService } from './services/trip-service';
     RegisterComponent,
     RegisterRegularuserFormComponent,
     RegisterAgencyuserFormComponent,
+    AgencyUserProfileComponent,
+    RegularUserProfileComponent,
   ],
   imports: [
     CommonModule,

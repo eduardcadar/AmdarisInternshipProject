@@ -8,8 +8,8 @@ namespace Application.ReaderInterfaces
 {
     public interface ITripReader
     {
-        Task<IEnumerable<TripDTO>> GetFiltered(
-            string departureLocation = "", string destination = "", DateTime? date = null, CancellationToken cancellationToken = default);
         Task<TripDTO> GetById(int id, CancellationToken cancellationToken = default);
+        Task<IEnumerable<TripDTO>> GetFiltered(string agency = "", string departureLocation = "",
+            string destination = "", DateTime? date = null, CancellationToken cancellationToken = default);
     }
 }

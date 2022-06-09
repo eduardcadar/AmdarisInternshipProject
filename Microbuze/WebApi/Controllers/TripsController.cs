@@ -36,19 +36,23 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TripDTO>>> GetTrips([FromQuery(Name = "departure")] string? departureLocation,
-            [FromQuery(Name = "destination")] string? destination, [FromQuery(Name = "date")] string? dateString, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<IEnumerable<TripDTO>>> GetTrips([FromQuery(Name = "agency")] string? agency,
+            [FromQuery(Name = "departure")] string? departureLocation, [FromQuery(Name = "destination")] string? destination,
+            [FromQuery(Name = "date")] string? dateString, CancellationToken cancellationToken = default)
         {
             try
             {
                 DateTime? date = null;
+                if (agency == null)
+                    agency = "";
                 if (departureLocation == null)
                     departureLocation = "";
                 if (destination == null)
                     destination = "";
                 if (dateString != null)
                     date = DateTime.Parse(dateString);
-                var filteredTrips = await _tripsService.FindTripsFiltered(departureLocation, destination, date, cancellationToken);
+                var filteredTrips = await _tripsService
+                    .FindTripsFiltered(agency, departureLocation, destination, date, cancellationToken);
                 return Ok(filteredTrips);
             }
             catch (Exception ex)

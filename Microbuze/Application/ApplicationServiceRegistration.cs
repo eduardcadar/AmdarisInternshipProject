@@ -1,11 +1,9 @@
-﻿using Application.ReaderInterfaces;
-using Application.Services;
+﻿using Application.Services;
 using Application.Services.Interfaces;
 using Application.UseCases.Create;
 using Application.UseCases.Delete;
 using Application.UseCases.Find;
 using Application.UseCases.Update;
-using Domain.Repository;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application

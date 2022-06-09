@@ -32,8 +32,8 @@ namespace Application.Services
         public async Task<TripDTO> FindTripById(int id, CancellationToken cancellationToken = default)
             => await _findTripById.Find(id, cancellationToken);
 
-        public async Task<IEnumerable<TripDTO>> FindTripsFiltered(string departureLocation, string destination,
+        public async Task<IEnumerable<TripDTO>> FindTripsFiltered(string agency, string departureLocation, string destination,
             DateTime? date = null, CancellationToken cancellationToken = default)
-            => await _findTripsFiltered.Find(departureLocation, destination, date, cancellationToken);
+            => await _findTripsFiltered.Find(agency, departureLocation, destination, date, cancellationToken);
     }
 }
