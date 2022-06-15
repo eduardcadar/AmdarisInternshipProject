@@ -611,11 +611,6 @@ position
     background-position: center top;
     width: 100%;
     display: table;
-    .banner-content {
-        display: table-cell;
-        vertical-align: middle;
-        width: 100%;
-    }
 }
 
 @media (max-width: 992px) {

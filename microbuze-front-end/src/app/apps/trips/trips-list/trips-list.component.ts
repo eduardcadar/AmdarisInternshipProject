@@ -1,6 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Blog } from '../../blog/blog-type';
-import { ServiceblogService } from '../../blog/blog-service.service';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TripService } from '../../services/trip-service';
 import { ITrip } from '../../models/entities/trip';
@@ -12,7 +10,7 @@ import { IReservationCreate } from '../../models/create/reservationCreate';
 import { AccountService } from '../../services/account-service';
 
 @Component({
-  selector: 'app-blog',
+  selector: 'minibuses',
   templateUrl: './trips-list.component.html',
   styleUrls: ['./trips-list.component.css'],
 })

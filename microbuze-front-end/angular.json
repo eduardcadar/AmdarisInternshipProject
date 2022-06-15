@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "blogApp": {
+    "minibuses": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/blogApp",
+            "outputPath": "dist/minibuses",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -63,18 +63,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "blogApp:build"
+            "browserTarget": "minibuses:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "blogApp:build:production"
+              "browserTarget": "minibuses:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "blogApp:build"
+            "browserTarget": "minibuses:build"
           }
         },
         "test": {
@@ -104,16 +104,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "blogApp:serve"
+            "devServerTarget": "minibuses:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "blogApp:serve:production"
+              "devServerTarget": "minibuses:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "blogApp"
+  "defaultProject": "minibuses"
 }

@@ -9,9 +9,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppsComponent } from './apps.component';
 import { TripsListComponent } from './trips/trips-list/trips-list.component';
 import { AboutComponent } from './about/about.component';
-import { BlogDetailComponent } from './blog/blog-detail/blog-detail.component';
 
-import { ServiceblogService } from './blog/blog-service.service';
 import { RelayOnComponent } from './about/About-Components/relay-on/relay-on.component';
 import { TopContentComponent } from './about/About-Components/top-content/top-content.component';
 
@@ -42,7 +40,6 @@ import { AgencyTripsListComponent } from './about/agency-user-profile/agency-tri
     AppsComponent,
     TripsListComponent,
     AboutComponent,
-    BlogDetailComponent,
     RelayOnComponent,
     TopContentComponent,
     FullComponent,
@@ -73,7 +70,6 @@ import { AgencyTripsListComponent } from './about/agency-user-profile/agency-tri
     HttpClientModule,
   ],
   providers: [
-    ServiceblogService,
     TripService,
     ReservationsService,
     {
