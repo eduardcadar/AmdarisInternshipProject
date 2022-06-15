@@ -7,7 +7,7 @@ export interface ITrip {
     destination: string;
     departureTime: Date;
     arrivalTime: Date;
-    duration: Date;
+    duration: string;
     price: number;
     seatsLeft: number;
 }

@@ -61,6 +61,7 @@ namespace Infrastructure
                 DepartureLocation = trip.DepartureLocation,
                 Destination = trip.Destination,
                 DepartureTime = trip.DepartureTime,
+                ArrivalTime = trip.DepartureTime + trip.Duration,
                 Duration = trip.Duration,
                 Price = trip.Price,
                 SeatsLeft = trip.Seats
