@@ -54,7 +54,7 @@ namespace Api.Controllers
 
                 return Ok(registrationResponse);
             }
-            catch (Exception e)
+            catch (ArgumentException e)
             {
                 return BadRequest(e.Message);
             }

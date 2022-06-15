@@ -29,9 +29,9 @@ namespace Authentication
         public async Task<AuthenticationResponse> AuthenticateAsync(AuthenticationRequest request)
         {
             var user = await _userManager.FindByNameAsync(request.Username);
-            if (user == null) throw new Exception("Date de logare invalide");
+            if (user == null) throw new ArgumentException("Date de logare invalide");
             var result = await _signInManager.PasswordSignInAsync(user.UserName, request.Password, false, false);
-            if (!result.Succeeded) throw new Exception("Date de logare invalide");
+            if (!result.Succeeded) throw new ArgumentException("Date de logare invalide");
 
             var jwtSecurityToken = await GenerateToken(user);
 
@@ -48,7 +48,10 @@ namespace Authentication
         public async Task<RegistrationResponse> RegisterAsync(RegistrationRequest request)
         {
             var existingUser = await _userManager.FindByNameAsync(request.UserName);
-            if (existingUser != null) throw new Exception($"Username-ul '{request.UserName}' exista deja");
+            if (existingUser != null)
+                throw new ArgumentException($"Username-ul '{request.UserName}' exista deja");
+            if (request.Password.Length < 6)
+                throw new ArgumentException("Parola trebuie sa aiba minim 6 caractere");
 
             var user = new AppUser
             {
@@ -63,14 +66,15 @@ namespace Authentication
 
             var result = await _userManager.CreateAsync(user, request.Password);
 
-            if (request.IsAgency)
-                await _userManager.AddToRoleAsync(user, Constants.Roles.AGENCYUSER);
-            if (!request.IsAgency)
-                await _userManager.AddToRoleAsync(user, Constants.Roles.REGULARUSER);
-
             if (result.Succeeded)
+            {
+                if (request.IsAgency)
+                    await _userManager.AddToRoleAsync(user, Constants.Roles.AGENCYUSER);
+                if (!request.IsAgency)
+                    await _userManager.AddToRoleAsync(user, Constants.Roles.REGULARUSER);
                 return new RegistrationResponse { UserId = user.Id };
-            throw new Exception($"{result.Errors}");
+            }
+            throw new ArgumentException($"{result.Errors}");
         }
 
         private async Task<JwtSecurityToken> GenerateToken(AppUser user)
