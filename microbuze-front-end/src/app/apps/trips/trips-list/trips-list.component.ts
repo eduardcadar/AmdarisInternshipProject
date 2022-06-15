@@ -48,7 +48,7 @@ export class TripsListComponent implements OnInit {
       .subscribe(
         data => {
           this.reloadTrips();
-          alert("Rezervarea a fost creata");
+          alert("The reservation was created");
         },
         error => alert(error.error)
       );

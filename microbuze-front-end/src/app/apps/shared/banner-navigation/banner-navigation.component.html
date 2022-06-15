@@ -2,12 +2,12 @@
     <ul class="navbar-nav ml-auto  align-items-center">
         <li class="nav-item" [routerLinkActive]="['active']">
             <a class="nav-link" routerLink="/trips">
-                Curse
+                Trips
             </a>
         </li>
         <li *ngIf="(isLoggedIn | async)" class="nav-item" [routerLinkActive]="['active']">
             <a class="nav-link" routerLink="/about">
-                Contul tau
+                Your account
             </a>
         </li>
         <li *ngIf="!(isLoggedIn | async)" class="nav-item" [routerLinkActive]="['active']">

@@ -1,10 +1,10 @@
-<span *ngIf="!this.showUpdateSeats" (click)="toggleUpdateSeats()">Actualizeaza numar locuri</span>
+<span *ngIf="!this.showUpdateSeats" (click)="toggleUpdateSeats()">Update number of seats</span>
 
 <div class="Parameters" *ngIf="showUpdateSeats">
     <form class="form-inline justify-content-center" [formGroup]="updateSeatsForm" (ngSubmit)="updateSeats()">
         <div class="form-group">
-            <input type="number" class="form-control" id="seatsNumber" formControlName="seats" placeholder="numar locuri"/>
-            <button type="submit" class="btn btn-primary">Rezerva</button>
+            <input type="number" class="form-control" id="seatsNumber" formControlName="seats" placeholder="number of seats"/>
+            <button type="submit" class="btn btn-primary">Reserve</button>
         </div>
     </form>
 </div>

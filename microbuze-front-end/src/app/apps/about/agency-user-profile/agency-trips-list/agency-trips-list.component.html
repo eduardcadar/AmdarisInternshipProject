@@ -19,13 +19,13 @@
                 {{ trip.agencyUser.agency }}
               </h5>
               <h5 class="m-t-20">
-                Locuri ramase: {{ trip.seatsLeft }}
+                Seats left: {{ trip.seatsLeft }}
               </h5>
             </div>
             <div class="col-md-3 no-trans">
               <p class="font-medium text-themecolor m-t-10 cursor-pointer">
                 <i class="ti-trash fa-lg"></i>
-                <span (click)="deleteTrip(trip.id)">Sterge cursa</span>
+                <span (click)="deleteTrip(trip.id)">Delete trip</span>
               </p>
             </div>
           </div>

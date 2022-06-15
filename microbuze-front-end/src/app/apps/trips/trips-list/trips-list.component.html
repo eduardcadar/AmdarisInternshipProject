@@ -4,13 +4,13 @@
     <div class="row justify-content-center">
       <!-- Column -->
       <div class="col-lg-12 col-md-12 align-self-center text-center no-trans">
-        <h1 class="title">Gaseste-ti cursa potrivita</h1>
+        <h1 class="title">Find the trip you need</h1>
       </div>
     </div>
     <div class="row justify-content-center">
       <app-search-trip (searchChanged)="reloadTrips($event)"></app-search-trip>
       <button *ngIf="(isLoggedIn | async) && (isAgency | async)" class="btn btn-lg btn-default shadow-none" routerLink="/createTrip">
-        <span class="p-2 mb-2 bg-dark rounded">Creeaza cursa</span>
+        <span class="p-2 mb-2 bg-dark rounded">Create trip</span>
       </button>
     </div>
   </div>
@@ -21,7 +21,7 @@
   <div class="row justify-content-center">
     <!-- Column -->
     <div class="col-md-12 no-trans text-center">
-      <h2 class="title" *ngIf="searched">Curse</h2>
+      <h2 class="title" *ngIf="searched">Trips</h2>
     </div>
     <!-- Column -->
   </div>
@@ -45,7 +45,7 @@
               {{ trip.agencyUser.agency }}
             </h5>
             <h5 class="m-t-20">
-              Locuri ramase: {{ trip.seatsLeft }}
+              Seats left: {{ trip.seatsLeft }}
             </h5>
           </div>
           <div *ngIf="(isLoggedIn | async) && !(isAgency | async)" class="col-md-2 no-trans">

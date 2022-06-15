@@ -1,13 +1,13 @@
 <div class="row justify-content-center">
     <form [formGroup]="registerForm" (ngSubmit)="register()">
         <div class="form-group col-lg-12 col-md-12 no-trans">
-            <input type="text" class="form-control" formControlName="username" placeholder="Nume de utilizator">
-            <input type="password" class="form-control" formControlName="password" placeholder="Parola">
-            <input type="text" class="form-control" formControlName="firstname" placeholder="Prenume">
-            <input type="text" class="form-control" formControlName="lastname" placeholder="Nume de familie">
-            <input type="text" class="form-control" formControlName="phonenumber" placeholder="Numar de telefon">
+            <input type="text" class="form-control" formControlName="username" placeholder="Username">
+            <input type="password" class="form-control" formControlName="password" placeholder="Password">
+            <input type="text" class="form-control" formControlName="firstname" placeholder="First name">
+            <input type="text" class="form-control" formControlName="lastname" placeholder="Last name">
+            <input type="text" class="form-control" formControlName="phonenumber" placeholder="Phone number">
             <button type="submit" class="btn btn-lg btn-default shadow-none">
-                <span class="p-2 mb-2 btn-block rounded">Creeaza cont</span>
+                <span class="p-2 mb-2 btn-block rounded">Create account</span>
             </button>
         </div>
     </form>

@@ -7,19 +7,19 @@
         <!-- Column -->
         <div class="col-lg-9 col-md-6 no-trans align-self-center text-center">
             <button class="btn btn-default" (click)="switchRegister()" [disabled]="!this.registerAsAgency">
-                Cont de utilizator
+                User account
             </button>
             <button class="btn btn-default" (click)="switchRegister()" [disabled]="this.registerAsAgency">
-                Cont de agentie
+                Agency account
             </button>
 
             <div *ngIf="!this.registerAsAgency">
-                <h1 class="title">Creeaza cont utilizator</h1>
+                <h1 class="title">Create user account</h1>
                 <app-register-regularuser-form (RegisterClicked)="register($event)" *ngIf="!this.registerAsAgency"></app-register-regularuser-form>
             </div>
 
             <div *ngIf="this.registerAsAgency">
-                <h1 class="title">Creeaza cont agentie</h1>
+                <h1 class="title">Create agency account</h1>
                 <app-register-agencyuser-form (RegisterClicked)="register($event)" *ngIf="this.registerAsAgency"></app-register-agencyuser-form>
             </div>
         </div>

@@ -2,13 +2,13 @@
     <form [formGroup]="loginForm" (ngSubmit)="login()">
         <div class="form-group col-lg-12 col-md-12 no-trans">
             <input type="text" class="form-control" formControlName="username" placeholder="Username">
-            <input type="password" class="form-control" formControlName="password" placeholder="Parola">
+            <input type="password" class="form-control" formControlName="password" placeholder="Password">
             <button type="submit" class="btn btn-lg btn-default shadow-none">
                 <span class="p-2 mb-2 btn-block rounded">Login</span>
             </button>
         </div>
         <button class="btn btn-lg btn-default shadow-none">
-            <span class="p-2 mb-2 btn-block rounded" routerLink="/register">Inregistreaza-te</span>
+            <span class="p-2 mb-2 btn-block rounded" routerLink="/register">Register</span>
         </button>
     </form>
 </div>

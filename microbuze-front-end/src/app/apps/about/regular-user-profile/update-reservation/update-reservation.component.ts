@@ -26,7 +26,7 @@ export class UpdateReservationComponent implements OnInit {
     let seatsNumber: number = this.updateSeatsForm.value.seats;
     this.toggleUpdateSeats();
     if (seatsNumber < 1) {
-      alert('Introduceti numarul de locuri');
+      alert('Write the number of seats');
       return;
     }
     this.reserveClick.emit(seatsNumber);

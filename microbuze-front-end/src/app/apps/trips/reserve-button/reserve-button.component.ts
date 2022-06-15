@@ -27,7 +27,7 @@ export class ReserveButtonComponent implements OnInit {
     let seatsNumber: number = this.reserveSeatsForm.value.seats;
     this.toggleSeatsInput();
     if (seatsNumber < 1) {
-      alert('Introduceti numarul de locuri');
+      alert('Write the number of seats');
       return;
     }
     this.reserveClick.emit(seatsNumber);

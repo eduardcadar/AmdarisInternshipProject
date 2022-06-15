@@ -1,12 +1,12 @@
 <a *ngIf="!showSeatsInput" class="linking font-medium text-themecolor m-t-10 cursor-pointer">
-<span (click)="toggleSeatsInput()">Rezerva locuri</span>
+<span (click)="toggleSeatsInput()">Reserve seats</span>
 </a>
 
 <div class="Parameters" *ngIf="showSeatsInput">
     <form class="form-inline justify-content-center" [formGroup]="reserveSeatsForm" (ngSubmit)="reserveSeats()">
         <div class="form-group">
-            <input type="number" class="form-control" id="seatsNumber" formControlName="seats" placeholder="numar locuri"/>
-            <button type="submit" class="btn btn-primary">Rezerva</button>
+            <input type="number" class="form-control" id="seatsNumber" formControlName="seats" placeholder="number of seats"/>
+            <button type="submit" class="btn btn-primary">Reserve</button>
         </div>
     </form>
 </div>

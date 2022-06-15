@@ -1,12 +1,12 @@
 <div class="row">
     <form class="form-inline justify-content-center" [formGroup]="searchTripsForm" (ngSubmit)="searchTrips()">
         <div class="form-group col-lg-12 col-md-12 no-trans">
-            <input type="text" class="form-control" formControlName="from" placeholder="Oras plecare">
-            <input type="text" class="form-control" formControlName="to" placeholder="Oras destinatie">
+            <input type="text" class="form-control" formControlName="from" placeholder="Departure place">
+            <input type="text" class="form-control" formControlName="to" placeholder="Destination">
             <input type="text" onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}"
-                class="form-control" formControlName="date" placeholder="Zi plecare">
+                class="form-control" formControlName="date" placeholder="Departure day">
             <button type="submit" class="btn btn-lg btn-default shadow-none">
-                <span class="p-2 mb-2 bg-dark rounded">Cauta curse</span>
+                <span class="p-2 mb-2 bg-dark rounded">Search trips</span>
             </button>
         </div>
     </form>

@@ -42,7 +42,7 @@ export class CreateTripComponent implements OnInit {
       seats: this.createTripForm.value.seats
     };
     this._tripService.saveTrip(createdTrip).subscribe(
-      () => alert('Cursa creata'),
+      () => alert('Trip created'),
       error => alert(error.error)
     );
   }

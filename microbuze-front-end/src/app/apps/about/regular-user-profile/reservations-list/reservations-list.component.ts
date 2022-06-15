@@ -48,7 +48,7 @@ export class ReservationsListComponent implements OnInit {
       .subscribe(
         data => {
           this.reloadReservations();
-          alert("Rezervarea a fost actualizata");
+          alert("The reservation was updated");
         },
         error => alert(error.error)
       );
