@@ -36,7 +36,7 @@ namespace Api.Controllers
             }
         }
 
-        [Route("tripid")]
+        [Route("{tripid}")]
         [HttpDelete]
         [Authorize(Roles=Constants.Roles.AGENCYUSER)]
         public async Task<ActionResult> DeleteTrip(int tripid, CancellationToken cancellationToken = default)
