@@ -2,7 +2,12 @@
     <form [formGroup]="registerForm" (ngSubmit)="register()">
         <div class="form-group col-lg-12 col-md-12 no-trans">
             <input type="text" class="form-control" formControlName="username" placeholder="Username">
-            <input type="password" class="form-control" formControlName="password" placeholder="Password">
+            <input type="password" class="form-control" formControlName="password" placeholder="Password"
+                required minlength="6">
+            <span class="help-block text-light font-weight-bold" *ngIf="registerForm.controls['password'].invalid &&
+                registerForm.controls['password'].touched">
+                Password must have<br/>at least 6 characters
+            </span>
             <input type="text" class="form-control" formControlName="firstname" placeholder="First name">
             <input type="text" class="form-control" formControlName="lastname" placeholder="Last name">
             <input type="text" class="form-control" formControlName="phonenumber" placeholder="Phone number">
