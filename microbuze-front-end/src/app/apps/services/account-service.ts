@@ -39,6 +39,7 @@ export class AccountService {
             const user: ILoginResponse = JSON.parse(userData);
             this.user = user;
             this.loggedIn.next(true);
+            this.isAgency.next(user.isAgency);
         }
     }
 

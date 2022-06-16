@@ -9,7 +9,8 @@
     </div>
     <div class="row justify-content-center">
       <app-search-trip (searchChanged)="reloadTrips($event)"></app-search-trip>
-      <button *ngIf="(isLoggedIn | async) && (isAgency | async)" class="btn btn-lg btn-default shadow-none" routerLink="/createTrip">
+      <button *ngIf="(isLoggedIn | async) && (isAgency | async)" class="btn btn-lg btn-default shadow-none"
+        routerLink="/createTrip">
         <span class="p-2 mb-2 bg-dark rounded">Create trip</span>
       </button>
     </div>
