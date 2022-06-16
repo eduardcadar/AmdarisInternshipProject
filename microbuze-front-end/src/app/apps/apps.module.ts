@@ -14,7 +14,6 @@ import { FullComponent } from './layout/full/full.component';
 
 import { BannerComponent } from './shared/banner/banner.component';
 import { BannerNavigationComponent } from './shared/banner-navigation/banner-navigation.component';
-import { FooterComponent } from './shared/footer/footer.component';
 import { SearchTripComponent } from './trips/search-trip/search-trip.component';
 import { ReservationsListComponent } from './about/regular-user-profile/reservations-list/reservations-list.component';
 import { ReserveButtonComponent } from './trips/reserve-button/reserve-button.component';
@@ -41,7 +40,6 @@ import { AgencyTripsListComponent } from './about/agency-user-profile/agency-tri
     BannerComponent,
     // BannerContentComponent,
     BannerNavigationComponent,
-    FooterComponent,
     SearchTripComponent,
     ReservationsListComponent,
     ReserveButtonComponent,
