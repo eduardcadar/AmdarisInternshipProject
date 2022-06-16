@@ -18,6 +18,10 @@ namespace Infrastructure.DataAccess.Repos
 
         public async Task<DRegularUser> Add(DRegularUser dRegularUser, CancellationToken cancellationToken = default)
         {
+            var r = await _dbContext.RegularUsers
+                .SingleOrDefaultAsync(r => r.Username.Equals(dRegularUser.Username), cancellationToken);
+            if (r != null)
+                throw new RepositoryException("There already exists a regular user with this username");
             var regularUser = EntityUtils.DRegularUserToRegularUser(dRegularUser);
             await _dbContext.RegularUsers.AddAsync(regularUser, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);

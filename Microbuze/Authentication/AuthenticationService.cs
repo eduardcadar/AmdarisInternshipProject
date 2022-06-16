@@ -29,9 +29,9 @@ namespace Authentication
         public async Task<AuthenticationResponse> AuthenticateAsync(AuthenticationRequest request)
         {
             var user = await _userManager.FindByNameAsync(request.Username);
-            if (user == null) throw new ArgumentException("Date de logare invalide");
+            if (user == null) throw new ArgumentException("Invalid login data");
             var result = await _signInManager.PasswordSignInAsync(user.UserName, request.Password, false, false);
-            if (!result.Succeeded) throw new ArgumentException("Date de logare invalide");
+            if (!result.Succeeded) throw new ArgumentException("Invalid login data");
 
             var jwtSecurityToken = await GenerateToken(user);
 
@@ -49,9 +49,9 @@ namespace Authentication
         {
             var existingUser = await _userManager.FindByNameAsync(request.UserName);
             if (existingUser != null)
-                throw new ArgumentException($"Username-ul '{request.UserName}' exista deja");
+                throw new ArgumentException($"The username '{request.UserName}' is already used");
             if (request.Password.Length < 6)
-                throw new ArgumentException("Parola trebuie sa aiba minim 6 caractere");
+                throw new ArgumentException("At least 6 characters for password");
 
             var user = new AppUser
             {

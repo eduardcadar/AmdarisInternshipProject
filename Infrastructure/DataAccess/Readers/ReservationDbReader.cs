@@ -5,7 +5,6 @@ using Application.DTOs;
 using System.Threading.Tasks;
 using System.Threading;
 using Microsoft.EntityFrameworkCore;
-using Domain.Repository;
 
 namespace Infrastructure.DataAccess.Readers
 {

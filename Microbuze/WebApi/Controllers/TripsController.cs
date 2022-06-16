@@ -23,17 +23,10 @@ namespace Api.Controllers
         [HttpGet]
         public async Task<ActionResult<TripDTO>> GetTripById(int id, CancellationToken cancellationToken = default)
         {
-            try
-            {
-                var trip = await _tripsService.FindTripById(id, cancellationToken);
-                if (trip == null)
-                    return NotFound();
-                return Ok(trip);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.ToString());
-            }
+            var trip = await _tripsService.FindTripById(id, cancellationToken);
+            if (trip == null)
+                return NotFound();
+            return Ok(trip);
         }
 
         [Route("{tripid}")]
@@ -57,25 +50,18 @@ namespace Api.Controllers
             [FromQuery(Name = "departure")] string? departureLocation, [FromQuery(Name = "destination")] string? destination,
             [FromQuery(Name = "date")] string? dateString, CancellationToken cancellationToken = default)
         {
-            try
-            {
-                DateTime? date = null;
-                if (agency == null)
-                    agency = "";
-                if (departureLocation == null)
-                    departureLocation = "";
-                if (destination == null)
-                    destination = "";
-                if (dateString != null)
-                    date = DateTime.Parse(dateString);
-                var filteredTrips = await _tripsService
-                    .FindTripsFiltered(agency, departureLocation, destination, date, cancellationToken);
-                return Ok(filteredTrips);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            DateTime? date = null;
+            if (agency == null)
+                agency = "";
+            if (departureLocation == null)
+                departureLocation = "";
+            if (destination == null)
+                destination = "";
+            if (dateString != null)
+                date = DateTime.Parse(dateString);
+            var filteredTrips = await _tripsService
+                .FindTripsFiltered(agency, departureLocation, destination, date, cancellationToken);
+            return Ok(filteredTrips);
         }
 
         [HttpPost]
@@ -88,7 +74,7 @@ namespace Api.Controllers
                     DateTime.Parse(trip.DepartureTime), TimeSpan.Parse(trip.Duration), trip.Price, trip.Seats, cancellationToken);
                 return CreatedAtAction(nameof(GetTripById), new { id = createdTrip.Id }, createdTrip);
             }
-            catch (Exception ex)
+            catch (RepositoryException ex)
             {
                 return BadRequest(ex.Message);
             }

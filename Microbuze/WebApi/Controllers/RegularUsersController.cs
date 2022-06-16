@@ -3,6 +3,7 @@ using Application.Services.Interfaces;
 using Domain.Domain;
 using Application.DTOs;
 using Api.DTO;
+using Domain.Repository;
 
 namespace Api.Controllers
 {
@@ -21,17 +22,10 @@ namespace Api.Controllers
         [HttpGet]
         public async Task<ActionResult<RegularUserDTO>> GetRegularUserById(string id, CancellationToken cancellationToken = default)
         {
-            try
-            {
-                var regularUserDto = await _regularUsersService.FindRegularUserById(id, cancellationToken);
-                if (regularUserDto == null)
-                    return NotFound();
-                return Ok(regularUserDto);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.ToString());
-            }
+            var regularUserDto = await _regularUsersService.FindRegularUserById(id, cancellationToken);
+            if (regularUserDto == null)
+                return NotFound();
+            return Ok(regularUserDto);
         }
 
         [Route("byname/{username}")]
@@ -39,17 +33,10 @@ namespace Api.Controllers
         public async Task<ActionResult<DRegularUser>> GetRegularUserByUsername(string username,
             CancellationToken cancellationToken = default)
         {
-            try
-            {
-                var regularUserDto = await _regularUsersService.FindRegularUserByUsername(username, cancellationToken);
-                if (regularUserDto == null)
-                    return NotFound();
-                return Ok(regularUserDto);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.ToString());
-            }
+            var regularUserDto = await _regularUsersService.FindRegularUserByUsername(username, cancellationToken);
+            if (regularUserDto == null)
+                return NotFound();
+            return Ok(regularUserDto);
         }
 
         [HttpPost]
@@ -61,9 +48,9 @@ namespace Api.Controllers
                     regularUser.PhoneNumber, regularUser.FirstName, regularUser.LastName, cancellationToken);
                 return CreatedAtAction(nameof(GetRegularUserById), new { id = createdRegularUser.Id }, createdRegularUser);
             }
-            catch (Exception ex)
+            catch (RepositoryException ex)
             {
-                return BadRequest(ex.ToString());
+                return BadRequest(ex.Message);
             }
         }
     }

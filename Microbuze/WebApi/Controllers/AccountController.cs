@@ -29,9 +29,9 @@ namespace Api.Controllers
                 var authenticationResponse = await _authenticationService.AuthenticateAsync(request);
                 return Ok(authenticationResponse);
             }
-            catch (Exception e)
+            catch (ArgumentException e)
             {
-                return BadRequest(e.Message);
+                return NotFound(e.Message);
             }
         }
 

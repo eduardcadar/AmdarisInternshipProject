@@ -1,6 +1,5 @@
 ﻿using Domain.Domain;
 using Domain.Repository;
-using Infrastructure.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading;
@@ -18,36 +17,27 @@ namespace Infrastructure.DataAccess.Repos
             _dbContext.Database.EnsureCreated();
         }
 
-        public async Task Delete(int tripId, string regularUserId, CancellationToken cancellationToken = default)
-        {
-            var reservation = await _dbContext.Reservations
-                .SingleOrDefaultAsync(r => r.TripId.Equals(tripId) && r.RegularUserId.Equals(regularUserId), cancellationToken);
-            if (reservation == null)
-                throw new RepositoryException("Nu exista aceasta rezervare");
-            _dbContext.Reservations.Remove(reservation);
-            await _dbContext.SaveChangesAsync(cancellationToken);
-        }
-
         public async Task<DReservation> Add(DReservation dReservation, CancellationToken cancellationToken = default)
         {
             var trip = await _dbContext.Trips
                 .SingleOrDefaultAsync(t => t.Id.Equals(dReservation.Trip.Id), cancellationToken);
             if (trip == null)
-                throw new RepositoryException("Cursa nu exista");
+                throw new RepositoryException("The trip doesn't exist");
 
             trip.AgencyUser = await _dbContext.AgencyUsers
                 .SingleOrDefaultAsync(a => a.Id.Equals(trip.AgencyUserId), cancellationToken);
             if (trip.AgencyUser == null)
-                throw new RepositoryException("Agentia nu exista");
+                throw new RepositoryException("The agency doesn't exist");
 
             var regularUser = await _dbContext.RegularUsers
                 .SingleOrDefaultAsync(r => r.Id.Equals(dReservation.RegularUser.Id), cancellationToken);
             if (regularUser == null)
-                throw new RepositoryException("User-ul nu exista");
+                throw new RepositoryException("The user doesn't exist");
 
-            if (await _dbContext.Reservations.AnyAsync(r => r.TripId == dReservation.Trip.Id && r.RegularUserId == dReservation.RegularUser.Id))
-                throw new RepositoryException("Aveti deja o rezervare la aceasta cursa," +
-                    " daca doriti sa mai rezervati locuri, actualizati rezervarea din pagina contului");
+            if (await _dbContext.Reservations
+                .AnyAsync(r => r.TripId == dReservation.Trip.Id && r.RegularUserId == dReservation.RegularUser.Id, cancellationToken))
+                throw new RepositoryException("You already made a reservation for this trip," +
+                    " if you want to reserve more seats update the reservation");
 
             var totalSeatsReserved = _dbContext.Reservations
                 .Where(r => r.TripId == dReservation.Trip.Id)
@@ -57,9 +47,9 @@ namespace Infrastructure.DataAccess.Repos
             {
                 string err = "";
                 if (seatsLeft == 0)
-                    err = "Nu mai sunt locuri libere la aceasta cursa";
+                    err = "No seats left for this trip";
                 else
-                    err = "Mai sunt doar " + seatsLeft + " locuri libere la aceasta cursa";
+                    err = "Only " + seatsLeft + " seats left for this trip";
                 throw new RepositoryException(err);
             }
 
@@ -75,19 +65,29 @@ namespace Infrastructure.DataAccess.Repos
             return dReservation;
         }
 
+        public async Task Delete(int tripId, string regularUserId, CancellationToken cancellationToken = default)
+        {
+            var reservation = await _dbContext.Reservations
+                .SingleOrDefaultAsync(r => r.TripId.Equals(tripId) && r.RegularUserId.Equals(regularUserId), cancellationToken);
+            if (reservation == null)
+                throw new RepositoryException("The reservation doesn't exist");
+            _dbContext.Reservations.Remove(reservation);
+            await _dbContext.SaveChangesAsync(cancellationToken);
+        }
+
         public async Task Update(int tripId, string regularUserId, int seats, CancellationToken cancellationToken = default)
         {
             var trip = await _dbContext.Trips
                 .SingleOrDefaultAsync(t => t.Id.Equals(tripId), cancellationToken);
             if (trip == null)
-                throw new RepositoryException("Cursa nu exista");
+                throw new RepositoryException("The trip doesn't exist");
 
             if (seats <= 0)
-                throw new RepositoryException("Introdu numarul de locuri");
+                throw new RepositoryException("Write the number of seats");
             var dbReservation = await _dbContext.Reservations.SingleOrDefaultAsync(
                 r => r.RegularUserId.Equals(regularUserId) && r.TripId == tripId, cancellationToken);
             if (dbReservation == null)
-                throw new RepositoryException("Nu exista rezervare de la user pentru trip");
+                throw new RepositoryException("The user has no reservation to this trip");
 
             var totalSeatsReserved = _dbContext.Reservations
                 .Where(r => r.TripId == tripId)
@@ -98,9 +98,9 @@ namespace Infrastructure.DataAccess.Repos
             {
                 string err = "";
                 if (seatsLeft == 0)
-                    err = "Nu mai sunt locuri libere la aceasta cursa";
+                    err = "No seats left for this trip";
                 else
-                    err = "Mai sunt doar " + seatsLeft + " locuri libere la aceasta cursa";
+                    err = "Only " + seatsLeft + " seats left for this trip";
                 throw new RepositoryException(err);
             }
 

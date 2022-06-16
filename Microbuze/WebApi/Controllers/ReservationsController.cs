@@ -23,17 +23,10 @@ namespace Api.Controllers
         [HttpGet]
         public async Task<ActionResult<ReservationDTO>> GetReservationById(int tripid, string userid, CancellationToken cancellationToken = default)
         {
-            try
-            {
-                var reservation = await _reservationsService.FindReservationById(userid, tripid, cancellationToken);
-                if (reservation == null)
-                    return NotFound();
-                return Ok(reservation);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.ToString());
-            }
+            var reservation = await _reservationsService.FindReservationById(userid, tripid, cancellationToken);
+            if (reservation == null)
+                return NotFound();
+            return Ok(reservation);
         }
 
         [Route("byRegularUserId/{id}")]
@@ -41,15 +34,8 @@ namespace Api.Controllers
         public async Task<ActionResult<IEnumerable<ReservationDTO>>> GetReservationsByRegularUserId(string id,
             CancellationToken cancellationToken = default)
         {
-            try
-            {
-                var reservations = await _reservationsService.FindReservationsByRegularUserId(id, cancellationToken);
-                return Ok(reservations);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.ToString());
-            }
+            var reservations = await _reservationsService.FindReservationsByRegularUserId(id, cancellationToken);
+            return Ok(reservations);
         }
 
         [Route("byTripId/{id}")]
@@ -57,15 +43,8 @@ namespace Api.Controllers
         public async Task<ActionResult<IEnumerable<ReservationDTO>>> GetReservationsByTripId(int id,
             CancellationToken cancellationToken = default)
         {
-            try
-            {
-                var reservations = await _reservationsService.FindReservationsByTripId(id, cancellationToken);
-                return Ok(reservations);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.ToString());
-            }
+            var reservations = await _reservationsService.FindReservationsByTripId(id, cancellationToken);
+            return Ok(reservations);
         }
 
         [HttpPost]
@@ -81,7 +60,7 @@ namespace Api.Controllers
                     new { userid = createdReservation.RegularUser.Id, tripid = createdReservation.Trip.Id },
                     createdReservation);
             }
-            catch (Exception ex)
+            catch (RepositoryException ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -113,7 +92,7 @@ namespace Api.Controllers
                 await _reservationsService.UpdateReservation(tripid, userid, seats, cancellationToken);
                 return Ok();
             }
-            catch (Exception ex)
+            catch (RepositoryException ex)
             {
                 return BadRequest(ex.Message);
             }

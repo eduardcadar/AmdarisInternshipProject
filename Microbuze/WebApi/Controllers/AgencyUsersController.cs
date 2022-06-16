@@ -3,6 +3,7 @@ using Application.Services.Interfaces;
 using Application.DTOs;
 using Domain.Domain;
 using Api.DTO;
+using Domain.Repository;
 
 namespace Api.Controllers
 {
@@ -21,17 +22,10 @@ namespace Api.Controllers
         [HttpGet]
         public async Task<ActionResult<AgencyUserDTO>> GetAgencyUserById(string id, CancellationToken cancellationToken = default)
         {
-            try
-            {
-                var agencyUserDto = await _agencyUsersService.FindAgencyUserById(id, cancellationToken);
-                if (agencyUserDto == null)
-                    return NotFound();
-                return Ok(agencyUserDto);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.ToString());
-            }
+            var agencyUserDto = await _agencyUsersService.FindAgencyUserById(id, cancellationToken);
+            if (agencyUserDto == null)
+                return NotFound();
+            return Ok(agencyUserDto);
         }
 
         [Route("byname/{username}")]
@@ -39,18 +33,11 @@ namespace Api.Controllers
         public async Task<ActionResult<DAgencyUser>> GetAgencyUserByUsername(string username,
             CancellationToken cancellationToken = default)
         {
-            try
-            {
-                var agencyUserDto = await _agencyUsersService.FindAgencyUserByUsername(
-                    username, cancellationToken);
-                if (agencyUserDto == null)
-                    return NotFound();
-                return Ok(agencyUserDto);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.ToString());
-            }
+            var agencyUserDto = await _agencyUsersService.FindAgencyUserByUsername(
+                username, cancellationToken);
+            if (agencyUserDto == null)
+                return NotFound();
+            return Ok(agencyUserDto);
         }
 
         [HttpPost]
@@ -62,9 +49,9 @@ namespace Api.Controllers
                     agencyUser.PhoneNumber, agencyUser.Agency, cancellationToken);
                 return CreatedAtAction(nameof(GetAgencyUserById), new { id = createdAgencyUser.Id }, createdAgencyUser);
             }
-            catch (Exception ex)
+            catch (RepositoryException ex)
             {
-                return BadRequest(ex.ToString());
+                return BadRequest(ex.Message);
             }
         }
     }

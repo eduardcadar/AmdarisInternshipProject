@@ -1,6 +1,5 @@
 ﻿using Application.DTOs;
 using Application.ReaderInterfaces;
-using Domain.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
