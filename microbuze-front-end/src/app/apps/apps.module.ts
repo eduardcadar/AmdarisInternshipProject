@@ -10,9 +10,6 @@ import { AppsComponent } from './apps.component';
 import { TripsListComponent } from './trips/trips-list/trips-list.component';
 import { AboutComponent } from './about/about.component';
 
-import { RelayOnComponent } from './about/About-Components/relay-on/relay-on.component';
-import { TopContentComponent } from './about/About-Components/top-content/top-content.component';
-
 import { FullComponent } from './layout/full/full.component';
 
 import { BannerComponent } from './shared/banner/banner.component';
@@ -40,8 +37,6 @@ import { AgencyTripsListComponent } from './about/agency-user-profile/agency-tri
     AppsComponent,
     TripsListComponent,
     AboutComponent,
-    RelayOnComponent,
-    TopContentComponent,
     FullComponent,
     BannerComponent,
     // BannerContentComponent,
