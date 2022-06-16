@@ -31,6 +31,10 @@ export class CreateTripComponent implements OnInit {
     let start = Date.parse(this.createTripForm.value.departureTime);
     let end = Date.parse(this.createTripForm.value.arriveTime);
     let dateDuration = new Date(end - start);
+    if (dateDuration.valueOf() < 0) {
+      alert('Arrival time should be after departure time');
+      return;
+    }
     let duration = (dateDuration.getHours() - 2) + ':' + dateDuration.getMinutes();
     let createdTrip: ITripCreate = {
       agencyUserId: this._accountService.loggedUser.id,

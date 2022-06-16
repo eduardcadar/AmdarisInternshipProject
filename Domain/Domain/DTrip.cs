@@ -37,17 +37,17 @@ namespace Domain.Domain
         internal void Validate()
         {
             if (string.IsNullOrWhiteSpace(DepartureLocation))
-                throw new ArgumentException("Introdu locatie de plecare");
+                throw new ArgumentException("Enter departure location");
             if (string.IsNullOrWhiteSpace(Destination))
-                throw new ArgumentException("Introdu destinatie");
+                throw new ArgumentException("Enter destination");
             if (DepartureTime.CompareTo(DateTime.Now.AddMinutes(30)) < 0)
-                throw new ArgumentException("Ora plecarii trebuie sa fie peste cel putin 30 minute");
+                throw new ArgumentException("Departure time should be at least 30 minutes from now");
             if (Duration.Equals(TimeSpan.Zero))
-                throw new ArgumentException("Introdu durata");
+                throw new ArgumentException("The trip should last at least 1 minute");
             if (Price <= 0)
-                throw new ArgumentException("Introdu pretul");
+                throw new ArgumentException("Enter the price");
             if (Seats <= 0)
-                throw new ArgumentException("Introdu numarul de locuri");
+                throw new ArgumentException("Enter the number of seats");
         }
         public override string ToString()
         {

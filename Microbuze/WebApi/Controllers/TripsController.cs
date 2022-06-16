@@ -74,7 +74,7 @@ namespace Api.Controllers
                     DateTime.Parse(trip.DepartureTime), TimeSpan.Parse(trip.Duration), trip.Price, trip.Seats, cancellationToken);
                 return CreatedAtAction(nameof(GetTripById), new { id = createdTrip.Id }, createdTrip);
             }
-            catch (RepositoryException ex)
+            catch (Exception ex) when (ex is RepositoryException || ex is ArgumentException)
             {
                 return BadRequest(ex.Message);
             }

@@ -17,7 +17,7 @@ namespace Domain.Domain
         internal void Validate()
         {
             if (Seats < 1)
-                throw new ArgumentException("Introduceti numarul de locuri");
+                throw new ArgumentException("Enter number of seats");
         }
         public override string ToString()
         {

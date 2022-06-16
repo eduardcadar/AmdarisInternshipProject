@@ -3,18 +3,25 @@
       <div class="row justify-content-center">
         <form class="justify-content-center" [formGroup]="createTripForm" (ngSubmit)="submitCreateTrip()">
             <div class="form-group">
-                <input type="text" class="form-control" formControlName="departureLocation" placeholder="Departure location">
-                <input type="text" class="form-control" formControlName="destination" placeholder="Destination">
+                <input type="text" class="form-control" formControlName="departureLocation" placeholder="Departure location"
+                    required>
+                <input type="text" class="form-control" formControlName="destination" placeholder="Destination"
+                    required>
                 
                 <input type="text" onfocus="(this.type='datetime-local')" onblur="if(this.value==''){this.type='text'}"
-                    class="form-control" formControlName="departureTime" placeholder="Departure time">
+                    class="form-control" formControlName="departureTime" placeholder="Departure time" required>
                 <input type="text" onfocus="(this.type='datetime-local')" onblur="if(this.value==''){this.type='text'}"
-                    class="form-control" formControlName="arriveTime" placeholder="Arrival time">
+                    class="form-control" formControlName="arriveTime" placeholder="Arrival time" required>
 
-                <input type="number" class="form-control" formControlName="price" placeholder="Price (RON)">
-                <input type="number" class="form-control" formControlName="seats" placeholder="Seats">
-                
-                <button type="submit" [disabled]="!createTripForm.valid" class="btn btn-block btn-lg btn-default shadow-none">
+                <input type="number" class="form-control" formControlName="price" placeholder="Price (RON)"
+                    required>
+                <input type="number" class="form-control" formControlName="seats" placeholder="Seats"
+                    required>
+
+                <div class="help-block text-center text-dark font-weight-bold" *ngIf="createTripForm.invalid">
+                    Fill all fields
+                </div>
+                <button type="submit" [disabled]="createTripForm.invalid" class="btn btn-block btn-lg btn-default shadow-none">
                     <span class="p-2 mb-2 bg-dark rounded">Create trip</span>
                 </button>
             </div>
