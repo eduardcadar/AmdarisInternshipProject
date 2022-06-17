@@ -100,7 +100,7 @@ namespace Authentication
                 _jwtSettings.Issuer,
                 _jwtSettings.Audience,
                 claims,
-                expires: DateTime.UtcNow.AddMinutes(_jwtSettings.DurationInMinutes),
+                expires: DateTime.UtcNow.AddDays(_jwtSettings.DurationInDays),
                 signingCredentials: signingCredentials);
             return jwtSecurityToken;
         }
