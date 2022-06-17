@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { IAgencyUser } from '../../models/entities/agency-user';
 import { AccountService } from '../../services/account-service';
@@ -11,9 +12,13 @@ import { AccountService } from '../../services/account-service';
 export class AgencyUserProfileComponent implements OnInit {
   loggedAgencyUser!: Observable<IAgencyUser>;
 
-  constructor(private _accountService: AccountService) {
-    const userId: string = this._accountService.loggedUser.id;
-    this.loggedAgencyUser = this._accountService.getAgencyUser(userId);
+  constructor(
+    private _accountService: AccountService,
+    private _route: ActivatedRoute
+  ) {
+    this._route.queryParams.subscribe(params => {
+      this.loggedAgencyUser = this._accountService.getAgencyUser(params['id']);
+    });
   }
 
   ngOnInit(): void {}

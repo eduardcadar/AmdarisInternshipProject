@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { TripService } from '../../services/trip-service';
 import { ITrip } from '../../models/entities/trip';
 import { ISearchTrip } from '../../models/search-trip';
@@ -24,10 +23,9 @@ export class TripsListComponent implements OnInit {
   constructor(
     private _accountService: AccountService,
     private _tripService: TripService,
-    private _reservationService: ReservationsService,
-    private _router: Router
+    private _reservationService: ReservationsService
   ) {
-    this.isLoggedIn = _accountService.isLoggedIn;
+    this.isLoggedIn = _accountService.isLoggedInObs;
     this.isAgency = _accountService.isAgencyObs;
   }
 
@@ -52,13 +50,5 @@ export class TripsListComponent implements OnInit {
         },
         error => alert(error.error)
       );
-  }
-
-  loginClick() {
-    this._router.navigate(['/login']);
-  }
-
-  newPost() {
-    this._router.navigate(['/post']);
   }
 }

@@ -15,17 +15,11 @@ export class AccountService {
     private loggedIn = new BehaviorSubject<boolean>(false);
     private isAgency = new BehaviorSubject<boolean>(false);
 
-    get loggedUser(): ILoginResponse {
-        return this.user;
-    }
+    get loggedUser(): ILoginResponse { return this.user; }
 
-    get isLoggedIn(): Observable<boolean> {
-        return this.loggedIn.asObservable();
-    }
+    get isLoggedInObs(): Observable<boolean> { return this.loggedIn.asObservable(); }
 
-    get isAgencyObs(): Observable<boolean> {
-        return this.isAgency.asObservable();
-    }
+    get isAgencyObs(): Observable<boolean> { return this.isAgency.asObservable(); }
 
     get accessToken() {
         if (this.user)

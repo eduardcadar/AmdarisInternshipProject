@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { IRegularUser } from '../../models/entities/regular-user';
 import { AccountService } from '../../services/account-service';
@@ -11,9 +12,13 @@ import { AccountService } from '../../services/account-service';
 export class RegularUserProfileComponent implements OnInit {
   loggedRegularUser!: Observable<IRegularUser>;
 
-  constructor(private _accountService: AccountService) {
-    const userId: string = this._accountService.loggedUser.id;
-    this.loggedRegularUser = this._accountService.getRegularUser(userId);
+  constructor(
+    private _accountService: AccountService,
+    private _route: ActivatedRoute
+  ) {
+    this._route.queryParams.subscribe(params => {
+      this.loggedRegularUser = this._accountService.getRegularUser(params['id']);
+    });
   }
 
   ngOnInit(): void {}

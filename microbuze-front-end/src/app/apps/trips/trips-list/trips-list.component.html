@@ -43,7 +43,10 @@
           </div>
           <div class="col-md-3 no-trans">
             <h5 class="font-medium">
-              {{ trip.agencyUser.agency }}
+              <a class="nav-link" [routerLink]="['/about']"
+                [queryParams]="{isagency: true, id: trip.agencyUser.id}">
+                {{ trip.agencyUser.agency }}
+              </a>
             </h5>
             <h5 class="m-t-20">
               Seats left: {{ trip.seatsLeft }}

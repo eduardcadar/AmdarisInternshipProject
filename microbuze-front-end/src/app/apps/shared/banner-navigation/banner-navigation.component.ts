@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ILoginResponse } from '../../models/account/loginResponse';
 import { AccountService } from '../../services/account-service';
 
 @Component({
@@ -9,15 +10,20 @@ import { AccountService } from '../../services/account-service';
 })
 export class BannerNavigationComponent implements OnInit {
   isLoggedIn!: Observable<boolean>;
+  loginResponse!: ILoginResponse;
 
-  constructor(private accountService: AccountService) {
-    this.isLoggedIn = accountService.isLoggedIn;
+  constructor(private _accountService: AccountService) {
+    this.isLoggedIn = _accountService.isLoggedInObs;
+    this.isLoggedIn.subscribe(b => {
+      if (b)
+        this.loginResponse = _accountService.loggedUser;
+    });
   }
 
   ngOnInit(): void { }
 
   logout(): void {
     localStorage.removeItem('user');
-    this.accountService.logout();
+    this._accountService.logout();
   }
 }

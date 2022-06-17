@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { IRegularUser } from 'src/app/apps/models/entities/regular-user';
 import { AccountService } from 'src/app/apps/services/account-service';
@@ -12,30 +13,35 @@ import { ReservationsService } from '../../../services/reservations-service';
 })
 export class ReservationsListComponent implements OnInit {
   reservations!: Observable<IReservation[]>;
-  loggedRegularUser!: IRegularUser;
+  regularUserObs!: Observable<IRegularUser>;
+  regularUser!: IRegularUser;
+  canUpdate: boolean = false;
 
   constructor(
     private _accountService: AccountService,
-    private _reservationService: ReservationsService
+    private _reservationService: ReservationsService,
+    private _route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    let id: string = this._accountService.loggedUser.id;
-    this._accountService.getRegularUser(id)
-      .subscribe(u => {
-        this.loggedRegularUser = u;
+    this._route.queryParams.subscribe(params => {
+      this.regularUserObs = this._accountService.getRegularUser(params['id']);
+      this.regularUserObs.subscribe(reg => {
+        this.regularUser = reg;
+        this.canUpdate = (this._accountService.loggedUser && reg.id === this._accountService.loggedUser.id);
         this.reloadReservations();
       });
+    });
   }
 
   reloadReservations(): void {
     this.reservations = this._reservationService
-      .getReservationsForRegularUser(this.loggedRegularUser.id);
+      .getReservationsForRegularUser(this.regularUser.id);
   }
 
   deleteReservation(tripId: number): void {
     this._reservationService
-      .deleteReservation(tripId, this.loggedRegularUser.id)
+      .deleteReservation(tripId, this.regularUser.id)
       .subscribe(
         ok => this.reloadReservations(),
         error => alert(error.error)
@@ -44,7 +50,7 @@ export class ReservationsListComponent implements OnInit {
 
   updateReservation(seatsNumber: number, tripId: number): void {
     this._reservationService
-      .updateReservation(tripId, this.loggedRegularUser.id, seatsNumber)
+      .updateReservation(tripId, this.regularUser.id, seatsNumber)
       .subscribe(
         data => {
           this.reloadReservations();

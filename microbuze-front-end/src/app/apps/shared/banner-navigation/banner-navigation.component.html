@@ -6,7 +6,8 @@
             </a>
         </li>
         <li *ngIf="(isLoggedIn | async)" class="nav-item" [routerLinkActive]="['active']">
-            <a class="nav-link" routerLink="/about">
+            <a class="nav-link" [routerLink]="['/about']"
+                [queryParams]="{isagency: loginResponse.isAgency, id: loginResponse.id}">
                 Your account
             </a>
         </li>

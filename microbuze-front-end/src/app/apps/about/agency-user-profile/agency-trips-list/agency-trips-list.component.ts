@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { IAgencyUser } from 'src/app/apps/models/entities/agency-user';
 import { ITrip } from 'src/app/apps/models/entities/trip';
@@ -12,25 +13,30 @@ import { TripService } from 'src/app/apps/services/trip-service';
 })
 export class AgencyTripsListComponent implements OnInit {
   trips!: Observable<ITrip[]>;
-  loggedAgencyUser!: IAgencyUser;
+  agencyUserObs!: Observable<IAgencyUser>;
+  agencyUser!: IAgencyUser;
+  canDelete: boolean = false;
 
   constructor(
     private _accountService: AccountService,
-    private _tripService: TripService
+    private _tripService: TripService,
+    private _route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    let id: string = this._accountService.loggedUser.id;
-    this._accountService.getAgencyUser(id)
-      .subscribe(u => {
-        this.loggedAgencyUser = u;
+    this._route.queryParams.subscribe(params => {
+      this.agencyUserObs = this._accountService.getAgencyUser(params['id']);
+      this.agencyUserObs.subscribe(ag => {
+        this.agencyUser = ag;
+        this.canDelete = (this._accountService.loggedUser && ag.id === this._accountService.loggedUser.id);
         this.reloadTrips();
       });
+    });
   }
 
   reloadTrips(): void {
     this.trips = this._tripService
-      .getTrips(this.loggedAgencyUser.agency);
+      .getTrips(this.agencyUser.agency);
   }
 
   deleteTrip(tripId: number): void {

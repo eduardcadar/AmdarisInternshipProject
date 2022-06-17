@@ -18,7 +18,7 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'trips', pathMatch: 'full' },
       { path: 'trips', component: TripsListComponent },
-      { path: 'about', component: AboutComponent, canActivate: [IsLoggedGuard] },
+      { path: 'about', component: AboutComponent },
       { path: 'createTrip', component: CreateTripComponent, canActivate: [IsLoggedGuard, IsAgencyGuard] },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent }
