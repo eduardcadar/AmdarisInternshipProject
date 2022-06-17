@@ -9,7 +9,5 @@ export class BannerComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }
