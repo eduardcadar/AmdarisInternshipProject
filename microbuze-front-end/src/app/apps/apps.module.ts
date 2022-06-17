@@ -30,6 +30,8 @@ import { TripService } from './services/trip-service';
 import { AgencyUserProfileComponent } from './about/agency-user-profile/agency-user-profile.component';
 import { RegularUserProfileComponent } from './about/regular-user-profile/regular-user-profile.component';
 import { AgencyTripsListComponent } from './about/agency-user-profile/agency-trips-list/agency-trips-list.component';
+import { IsAgencyGuard } from './guards/is-agency-guard';
+import { IsLoggedGuard } from './guards/is-logged-guard';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,9 @@ import { AgencyTripsListComponent } from './about/agency-user-profile/agency-tri
       provide: HTTP_INTERCEPTORS,
       useClass: AuthenticationInterceptor,
       multi: true
-    }
+    },
+    IsAgencyGuard,
+    IsLoggedGuard
   ],
 })
 export class AppsModule {}

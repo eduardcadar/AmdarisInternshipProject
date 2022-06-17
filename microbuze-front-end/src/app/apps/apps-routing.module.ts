@@ -7,6 +7,8 @@ import { FullComponent } from './layout/full/full.component';
 import { CreateTripComponent } from './trips/create-trip/create-trip.component';
 import { LoginComponent } from './account/login/login.component';
 import { RegisterComponent } from './account/register/register.component';
+import { IsAgencyGuard } from './guards/is-agency-guard';
+import { IsLoggedGuard } from './guards/is-logged-guard';
 
 
 const routes: Routes = [
@@ -16,8 +18,8 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'trips', pathMatch: 'full' },
       { path: 'trips', component: TripsListComponent },
-      { path: 'about', component: AboutComponent },
-      { path: 'createTrip', component: CreateTripComponent },
+      { path: 'about', component: AboutComponent, canActivate: [IsLoggedGuard] },
+      { path: 'createTrip', component: CreateTripComponent, canActivate: [IsLoggedGuard, IsAgencyGuard] },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent }
     ]
