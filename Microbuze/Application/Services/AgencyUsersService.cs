@@ -22,6 +22,9 @@ namespace Application.Services
             _findAgencyUserById = findAgencyUserById;
         }
 
+        public async Task CheckFields(string username, string phoneNumber, string agency, CancellationToken cancellationToken = default)
+            => await DAgencyUser.Validate(username, phoneNumber, agency, cancellationToken);
+
         public async Task<DAgencyUser> CreateAgencyUser(string id, string username, string phoneNumber, string agency,
             CancellationToken cancellationToken = default)
             => await _createAgencyUser.Create(id, username, phoneNumber, agency, cancellationToken);

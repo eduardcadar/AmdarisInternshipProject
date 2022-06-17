@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Domain.Domain
 {
@@ -23,9 +25,26 @@ namespace Domain.Domain
                 throw new ArgumentException("Enter an username");
             if (Username.Trim().Length < 6)
                 throw new ArgumentException("Username length cannot be less than 6");
+            if (string.IsNullOrWhiteSpace(Agency))
+                throw new ArgumentException("Enter an agency");
             if (!Regex.IsMatch(PhoneNumber, @"^0[0-9]{9}$", RegexOptions.Compiled, TimeSpan.FromMilliseconds(250)))
                 throw new ArgumentException("Invalid phone number");
         }
+
+        public async static Task Validate(string username, string phoneNumber, string agency,
+            CancellationToken cancellationToken = default)
+        {
+            await Task.Run(() => { }, cancellationToken);
+            if (string.IsNullOrWhiteSpace(username))
+                throw new ArgumentException("Enter an username");
+            if (username.Trim().Length < 6)
+                throw new ArgumentException("Username length cannot be less than 6");
+            if (string.IsNullOrWhiteSpace(agency))
+                throw new ArgumentException("Enter an agency");
+            if (!Regex.IsMatch(phoneNumber, @"^0[0-9]{9}$", RegexOptions.Compiled, TimeSpan.FromMilliseconds(250)))
+                throw new ArgumentException("Invalid phone number");
+        }
+
         public override string ToString()
         {
             return Agency;
