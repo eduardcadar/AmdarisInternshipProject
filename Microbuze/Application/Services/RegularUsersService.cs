@@ -22,6 +22,9 @@ namespace Application.Services
             _findRegularUserById = findRegularUserById;
         }
 
+        public async Task CheckFields(string userName, string phoneNumber, string firstName, string lastName, CancellationToken cancellationToken = default)
+            => await DRegularUser.CheckFields(userName, phoneNumber, firstName, lastName, cancellationToken);
+
         public async Task<DRegularUser> CreateRegularUser(string regularUserId, string username, string phoneNumber,
             string firstName, string lastName, CancellationToken cancellationToken = default)
             => await _createRegularUser.Create(regularUserId, username, phoneNumber, firstName, lastName, cancellationToken);

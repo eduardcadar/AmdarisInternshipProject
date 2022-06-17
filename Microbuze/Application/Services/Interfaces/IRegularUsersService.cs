@@ -12,5 +12,6 @@ namespace Application.Services.Interfaces
         Task<DRegularUser> FindRegularUserByUsername(string username,
             CancellationToken cancellationToken = default);
         Task<RegularUserDTO> FindRegularUserById(string regularUserId, CancellationToken cancellationToken = default);
+        Task CheckFields(string userName, string phoneNumber, string firstName, string lastName, CancellationToken cancellationToken);
     }
 }

@@ -41,8 +41,13 @@ namespace Api.Controllers
         {
             try
             {
-                await _agencyUsersService.CheckFields(
-                    request.UserName, request.PhoneNumber, request.Agency, cancellationToken);
+                if (request.IsAgency)
+                    await _agencyUsersService.CheckFields(request.UserName, request.PhoneNumber,
+                        request.Agency, cancellationToken);
+                else
+                    await _regularUsersService.CheckFields(request.UserName, request.PhoneNumber,
+                        request.FirstName, request.LastName, cancellationToken);
+
                 var registrationResponse = await _authenticationService.RegisterAsync(request);
 
                 if (request.IsAgency)
