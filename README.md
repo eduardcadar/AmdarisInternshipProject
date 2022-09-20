@@ -2,7 +2,25 @@
 
 A web application where regular users can reserve seats to minibus trips, and agencies can add minibus trips.
 
+
 ## Functionalities
+
+Not logged in:
+- Search minibus trips
+- See agency page
+- Create regular or agency account
+- Login
+<br>
+
+Logged as regular account:
+- Make a reservation to a trip (+ update/delete)
+- See a list of the reservations made
+<br>
+
+Logged as agency account:
+- Create trips (+ delete)
+- See a list of created trips
+<br>
 
 ### Home page
 ![home_page](https://user-images.githubusercontent.com/92738316/191278778-79403787-2058-4fd5-8a9e-721c2958d24a.jpg)
