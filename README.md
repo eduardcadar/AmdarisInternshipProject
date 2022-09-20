@@ -49,3 +49,15 @@ Logged as agency account:
 ### Create trip
 ![create_trip](https://user-images.githubusercontent.com/92738316/191281954-ce296664-8429-4aae-86f9-c902b16196b8.jpg)
 
+## Technology stack
+Backend:
+- C#
+- SQL Server
+- Entity Framework
+- AspNetCore Identity
+<br>
+
+Frontend:
+- Angular
+- Bootstrap
+
